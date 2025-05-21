@@ -24,7 +24,7 @@ namespace Event_Catering_Order___Expense_Tracker
             this.Hide();
         }
 
-        private void SignupBtn_Click(object sender, EventArgs e)
+        private void SignUpLlbl_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             SignUp signupForm = new SignUp();
             signupForm.Show();

@@ -17,24 +17,28 @@ namespace Event_Catering_Order___Expense_Tracker
             InitializeComponent();
         }
 
-        private void LoginBtn_Click(object sender, EventArgs e)
-        {
-            Login loginForm = new Login();
-            loginForm.Show();
-            this.Hide();
-        }
-        private void SubmitBtn_Click(object sender, EventArgs e)
+        private void SignUpBtn_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Account Created Successfully");
-
-            this.Hide();
-            Login loginForm = new Login();
-            loginForm.Show();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void LogInLlbl_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Login loginForm = new Login();
+            loginForm.Show();
+            this.Hide();
+        }
+
+        private void BackBtn_Click(object sender, EventArgs e)
+        {
+            Login loginForm = new Login();
+            loginForm.Show();
+            this.Hide();
         }
     }
 }
