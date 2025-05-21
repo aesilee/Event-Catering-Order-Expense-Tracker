@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35828.75 d17.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Event Catering Order & Expense Tracker", "Event Catering Order & Expense Tracker\Event Catering Order & Expense Tracker.csproj", "{13DF5757-C027-46F2-AC3D-26C76F87075D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{13DF5757-C027-46F2-AC3D-26C76F87075D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13DF5757-C027-46F2-AC3D-26C76F87075D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13DF5757-C027-46F2-AC3D-26C76F87075D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13DF5757-C027-46F2-AC3D-26C76F87075D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E36C2A21-8A63-4A7A-8743-91035C05EB45}
+	EndGlobalSection
+EndGlobal
