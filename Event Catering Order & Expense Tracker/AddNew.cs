@@ -25,6 +25,32 @@ namespace Event_Catering_Order___Expense_Tracker
             this.ShowInTaskbar = true;
             this.TopMost = true;
 
+            // Create a panel to hold all content including sidebar
+            Panel contentPanel = new Panel
+            {
+                Dock = DockStyle.Fill,
+                AutoScroll = true
+            };
+
+            // Move all controls except sidebar to contentPanel
+            List<Control> controlsToMove = new List<Control>();
+            foreach (Control control in this.Controls)
+            {
+                if (control != sidebarPanel)
+                {
+                    controlsToMove.Add(control);
+                }
+            }
+
+            foreach (Control control in controlsToMove)
+            {
+                this.Controls.Remove(control);
+                contentPanel.Controls.Add(control);
+            }
+
+            // Add contentPanel to form
+            this.Controls.Add(contentPanel);
+
             EventTypeCb.Items.AddRange(new string[]
             {
                 "Birthday Party",
