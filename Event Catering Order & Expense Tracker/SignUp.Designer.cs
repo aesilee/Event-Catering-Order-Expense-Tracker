@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SignUp));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.BackBtn = new System.Windows.Forms.PictureBox();
             this.label6 = new System.Windows.Forms.Label();
             this.LogInLlbl = new System.Windows.Forms.LinkLabel();
             this.label3 = new System.Windows.Forms.Label();
@@ -45,15 +46,18 @@
             this.LastNameTb = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.BackBtn = new System.Windows.Forms.PictureBox();
+            this.UsernameTb = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.BackBtn)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(234)))), ((int)(((byte)(218)))));
+            this.panel1.Controls.Add(this.UsernameTb);
+            this.panel1.Controls.Add(this.label7);
             this.panel1.Controls.Add(this.BackBtn);
             this.panel1.Controls.Add(this.label6);
             this.panel1.Controls.Add(this.LogInLlbl);
@@ -76,13 +80,24 @@
             this.panel1.Size = new System.Drawing.Size(373, 573);
             this.panel1.TabIndex = 12;
             // 
+            // BackBtn
+            // 
+            this.BackBtn.Image = global::Event_Catering_Order___Expense_Tracker.Properties.Resources.Eventra__2__removebg_preview;
+            this.BackBtn.Location = new System.Drawing.Point(23, 21);
+            this.BackBtn.Name = "BackBtn";
+            this.BackBtn.Size = new System.Drawing.Size(21, 22);
+            this.BackBtn.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.BackBtn.TabIndex = 77;
+            this.BackBtn.TabStop = false;
+            this.BackBtn.Click += new System.EventHandler(this.BackBtn_Click);
+            // 
             // label6
             // 
             this.label6.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Calibri", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(71)))), ((int)(((byte)(56)))));
-            this.label6.Location = new System.Drawing.Point(138, 35);
+            this.label6.Location = new System.Drawing.Point(136, 24);
             this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(100, 33);
@@ -93,7 +108,7 @@
             // 
             this.LogInLlbl.AutoSize = true;
             this.LogInLlbl.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LogInLlbl.Location = new System.Drawing.Point(244, 511);
+            this.LogInLlbl.Location = new System.Drawing.Point(240, 528);
             this.LogInLlbl.Name = "LogInLlbl";
             this.LogInLlbl.Size = new System.Drawing.Size(39, 14);
             this.LogInLlbl.TabIndex = 16;
@@ -105,7 +120,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(93, 511);
+            this.label3.Location = new System.Drawing.Point(96, 528);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(145, 14);
             this.label3.TabIndex = 15;
@@ -116,7 +131,7 @@
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold);
             this.label8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(71)))), ((int)(((byte)(56)))));
-            this.label8.Location = new System.Drawing.Point(83, 374);
+            this.label8.Location = new System.Drawing.Point(80, 400);
             this.label8.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(132, 19);
@@ -127,7 +142,7 @@
             // 
             this.ConfirmPassTb.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(163)))), ((int)(((byte)(150)))));
             this.ConfirmPassTb.Font = new System.Drawing.Font("Calibri", 12F);
-            this.ConfirmPassTb.Location = new System.Drawing.Point(86, 400);
+            this.ConfirmPassTb.Location = new System.Drawing.Point(83, 426);
             this.ConfirmPassTb.Margin = new System.Windows.Forms.Padding(2);
             this.ConfirmPassTb.Name = "ConfirmPassTb";
             this.ConfirmPassTb.Size = new System.Drawing.Size(209, 27);
@@ -138,7 +153,7 @@
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold);
             this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(71)))), ((int)(((byte)(56)))));
-            this.label4.Location = new System.Drawing.Point(83, 237);
+            this.label4.Location = new System.Drawing.Point(80, 272);
             this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(46, 19);
@@ -149,7 +164,7 @@
             // 
             this.EmailTb.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(163)))), ((int)(((byte)(150)))));
             this.EmailTb.Font = new System.Drawing.Font("Calibri", 12F);
-            this.EmailTb.Location = new System.Drawing.Point(87, 263);
+            this.EmailTb.Location = new System.Drawing.Point(84, 298);
             this.EmailTb.Margin = new System.Windows.Forms.Padding(2);
             this.EmailTb.Name = "EmailTb";
             this.EmailTb.Size = new System.Drawing.Size(208, 27);
@@ -159,7 +174,7 @@
             // 
             this.PasswordTb.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(163)))), ((int)(((byte)(150)))));
             this.PasswordTb.Font = new System.Drawing.Font("Calibri", 12F);
-            this.PasswordTb.Location = new System.Drawing.Point(86, 330);
+            this.PasswordTb.Location = new System.Drawing.Point(83, 362);
             this.PasswordTb.Margin = new System.Windows.Forms.Padding(2);
             this.PasswordTb.Name = "PasswordTb";
             this.PasswordTb.Size = new System.Drawing.Size(209, 27);
@@ -170,7 +185,7 @@
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold);
             this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(71)))), ((int)(((byte)(56)))));
-            this.label5.Location = new System.Drawing.Point(83, 304);
+            this.label5.Location = new System.Drawing.Point(80, 336);
             this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(74, 19);
@@ -182,7 +197,7 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold);
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(71)))), ((int)(((byte)(56)))));
-            this.label1.Location = new System.Drawing.Point(83, 99);
+            this.label1.Location = new System.Drawing.Point(80, 80);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(82, 19);
@@ -193,7 +208,7 @@
             // 
             this.FirstNameTb.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(163)))), ((int)(((byte)(150)))));
             this.FirstNameTb.Font = new System.Drawing.Font("Calibri", 12F);
-            this.FirstNameTb.Location = new System.Drawing.Point(86, 125);
+            this.FirstNameTb.Location = new System.Drawing.Point(83, 106);
             this.FirstNameTb.Margin = new System.Windows.Forms.Padding(2);
             this.FirstNameTb.Name = "FirstNameTb";
             this.FirstNameTb.Size = new System.Drawing.Size(209, 27);
@@ -204,10 +219,10 @@
             this.SignUpBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(71)))), ((int)(((byte)(56)))));
             this.SignUpBtn.Font = new System.Drawing.Font("Calibri", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SignUpBtn.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.SignUpBtn.Location = new System.Drawing.Point(86, 456);
+            this.SignUpBtn.Location = new System.Drawing.Point(80, 480);
             this.SignUpBtn.Margin = new System.Windows.Forms.Padding(2);
             this.SignUpBtn.Name = "SignUpBtn";
-            this.SignUpBtn.Size = new System.Drawing.Size(209, 35);
+            this.SignUpBtn.Size = new System.Drawing.Size(216, 35);
             this.SignUpBtn.TabIndex = 5;
             this.SignUpBtn.Text = "Sign Up";
             this.SignUpBtn.UseVisualStyleBackColor = false;
@@ -217,7 +232,7 @@
             // 
             this.LastNameTb.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(163)))), ((int)(((byte)(150)))));
             this.LastNameTb.Font = new System.Drawing.Font("Calibri", 12F);
-            this.LastNameTb.Location = new System.Drawing.Point(87, 194);
+            this.LastNameTb.Location = new System.Drawing.Point(85, 170);
             this.LastNameTb.Margin = new System.Windows.Forms.Padding(2);
             this.LastNameTb.Name = "LastNameTb";
             this.LastNameTb.Size = new System.Drawing.Size(208, 27);
@@ -228,7 +243,7 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold);
             this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(71)))), ((int)(((byte)(56)))));
-            this.label2.Location = new System.Drawing.Point(82, 168);
+            this.label2.Location = new System.Drawing.Point(80, 144);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(80, 19);
@@ -245,16 +260,27 @@
             this.pictureBox1.TabIndex = 13;
             this.pictureBox1.TabStop = false;
             // 
-            // BackBtn
+            // UsernameTb
             // 
-            this.BackBtn.Image = global::Event_Catering_Order___Expense_Tracker.Properties.Resources.Eventra__2__removebg_preview;
-            this.BackBtn.Location = new System.Drawing.Point(23, 21);
-            this.BackBtn.Name = "BackBtn";
-            this.BackBtn.Size = new System.Drawing.Size(21, 22);
-            this.BackBtn.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.BackBtn.TabIndex = 77;
-            this.BackBtn.TabStop = false;
-            this.BackBtn.Click += new System.EventHandler(this.BackBtn_Click);
+            this.UsernameTb.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(163)))), ((int)(((byte)(150)))));
+            this.UsernameTb.Font = new System.Drawing.Font("Calibri", 12F);
+            this.UsernameTb.Location = new System.Drawing.Point(85, 234);
+            this.UsernameTb.Margin = new System.Windows.Forms.Padding(2);
+            this.UsernameTb.Name = "UsernameTb";
+            this.UsernameTb.Size = new System.Drawing.Size(208, 27);
+            this.UsernameTb.TabIndex = 79;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold);
+            this.label7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(71)))), ((int)(((byte)(56)))));
+            this.label7.Location = new System.Drawing.Point(80, 208);
+            this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(77, 19);
+            this.label7.TabIndex = 78;
+            this.label7.Text = "Username";
             // 
             // SignUp
             // 
@@ -271,8 +297,8 @@
             this.Text = "SignUp";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.BackBtn)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -295,5 +321,7 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.PictureBox BackBtn;
+        private System.Windows.Forms.TextBox UsernameTb;
+        private System.Windows.Forms.Label label7;
     }
 }

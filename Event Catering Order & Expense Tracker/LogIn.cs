@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Data.SqlClient;
 
 namespace Event_Catering_Order___Expense_Tracker
 {
@@ -15,6 +16,9 @@ namespace Event_Catering_Order___Expense_Tracker
 
         private Timer fadeTimer;
         private Form nextFormToOpen;
+
+        SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\ashbs\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30");
+
         public Login()
         {
             InitializeComponent();
@@ -73,12 +77,38 @@ namespace Event_Catering_Order___Expense_Tracker
 
         private void LoginBtn_Click(object sender, EventArgs e)
         {
-            StartFadeOutAndNavigate(new Home());
-
-            //Home homeForm = new Home();
-            //homeForm.Show();
-            //this.Hide();
+            if (UsernameTb.Text == "" || PasswordTb.Text == "")
+            {
+                MessageBox.Show("Please enter both username and password");
+            }
+            else
+            {
+                try
+                {
+                    con.Open();
+                    SqlDataAdapter sda = new SqlDataAdapter("SELECT COUNT(*) FROM AccountsTable WHERE Username = '" + UsernameTb.Text + "' AND Password = '" + PasswordTb.Text + "'", con);
+                    DataTable dt = new DataTable();
+                    sda.Fill(dt);
+                    if (dt.Rows[0][0].ToString() == "1")
+                    {
+                        StartFadeOutAndNavigate(new Home());
+                    }
+                    else
+                    {
+                        MessageBox.Show("Invalid username or password");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                finally
+                {
+                    con.Close();
+                }
+            }
         }
+        
 
         private void SignUpLlbl_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {

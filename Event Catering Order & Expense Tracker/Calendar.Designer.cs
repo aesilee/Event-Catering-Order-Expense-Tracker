@@ -76,7 +76,7 @@
             // prevBtn
             // 
             this.prevBtn.Image = global::Event_Catering_Order___Expense_Tracker.Properties.Resources.Untitled_design__6__removebg_preview;
-            this.prevBtn.Location = new System.Drawing.Point(786, 46);
+            this.prevBtn.Location = new System.Drawing.Point(792, 32);
             this.prevBtn.Name = "prevBtn";
             this.prevBtn.Size = new System.Drawing.Size(24, 24);
             this.prevBtn.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -87,7 +87,7 @@
             // nextbtn
             // 
             this.nextbtn.Image = global::Event_Catering_Order___Expense_Tracker.Properties.Resources.Untitled_design__5__removebg_preview;
-            this.nextbtn.Location = new System.Drawing.Point(825, 46);
+            this.nextbtn.Location = new System.Drawing.Point(831, 32);
             this.nextbtn.Name = "nextbtn";
             this.nextbtn.Size = new System.Drawing.Size(24, 24);
             this.nextbtn.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -98,11 +98,11 @@
             // lblmonthYear
             // 
             this.lblmonthYear.AutoSize = true;
-            this.lblmonthYear.Font = new System.Drawing.Font("Cambria", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblmonthYear.Font = new System.Drawing.Font("Cambria", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblmonthYear.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(70)))), ((int)(((byte)(56)))));
-            this.lblmonthYear.Location = new System.Drawing.Point(190, 22);
+            this.lblmonthYear.Location = new System.Drawing.Point(192, 32);
             this.lblmonthYear.Name = "lblmonthYear";
-            this.lblmonthYear.Size = new System.Drawing.Size(124, 25);
+            this.lblmonthYear.Size = new System.Drawing.Size(138, 28);
             this.lblmonthYear.TabIndex = 71;
             this.lblmonthYear.Text = "Month Year";
             // 
