@@ -18,16 +18,8 @@ namespace Event_Catering_Order___Expense_Tracker
 
         private void panel1_click(object sender, EventArgs e)
         {
-            if (checkBox1.Checked == false)
-            {
-                checkBox1.Checked = true;
-                this.BackColor = Color.FromArgb(170, 163, 150);
-            }
-            else
-            {
-                checkBox1.Checked = false;
-                this.BackColor = Color.FromArgb(255, 255, 255);
-            }
+            Event eventForm = new Event();
+            eventForm.Show();
         }
 
         public ucDays(string day, int year, int month)
@@ -37,7 +29,6 @@ namespace Event_Catering_Order___Expense_Tracker
             _year = year;
             _month = month;
             label1.Text = _day;
-            checkBox1.Hide();
 
             if (!string.IsNullOrEmpty(_day)) 
             {
@@ -45,6 +36,11 @@ namespace Event_Catering_Order___Expense_Tracker
                 date = _month + "/" + _day + "/" + _year;
             }
             label1.ForeColor = Color.FromArgb(88, 71, 56);
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
         }
 
         public void HighlightToday()

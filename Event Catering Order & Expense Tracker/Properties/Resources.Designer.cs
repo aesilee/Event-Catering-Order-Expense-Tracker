@@ -113,6 +113,16 @@ namespace Event_Catering_Order___Expense_Tracker.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Eventra__5__removebg_preview {
+            get {
+                object obj = ResourceManager.GetObject("Eventra__5_-removebg-preview", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Eventra_removebg_preview {
             get {
                 object obj = ResourceManager.GetObject("Eventra-removebg-preview", resourceCulture);
