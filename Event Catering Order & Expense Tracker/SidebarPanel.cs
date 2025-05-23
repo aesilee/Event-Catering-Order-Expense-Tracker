@@ -41,6 +41,35 @@ namespace Event_Catering_Order___Expense_Tracker
 
         private void InitializeSidebar()
         {
+            // Create logo and label
+            var logoPanel = new Panel
+            {
+                Size = new Size(173, 60),
+                Location = new Point(0, 0),
+                BackColor = Color.FromArgb(206, 193, 168)
+            };
+
+            var logo = new PictureBox
+            {
+                Size = new Size(40, 40),
+                Location = new Point(15, 10),
+                SizeMode = PictureBoxSizeMode.Zoom,
+                Image = Properties.Resources.Sidebar_Panel_Logo_Eventra
+            };
+
+            var logoLabel = new Label
+            {
+                Text = "Eventra",
+                AutoSize = true,
+                Font = new Font("Cambria", 16, FontStyle.Bold),
+                ForeColor = Color.FromArgb(88, 70, 56),
+                Location = new Point(65, 15),
+                Cursor = Cursors.Default
+            };
+
+            logoPanel.Controls.Add(logo);
+            logoPanel.Controls.Add(logoLabel);
+
             // Create panels
             dashboardPanel = CreatePanel("Dashboard", 0);
             calendarPanel = CreatePanel("Calendar", 1);
@@ -61,7 +90,7 @@ namespace Event_Catering_Order___Expense_Tracker
             logoutButton.Click += LogoutButton_Click;
 
             // Add controls to the sidebar
-            Controls.AddRange(new Control[] { dashboardPanel, calendarPanel, spreadsheetsPanel, addNewPanel, logoutButton });
+            Controls.AddRange(new Control[] { logoPanel, dashboardPanel, calendarPanel, spreadsheetsPanel, addNewPanel, logoutButton });
 
             // Set initial active panel based on currentPanelName
             switch (currentPanelName)
@@ -79,7 +108,7 @@ namespace Event_Catering_Order___Expense_Tracker
             var panel = new Panel
             {
                 Size = new Size(173, 40),
-                Location = new Point(0, index * 43),
+                Location = new Point(0, 60 + (index * 43)),
                 BackColor = inactivePanelColor,
                 Cursor = Cursors.Hand
             };

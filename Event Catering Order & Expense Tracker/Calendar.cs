@@ -108,7 +108,7 @@ namespace Event_Catering_Order___Expense_Tracker
             _month = month;
 
             string monthName = new DateTimeFormatInfo().GetMonthName(month);
-            monthLbl.Text = monthName.ToUpper() + " " + year;
+            lblmonthYear.Text = monthName.ToUpper() + " " + year;
             DateTime startOfTheMonth = new DateTime(year, month, 1);
             int daysInMonth = DateTime.DaysInMonth(year, month);
             int dayOfWeek = Convert.ToInt32(startOfTheMonth.DayOfWeek.ToString("d"));

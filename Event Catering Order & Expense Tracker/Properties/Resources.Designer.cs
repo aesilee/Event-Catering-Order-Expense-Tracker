@@ -143,6 +143,16 @@ namespace Event_Catering_Order___Expense_Tracker.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Sidebar_Panel_Logo_Eventra {
+            get {
+                object obj = ResourceManager.GetObject("Sidebar_Panel_Logo_Eventra", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Untitled_design__1__removebg_preview {
             get {
                 object obj = ResourceManager.GetObject("Untitled_design__1_-removebg-preview", resourceCulture);

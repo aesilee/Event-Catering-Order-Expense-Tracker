@@ -212,5 +212,8 @@
   <ItemGroup>
     <None Include="Resources\Eventra__5_-removebg-preview1.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\Sidebar_Panel_Logo_Eventra.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
