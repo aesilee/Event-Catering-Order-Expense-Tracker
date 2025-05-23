@@ -12,173 +12,81 @@ namespace Event_Catering_Order___Expense_Tracker
 {
     public partial class Home: Form
     {
-        // Sidebar hover colors
-        private Color originalSidebarLabelForeColor = Color.White;
-        private Color hoverSidebarLabelForeColor = Color.FromArgb(88, 71, 56);
-
         private Timer fadeTimer;
-        private Form nextFormToOpen; 
+        private Form nextFormToOpen;
+        private SidebarPanel sidebarPanel;
 
         public Home()
         {
             InitializeComponent();
-            SetupSidebarLabels();
-
             InitializeFadeTimer();
-            this.Opacity = 0.0; 
-
-
+            InitializeSidebar();
         }
 
         private void InitializeFadeTimer()
         {
             fadeTimer = new Timer();
-            fadeTimer.Interval = 5; // Animation speed (milliseconds)
-            fadeTimer.Tick += FadeTimer_Tick; // Hook up the event handler
+            fadeTimer.Interval = 5;
+            fadeTimer.Tick += FadeTimer_Tick;
+        }
+
+        private void InitializeSidebar()
+        {
+            sidebarPanel = new SidebarPanel("Dashboard");
+            sidebarPanel.NavigationRequested += SidebarPanel_NavigationRequested;
+            this.Controls.Add(sidebarPanel);
+            sidebarPanel.Dock = DockStyle.Left;
+        }
+
+        private void SidebarPanel_NavigationRequested(object sender, Form formToOpen)
+        {
+            if (formToOpen is Login)
+            {
+                // Use fade animation only for logout
+                StartFadeOutAndNavigate(formToOpen);
+            }
+            else
+            {
+                // Direct navigation for all other forms
+                formToOpen.Show();
+                this.Dispose();
+            }
         }
 
         private void FadeTimer_Tick(object sender, EventArgs e)
         {
-            if (this.Opacity < 1.0 && nextFormToOpen == null) 
+            if (this.Opacity > 0.0 && nextFormToOpen != null)
             {
-                this.Opacity += 0.10; 
-                if (this.Opacity >= 1.0)
-                {
-                    this.Opacity = 1.0; 
-                    fadeTimer.Stop();
-                }
-            }
-
-            else if (this.Opacity > 0.0 && nextFormToOpen != null) 
-            {
-                this.Opacity -= 0.20; 
+                this.Opacity -= 0.20;
                 if (this.Opacity <= 0.0)
                 {
-                    this.Opacity = 0.0; 
+                    this.Opacity = 0.0;
                     fadeTimer.Stop();
-                    this.Hide(); 
+                    this.Hide();
 
                     if (nextFormToOpen != null)
                     {
                         nextFormToOpen.Show();
-                        if (nextFormToOpen is Home homeForm) homeForm.StartFadeIn();
-                        else if (nextFormToOpen is Calendar calendarForm) calendarForm.StartFadeIn();
-                        else if (nextFormToOpen is Spreadsheet spreadsheetForm) spreadsheetForm.StartFadeIn();
-                        else if (nextFormToOpen is AddNew addNewForm) addNewForm.StartFadeIn();
-                        else if (nextFormToOpen is Login loginForm) loginForm.StartFadeIn();
                     }
                 }
             }
         }
 
-        public void StartFadeIn()
+        private void StartFadeOutAndNavigate(Form formToOpen)
         {
-            this.Opacity = 0.0; 
-            this.nextFormToOpen = null; 
+            this.nextFormToOpen = formToOpen;
             fadeTimer.Start();
         }
 
-        private void StartFadeOutAndNavigate(Form formToOpen)
+        public void StartFadeIn()
         {
-            this.nextFormToOpen = formToOpen; 
-            fadeTimer.Start(); 
+            // This method is kept for compatibility but is no longer used
+            // since we removed fade animations except for logout
         }
-
-
-
-        private void SetupSidebarLabels()
-        {
-            Label[] sidebarLabels = { DashboardLbl, CalendarLbl, SpreadsheetsLbl, AddnewLbl }; 
-
-            foreach (Label lbl in sidebarLabels)
-            {
-                lbl.ForeColor = originalSidebarLabelForeColor;
-                lbl.MouseEnter += SidebarLabel_MouseEnter;
-                lbl.MouseLeave += SidebarLabel_MouseLeave;
-            }
-        }
-        private void SidebarLabel_MouseEnter(object sender, EventArgs e)
-        {
-            Label lbl = sender as Label;
-            if (lbl != null)
-            {
-                lbl.ForeColor = hoverSidebarLabelForeColor;
-                lbl.Cursor = Cursors.Hand; 
-            }
-        }
-
-        private void SidebarLabel_MouseLeave(object sender, EventArgs e)
-        {
-            Label lbl = sender as Label;
-            if (lbl != null)
-            {
-                lbl.ForeColor = originalSidebarLabelForeColor;
-                lbl.Cursor = Cursors.Default; 
-            }
-        }
-
 
         private void UsernameTb_TextChanged(object sender, EventArgs e)
         {
             // WIP Search Input
-
-            //const string searchPlaceholder = "Search";
-            //if (UsernameTb == searchPlaceholder)
-            //{
-            //    UsernameTb.Text = ""; 
-            //    UsernameTb.ForeColor = System.Drawing.Color.White; 
-
-            //}
-
-
-        }
-
-        private void CalendarLbl_Click_1(object sender, EventArgs e)
-        {
-            StartFadeOutAndNavigate(new Calendar());
-
-            //Calendar calendarForm = new Calendar();
-            //calendarForm.Show();
-            //this.Hide();
-        }
-
-        private void SpreadsheetsLbl_Click_1(object sender, EventArgs e)
-        {
-
-            StartFadeOutAndNavigate(new Spreadsheet());
-
-            //Spreadsheet spreadsheetsForm = new Spreadsheet();
-            //spreadsheetsForm.Show();
-            //this.Hide();
-        }
-
-        private void AddnewLbl_Click_1(object sender, EventArgs e)
-        {
-
-            StartFadeOutAndNavigate(new AddNew());
-
-            //AddNew addNewForm = new AddNew();
-            //addNewForm.Show();
-            //this.Hide();
-        }
-
-        private void LogOutBtn_Click_1(object sender, EventArgs e)
-        {
-            StartFadeOutAndNavigate(new Login());
-
-            //Login loginForm = new Login();
-            //loginForm.Show();
-            //this.Hide();
-        }
-
-        private void DashboardLbl_Click_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void DashboardLbl_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

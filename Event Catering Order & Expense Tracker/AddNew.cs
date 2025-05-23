@@ -10,22 +10,20 @@ using System.Windows.Forms;
 
 namespace Event_Catering_Order___Expense_Tracker
 {
-    public partial class AddNew: Form
+    public partial class AddNew : Form
     {
-        private Color originalSidebarLabelForeColor = Color.White;
-        private Color hoverSidebarLabelForeColor = Color.FromArgb(88, 71, 56);
-
         private Timer fadeTimer;
         private Form nextFormToOpen;
+        private SidebarPanel sidebarPanel;
 
         public AddNew()
         {
             InitializeComponent();
-            SetupSidebarLabels();
-
             InitializeFadeTimer();
-            this.Opacity = 0.0; 
-
+            InitializeSidebar();
+            this.WindowState = FormWindowState.Normal;
+            this.ShowInTaskbar = true;
+            this.TopMost = true;
 
             EventTypeCb.Items.AddRange(new string[]
             {
@@ -68,18 +66,33 @@ namespace Event_Catering_Order___Expense_Tracker
             fadeTimer.Tick += FadeTimer_Tick;
         }
 
+        private void InitializeSidebar()
+        {
+            sidebarPanel = new SidebarPanel("Add New");
+            sidebarPanel.NavigationRequested += SidebarPanel_NavigationRequested;
+            this.Controls.Add(sidebarPanel);
+            sidebarPanel.Dock = DockStyle.Left;
+        }
+
+        private void SidebarPanel_NavigationRequested(object sender, Form formToOpen)
+        {
+            if (formToOpen is Login)
+            {
+                // Use fade animation only for logout
+                StartFadeOutAndNavigate(formToOpen);
+            }
+            else
+            {
+                // Direct navigation for all other forms
+                formToOpen.Show();
+                formToOpen.Activate();
+                this.Dispose();
+            }
+        }
+
         private void FadeTimer_Tick(object sender, EventArgs e)
         {
-            if (this.Opacity < 1.0 && nextFormToOpen == null)
-            {
-                this.Opacity += 0.10;
-                if (this.Opacity >= 1.0)
-                {
-                    this.Opacity = 1.0;
-                    fadeTimer.Stop();
-                }
-            }
-            else if (this.Opacity > 0.0 && nextFormToOpen != null)
+            if (this.Opacity > 0.0 && nextFormToOpen != null)
             {
                 this.Opacity -= 0.20;
                 if (this.Opacity <= 0.0)
@@ -91,21 +104,10 @@ namespace Event_Catering_Order___Expense_Tracker
                     if (nextFormToOpen != null)
                     {
                         nextFormToOpen.Show();
-                        if (nextFormToOpen is Home homeForm) homeForm.StartFadeIn();
-                        else if (nextFormToOpen is Calendar calendarForm) calendarForm.StartFadeIn();
-                        else if (nextFormToOpen is Spreadsheet spreadsheetForm) spreadsheetForm.StartFadeIn();
-                        else if (nextFormToOpen is AddNew addNewForm) addNewForm.StartFadeIn();
-                        else if (nextFormToOpen is Login loginForm) loginForm.StartFadeIn();
+                        nextFormToOpen.Activate();
                     }
                 }
             }
-        }
-
-        public void StartFadeIn()
-        {
-            this.Opacity = 0.0;
-            this.nextFormToOpen = null;
-            fadeTimer.Start();
         }
 
         private void StartFadeOutAndNavigate(Form formToOpen)
@@ -114,38 +116,6 @@ namespace Event_Catering_Order___Expense_Tracker
             fadeTimer.Start();
         }
 
-        private void SetupSidebarLabels()
-        {
-            Label[] sidebarLabels = { DashboardLbl, CalendarLbl, SpreadsheetsLbl, AddnewLbl };
-
-            foreach (Label lbl in sidebarLabels)
-            {
-                lbl.ForeColor = originalSidebarLabelForeColor;
-                lbl.MouseEnter += SidebarLabel_MouseEnter;
-                lbl.MouseLeave += SidebarLabel_MouseLeave;
-            }
-        }
-        private void SidebarLabel_MouseEnter(object sender, EventArgs e)
-        {
-            Label lbl = sender as Label;
-            if (lbl != null)
-            {
-                lbl.ForeColor = hoverSidebarLabelForeColor;
-                lbl.Cursor = Cursors.Hand;
-            }
-        }
-
-        private void SidebarLabel_MouseLeave(object sender, EventArgs e)
-        {
-            Label lbl = sender as Label;
-            if (lbl != null)
-            {
-                lbl.ForeColor = originalSidebarLabelForeColor;
-                lbl.Cursor = Cursors.Default;
-            }
-        }
-
-        //Color in combo boxes
         private void ComboBox_DrawItem(object sender, DrawItemEventArgs e)
         {
             ComboBox comboBox = sender as ComboBox;
@@ -157,92 +127,71 @@ namespace Event_Catering_Order___Expense_Tracker
 
             e.DrawBackground();
 
-            Color backColor = isHovered ? Color.FromArgb(88, 71, 56) : comboBox.BackColor;
-            Color foreColor = isHovered ? Color.White : comboBox.ForeColor;
-
-            using (SolidBrush bgBrush = new SolidBrush(backColor))
-                e.Graphics.FillRectangle(bgBrush, e.Bounds);
-
-            using (SolidBrush fgBrush = new SolidBrush(foreColor))
-                e.Graphics.DrawString(text, e.Font, fgBrush, e.Bounds.X, e.Bounds.Y);
+            using (SolidBrush brush = new SolidBrush(isHovered ? Color.FromArgb(88, 71, 56) : Color.FromArgb(241, 234, 218)))
+            {
+                e.Graphics.DrawString(text, comboBox.Font, brush, e.Bounds);
+            }
 
             e.DrawFocusRectangle();
         }
 
-        private void label23_Click(object sender, EventArgs e)
+        private void AddNew_Load(object sender, EventArgs e)
         {
-
+            this.WindowState = FormWindowState.Normal;
+            this.Activate();
         }
 
-       
-
-        private void AddNewEventBtn_Click(object sender, EventArgs e)
+        private void panel1_Paint(object sender, PaintEventArgs e)
         {
-            
+            // Handle panel painting if needed
         }
 
         private void EventTypeCb_SelectedIndexChanged(object sender, EventArgs e)
         {
-
-        }
-
-        private void AddNew_Load(object sender, EventArgs e)
-        {
-            StartFadeIn(); 
-
-        }
-
-        private void panel2_Paint(object sender, PaintEventArgs e)
-        {
-
+            // Handle event type selection change
+            // This can be used to update UI or perform validation based on selected event type
         }
 
         private void DashboardLbl_Click_1(object sender, EventArgs e)
         {
-            StartFadeOutAndNavigate(new Home());
-
-            //Home homeForm = new Home();
-            //homeForm.Show();
-            //this.Hide();
+            var homeForm = new Home();
+            homeForm.Show();
+            this.Hide();
         }
 
         private void CalendarLbl_Click_1(object sender, EventArgs e)
         {
-            StartFadeOutAndNavigate(new Calendar());
-
-            //Calendar calendarForm = new Calendar();
-            //calendarForm.Show();
-            //this.Hide();
+            var calendarForm = new Calendar();
+            calendarForm.Show();
+            this.Hide();
         }
 
         private void SpreadsheetsLbl_Click_1(object sender, EventArgs e)
         {
-            StartFadeOutAndNavigate(new Spreadsheet());
-
-            //Spreadsheet spreadsheetsForm = new Spreadsheet();
-            //spreadsheetsForm.Show();
-            //this.Hide();
+            var spreadsheetForm = new Spreadsheet();
+            spreadsheetForm.Show();
+            this.Hide();
         }
 
         private void AddnewLbl_Click_1(object sender, EventArgs e)
         {
-            if (this.GetType() == typeof(AddNew))
-            {
-                return;
-            }
-            StartFadeOutAndNavigate(new AddNew());
-
-        }
-
-        private void panel2_Paint_1(object sender, PaintEventArgs e)
-        {
-
+            // Already on AddNew form, no action needed
         }
 
         private void LogOutBtn_Click_1(object sender, EventArgs e)
         {
             StartFadeOutAndNavigate(new Login());
+        }
 
+        private void panel2_Paint_1(object sender, PaintEventArgs e)
+        {
+            // Handle panel painting if needed
+        }
+
+        private void AddNewEventBtn_Click(object sender, EventArgs e)
+        {
+            // Handle adding new event
+            // This will be implemented later
         }
     }
 }

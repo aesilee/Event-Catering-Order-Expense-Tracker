@@ -96,6 +96,12 @@
     <Compile Include="ucDays.Designer.cs">
       <DependentUpon>ucDays.cs</DependentUpon>
     </Compile>
+    <Compile Include="SidebarPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SidebarPanel.Designer.cs">
+      <DependentUpon>SidebarPanel.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="AddNew.resx">
       <DependentUpon>AddNew.cs</DependentUpon>
     </EmbeddedResource>
@@ -129,6 +135,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ucDays.resx">
       <DependentUpon>ucDays.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SidebarPanel.resx">
+      <DependentUpon>SidebarPanel.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
