@@ -34,9 +34,12 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Home));
             this.label1 = new System.Windows.Forms.Label();
-            this.panel2 = new System.Windows.Forms.Panel();
+            this.AnalyticsPnl = new System.Windows.Forms.Panel();
             this.OngoingEventsDgv = new System.Windows.Forms.DataGridView();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -44,8 +47,11 @@
             this.UpcomingEventsDgv = new System.Windows.Forms.DataGridView();
             this.label5 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.AnalyticsChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.AnalyticsPnl.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.OngoingEventsDgv)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.UpcomingEventsDgv)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.AnalyticsChart)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -61,16 +67,17 @@
             this.label1.TabIndex = 9;
             this.label1.Text = "Dashboard";
             // 
-            // panel2
+            // AnalyticsPnl
             // 
-            this.panel2.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(71)))), ((int)(((byte)(56)))));
-            this.panel2.ForeColor = System.Drawing.Color.BlueViolet;
-            this.panel2.Location = new System.Drawing.Point(196, 117);
-            this.panel2.Margin = new System.Windows.Forms.Padding(2);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(404, 195);
-            this.panel2.TabIndex = 10;
+            this.AnalyticsPnl.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.AnalyticsPnl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(71)))), ((int)(((byte)(56)))));
+            this.AnalyticsPnl.Controls.Add(this.AnalyticsChart);
+            this.AnalyticsPnl.ForeColor = System.Drawing.Color.BlueViolet;
+            this.AnalyticsPnl.Location = new System.Drawing.Point(196, 117);
+            this.AnalyticsPnl.Margin = new System.Windows.Forms.Padding(2);
+            this.AnalyticsPnl.Name = "AnalyticsPnl";
+            this.AnalyticsPnl.Size = new System.Drawing.Size(404, 195);
+            this.AnalyticsPnl.TabIndex = 10;
             // 
             // OngoingEventsDgv
             // 
@@ -209,6 +216,23 @@
             this.panel1.Size = new System.Drawing.Size(228, 195);
             this.panel1.TabIndex = 17;
             // 
+            // AnalyticsChart
+            // 
+            chartArea1.Name = "ChartArea1";
+            this.AnalyticsChart.ChartAreas.Add(chartArea1);
+            this.AnalyticsChart.Dock = System.Windows.Forms.DockStyle.Fill;
+            legend1.Name = "Legend1";
+            this.AnalyticsChart.Legends.Add(legend1);
+            this.AnalyticsChart.Location = new System.Drawing.Point(0, 0);
+            this.AnalyticsChart.Name = "AnalyticsChart";
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.AnalyticsChart.Series.Add(series1);
+            this.AnalyticsChart.Size = new System.Drawing.Size(404, 195);
+            this.AnalyticsChart.TabIndex = 0;
+            this.AnalyticsChart.Text = "chart1";
+            // 
             // Home
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -222,15 +246,17 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.OngoingEventsDgv);
-            this.Controls.Add(this.panel2);
+            this.Controls.Add(this.AnalyticsPnl);
             this.Controls.Add(this.label1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Home";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Home";
+            this.AnalyticsPnl.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.OngoingEventsDgv)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.UpcomingEventsDgv)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.AnalyticsChart)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -238,7 +264,7 @@
 
         #endregion
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Panel AnalyticsPnl;
         private System.Windows.Forms.DataGridView OngoingEventsDgv;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
@@ -246,5 +272,6 @@
         private System.Windows.Forms.DataGridView UpcomingEventsDgv;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.DataVisualization.Charting.Chart AnalyticsChart;
     }
 }
