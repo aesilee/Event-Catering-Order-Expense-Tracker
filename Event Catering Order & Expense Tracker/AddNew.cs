@@ -13,7 +13,9 @@ namespace Event_Catering_Order___Expense_Tracker
 {
     public partial class AddNew : Form
     {
-        SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\ashbs\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30");
+//        SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\ashbs\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30");
+        SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Kyle\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30");
+
 
         private Timer fadeTimer;
         private Form nextFormToOpen;
@@ -331,6 +333,25 @@ namespace Event_Catering_Order___Expense_Tracker
                 transaction.Commit();
 
                 MessageBox.Show("Event saved successfully!");
+
+                var receipt = new Receipt(
+                    EventTitleTb.Text,
+                    EventDateDtp.Value,
+                    EventTimeTb.Text,
+                    EventTypeCb.SelectedItem?.ToString() ?? "",
+                    VenueTb.Text,
+                    CustomerNameTb.Text,
+                    ContactNumTb.Text,
+                    EmailAddressTb.Text,
+                    int.Parse(NumOfGuestsTb.Text),
+                    MenuTypeCb.SelectedItem?.ToString() ?? "",
+                    MenuDetailsTb.Text,
+                    decimal.Parse(EstBudgetTb.Text),
+                    decimal.Parse(TotalExpensesLbl.Text),
+                    eventId.ToString()
+                );
+                receipt.Show();
+
                 ClearForm();
             }
             catch (FormatException)
@@ -377,6 +398,14 @@ namespace Event_Catering_Order___Expense_Tracker
                 string.IsNullOrWhiteSpace(MiscTb.Text))
             {
                 MessageBox.Show("All fields are required!");
+                return false;
+            }
+
+            // Validate Contact Number: must be numeric and 7-15 digits
+            string contactNum = ContactNumTb.Text.Trim();
+            if (!contactNum.All(char.IsDigit) || contactNum.Length < 7 || contactNum.Length > 15)
+            {
+                MessageBox.Show("Contact number must be numeric and between 7 and 15 digits.");
                 return false;
             }
 
