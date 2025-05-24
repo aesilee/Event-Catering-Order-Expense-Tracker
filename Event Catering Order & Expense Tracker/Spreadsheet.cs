@@ -145,6 +145,7 @@ namespace Event_Catering_Order___Expense_Tracker
                     DataTable dt = new DataTable();
                     adapter.Fill(dt);
                     EventsDgv.DataSource = dt;
+                    EventsDgv.RowHeadersVisible = false;
 
                     // Hide the Hidden column if it exists
                     if (EventsDgv.Columns.Contains("Hidden"))
@@ -266,6 +267,7 @@ namespace Event_Catering_Order___Expense_Tracker
                     DataTable dt = new DataTable();
                     adapter.Fill(dt);
                     ArchivesDgv.DataSource = dt;
+                    ArchivesDgv.RowHeadersVisible = false;
 
                     // Auto-size columns and rows to fit content (max size)
                     ArchivesDgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Data.SqlClient;
 
 namespace Event_Catering_Order___Expense_Tracker
 {
@@ -15,12 +16,20 @@ namespace Event_Catering_Order___Expense_Tracker
         private Timer fadeTimer;
         private Form nextFormToOpen;
         private SidebarPanel sidebarPanel;
+        private Timer refreshTimer;
 
         public Home()
         {
             InitializeComponent();
             InitializeFadeTimer();
             InitializeSidebar();
+            LoadOngoingEvents();
+
+            // Set up live refresh every 10 seconds
+            refreshTimer = new Timer();
+            refreshTimer.Interval = 10000; // 10 seconds
+            refreshTimer.Tick += (s, e) => LoadOngoingEvents();
+            refreshTimer.Start();
         }
 
         private void InitializeFadeTimer()
@@ -93,6 +102,53 @@ namespace Event_Catering_Order___Expense_Tracker
         {
             base.OnFormClosed(e);
             Application.Exit();
+        }
+
+        private void LoadOngoingEvents()
+        {
+            string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Kyle\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30";
+            string query = "SELECT EventTitle, EventDate, EventTime, Venue FROM EventTable WHERE Hidden = 0 AND CONVERT(date, EventDate) = @today";
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    con.Open();
+                    SqlDataAdapter adapter = new SqlDataAdapter(query, con);
+                    adapter.SelectCommand.Parameters.AddWithValue("@today", DateTime.Today);
+                    DataTable dt = new DataTable();
+                    adapter.Fill(dt);
+                    OngoingEventsDgv.DataSource = dt;
+                    OngoingEventsDgv.RowHeadersVisible = false;
+
+                    // Hide the first column if it has no header or is blank
+                    if (OngoingEventsDgv.Columns.Count > 0 && string.IsNullOrWhiteSpace(OngoingEventsDgv.Columns[0].HeaderText))
+                    {
+                        OngoingEventsDgv.Columns[0].Visible = false;
+                    }
+
+                    // Only show the specified columns (already selected in query), but ensure all others are hidden if present
+                    foreach (DataGridViewColumn col in OngoingEventsDgv.Columns)
+                    {
+                        if (col.Name != "EventTitle" && col.Name != "EventDate" && col.Name != "EventTime" && col.Name != "Venue")
+                        {
+                            col.Visible = false;
+                        }
+                        else
+                        {
+                            col.Visible = true;
+                        }
+                    }
+
+                    // Auto-size columns and rows
+                    OngoingEventsDgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+                    OngoingEventsDgv.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+                    OngoingEventsDgv.AutoResizeRows(DataGridViewAutoSizeRowsMode.AllCells);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error loading ongoing events: " + ex.Message);
+                }
+            }
         }
     }
 }

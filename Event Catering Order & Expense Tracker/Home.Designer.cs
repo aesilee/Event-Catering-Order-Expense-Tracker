@@ -37,15 +37,15 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Home));
             this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.OngoingEventsDgv = new System.Windows.Forms.DataGridView();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.dataGridView2 = new System.Windows.Forms.DataGridView();
+            this.UpcomingEventsDgv = new System.Windows.Forms.DataGridView();
             this.label5 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.OngoingEventsDgv)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.UpcomingEventsDgv)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -72,10 +72,10 @@
             this.panel2.Size = new System.Drawing.Size(404, 195);
             this.panel2.TabIndex = 10;
             // 
-            // dataGridView1
+            // OngoingEventsDgv
             // 
-            this.dataGridView1.AccessibleDescription = " ";
-            this.dataGridView1.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.OngoingEventsDgv.AccessibleDescription = " ";
+            this.OngoingEventsDgv.Anchor = System.Windows.Forms.AnchorStyles.None;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -83,8 +83,8 @@
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.OngoingEventsDgv.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.OngoingEventsDgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -92,10 +92,10 @@
             dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle2;
-            this.dataGridView1.Location = new System.Drawing.Point(196, 349);
-            this.dataGridView1.Margin = new System.Windows.Forms.Padding(2);
-            this.dataGridView1.Name = "dataGridView1";
+            this.OngoingEventsDgv.DefaultCellStyle = dataGridViewCellStyle2;
+            this.OngoingEventsDgv.Location = new System.Drawing.Point(196, 349);
+            this.OngoingEventsDgv.Margin = new System.Windows.Forms.Padding(2);
+            this.OngoingEventsDgv.Name = "OngoingEventsDgv";
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -103,11 +103,11 @@
             dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
-            this.dataGridView1.RowHeadersWidth = 62;
-            this.dataGridView1.RowTemplate.Height = 28;
-            this.dataGridView1.Size = new System.Drawing.Size(316, 195);
-            this.dataGridView1.TabIndex = 11;
+            this.OngoingEventsDgv.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            this.OngoingEventsDgv.RowHeadersWidth = 62;
+            this.OngoingEventsDgv.RowTemplate.Height = 28;
+            this.OngoingEventsDgv.Size = new System.Drawing.Size(316, 195);
+            this.OngoingEventsDgv.TabIndex = 11;
             // 
             // label2
             // 
@@ -148,10 +148,10 @@
             this.label4.TabIndex = 15;
             this.label4.Text = "Upcoming Events";
             // 
-            // dataGridView2
+            // UpcomingEventsDgv
             // 
-            this.dataGridView2.AccessibleDescription = " ";
-            this.dataGridView2.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.UpcomingEventsDgv.AccessibleDescription = " ";
+            this.UpcomingEventsDgv.Anchor = System.Windows.Forms.AnchorStyles.None;
             dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -159,8 +159,8 @@
             dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView2.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
-            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.UpcomingEventsDgv.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            this.UpcomingEventsDgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -168,10 +168,10 @@
             dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView2.DefaultCellStyle = dataGridViewCellStyle5;
-            this.dataGridView2.Location = new System.Drawing.Point(540, 349);
-            this.dataGridView2.Margin = new System.Windows.Forms.Padding(2);
-            this.dataGridView2.Name = "dataGridView2";
+            this.UpcomingEventsDgv.DefaultCellStyle = dataGridViewCellStyle5;
+            this.UpcomingEventsDgv.Location = new System.Drawing.Point(540, 349);
+            this.UpcomingEventsDgv.Margin = new System.Windows.Forms.Padding(2);
+            this.UpcomingEventsDgv.Name = "UpcomingEventsDgv";
             dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -179,11 +179,11 @@
             dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView2.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
-            this.dataGridView2.RowHeadersWidth = 62;
-            this.dataGridView2.RowTemplate.Height = 28;
-            this.dataGridView2.Size = new System.Drawing.Size(316, 195);
-            this.dataGridView2.TabIndex = 14;
+            this.UpcomingEventsDgv.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            this.UpcomingEventsDgv.RowHeadersWidth = 62;
+            this.UpcomingEventsDgv.RowTemplate.Height = 28;
+            this.UpcomingEventsDgv.Size = new System.Drawing.Size(316, 195);
+            this.UpcomingEventsDgv.TabIndex = 14;
             // 
             // label5
             // 
@@ -218,10 +218,10 @@
             this.Controls.Add(this.label5);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.dataGridView2);
+            this.Controls.Add(this.UpcomingEventsDgv);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.OngoingEventsDgv);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.label1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -229,8 +229,8 @@
             this.Name = "Home";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Home";
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.OngoingEventsDgv)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.UpcomingEventsDgv)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -239,11 +239,11 @@
         #endregion
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView OngoingEventsDgv;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.DataGridView dataGridView2;
+        private System.Windows.Forms.DataGridView UpcomingEventsDgv;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Panel panel1;
     }
