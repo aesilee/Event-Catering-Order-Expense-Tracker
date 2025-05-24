@@ -29,42 +29,43 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Spreadsheet));
-            this.dataGridView3 = new System.Windows.Forms.DataGridView();
-            this.UsernameTb = new System.Windows.Forms.TextBox();
+            this.EventsDgv = new System.Windows.Forms.DataGridView();
+            this.SearchTb = new System.Windows.Forms.TextBox();
             this.panel3 = new System.Windows.Forms.Panel();
             this.pictureBox6 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.ArchivesDgv = new System.Windows.Forms.DataGridView();
             this.label2 = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).BeginInit();
+            this.ArchiveBtn = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.EventsDgv)).BeginInit();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ArchivesDgv)).BeginInit();
             this.SuspendLayout();
             // 
-            // dataGridView3
+            // EventsDgv
             // 
-            this.dataGridView3.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.dataGridView3.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView3.Location = new System.Drawing.Point(192, 120);
-            this.dataGridView3.Margin = new System.Windows.Forms.Padding(2);
-            this.dataGridView3.Name = "dataGridView3";
-            this.dataGridView3.RowHeadersWidth = 62;
-            this.dataGridView3.RowTemplate.Height = 28;
-            this.dataGridView3.Size = new System.Drawing.Size(672, 192);
-            this.dataGridView3.TabIndex = 67;
+            this.EventsDgv.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.EventsDgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.EventsDgv.Location = new System.Drawing.Point(192, 120);
+            this.EventsDgv.Margin = new System.Windows.Forms.Padding(2);
+            this.EventsDgv.Name = "EventsDgv";
+            this.EventsDgv.RowHeadersWidth = 62;
+            this.EventsDgv.RowTemplate.Height = 28;
+            this.EventsDgv.Size = new System.Drawing.Size(672, 192);
+            this.EventsDgv.TabIndex = 67;
             // 
-            // UsernameTb
+            // SearchTb
             // 
-            this.UsernameTb.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.UsernameTb.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(163)))), ((int)(((byte)(150)))));
-            this.UsernameTb.Font = new System.Drawing.Font("Calibri", 9F);
-            this.UsernameTb.ForeColor = System.Drawing.Color.White;
-            this.UsernameTb.Location = new System.Drawing.Point(693, 40);
-            this.UsernameTb.Margin = new System.Windows.Forms.Padding(2);
-            this.UsernameTb.Name = "UsernameTb";
-            this.UsernameTb.Size = new System.Drawing.Size(135, 22);
-            this.UsernameTb.TabIndex = 69;
+            this.SearchTb.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.SearchTb.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(163)))), ((int)(((byte)(150)))));
+            this.SearchTb.Font = new System.Drawing.Font("Calibri", 9F);
+            this.SearchTb.ForeColor = System.Drawing.Color.White;
+            this.SearchTb.Location = new System.Drawing.Point(693, 40);
+            this.SearchTb.Margin = new System.Windows.Forms.Padding(2);
+            this.SearchTb.Name = "SearchTb";
+            this.SearchTb.Size = new System.Drawing.Size(135, 22);
+            this.SearchTb.TabIndex = 69;
             // 
             // panel3
             // 
@@ -102,17 +103,17 @@
             this.label1.TabIndex = 70;
             this.label1.Text = "Spreadsheet";
             // 
-            // dataGridView1
+            // ArchivesDgv
             // 
-            this.dataGridView1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(192, 352);
-            this.dataGridView1.Margin = new System.Windows.Forms.Padding(2);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowHeadersWidth = 62;
-            this.dataGridView1.RowTemplate.Height = 28;
-            this.dataGridView1.Size = new System.Drawing.Size(672, 192);
-            this.dataGridView1.TabIndex = 71;
+            this.ArchivesDgv.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.ArchivesDgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.ArchivesDgv.Location = new System.Drawing.Point(192, 352);
+            this.ArchivesDgv.Margin = new System.Windows.Forms.Padding(2);
+            this.ArchivesDgv.Name = "ArchivesDgv";
+            this.ArchivesDgv.RowHeadersWidth = 62;
+            this.ArchivesDgv.RowTemplate.Height = 28;
+            this.ArchivesDgv.Size = new System.Drawing.Size(672, 192);
+            this.ArchivesDgv.TabIndex = 71;
             // 
             // label2
             // 
@@ -125,40 +126,54 @@
             this.label2.TabIndex = 72;
             this.label2.Text = "Archives";
             // 
+            // ArchiveBtn
+            // 
+            this.ArchiveBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(71)))), ((int)(((byte)(56)))));
+            this.ArchiveBtn.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ArchiveBtn.ForeColor = System.Drawing.SystemColors.Window;
+            this.ArchiveBtn.Location = new System.Drawing.Point(778, 83);
+            this.ArchiveBtn.Name = "ArchiveBtn";
+            this.ArchiveBtn.Size = new System.Drawing.Size(86, 32);
+            this.ArchiveBtn.TabIndex = 73;
+            this.ArchiveBtn.Text = "Archive";
+            this.ArchiveBtn.UseVisualStyleBackColor = false;
+            // 
             // Spreadsheet
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(234)))), ((int)(((byte)(218)))));
             this.ClientSize = new System.Drawing.Size(884, 561);
+            this.Controls.Add(this.ArchiveBtn);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.ArchivesDgv);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.UsernameTb);
+            this.Controls.Add(this.SearchTb);
             this.Controls.Add(this.panel3);
-            this.Controls.Add(this.dataGridView3);
+            this.Controls.Add(this.EventsDgv);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Spreadsheet";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Spreadsheet";
             this.Load += new System.EventHandler(this.Spreadsheet_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.EventsDgv)).EndInit();
             this.panel3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ArchivesDgv)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-        private System.Windows.Forms.DataGridView dataGridView3;
-        private System.Windows.Forms.TextBox UsernameTb;
+        private System.Windows.Forms.DataGridView EventsDgv;
+        private System.Windows.Forms.TextBox SearchTb;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.PictureBox pictureBox6;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView ArchivesDgv;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button ArchiveBtn;
     }
 }
