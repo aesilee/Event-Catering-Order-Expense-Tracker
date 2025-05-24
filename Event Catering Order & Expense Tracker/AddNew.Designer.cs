@@ -41,15 +41,15 @@
             this.VenueTb = new System.Windows.Forms.TextBox();
             this.label18 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.ContactNumTb = new System.Windows.Forms.TextBox();
             this.label20 = new System.Windows.Forms.Label();
-            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.CustomerNameTb = new System.Windows.Forms.TextBox();
             this.label21 = new System.Windows.Forms.Label();
-            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.EmailAddressTb = new System.Windows.Forms.TextBox();
             this.label22 = new System.Windows.Forms.Label();
             this.label23 = new System.Windows.Forms.Label();
             this.label24 = new System.Windows.Forms.Label();
-            this.textBox6 = new System.Windows.Forms.TextBox();
+            this.NumOfGuestsTb = new System.Windows.Forms.TextBox();
             this.label25 = new System.Windows.Forms.Label();
             this.MenuTypeCb = new System.Windows.Forms.ComboBox();
             this.StatusLbl = new System.Windows.Forms.Label();
@@ -58,27 +58,27 @@
             this.label27 = new System.Windows.Forms.Label();
             this.MiscTb = new System.Windows.Forms.TextBox();
             this.label28 = new System.Windows.Forms.Label();
-            this.TransportationTb = new System.Windows.Forms.TextBox();
+            this.TranspoTb = new System.Windows.Forms.TextBox();
             this.label29 = new System.Windows.Forms.Label();
             this.RentalsTb = new System.Windows.Forms.TextBox();
             this.label30 = new System.Windows.Forms.Label();
-            this.DecorationsTb = new System.Windows.Forms.TextBox();
+            this.DecoTb = new System.Windows.Forms.TextBox();
             this.label31 = new System.Windows.Forms.Label();
             this.LaborTb = new System.Windows.Forms.TextBox();
             this.label32 = new System.Windows.Forms.Label();
             this.FoodDrinksTb = new System.Windows.Forms.TextBox();
             this.label33 = new System.Windows.Forms.Label();
             this.label34 = new System.Windows.Forms.Label();
-            this.textBox7 = new System.Windows.Forms.TextBox();
+            this.EstBudgetTb = new System.Windows.Forms.TextBox();
             this.label35 = new System.Windows.Forms.Label();
             this.label36 = new System.Windows.Forms.Label();
             this.NotesTb = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.AddNewEventBtn = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.SaveBtn = new System.Windows.Forms.Button();
+            this.CalculateBtn = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.MenuDetailsTb = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
@@ -216,16 +216,16 @@
             this.label19.TabIndex = 74;
             this.label19.Text = "Customer Information";
             // 
-            // textBox3
+            // ContactNumTb
             // 
-            this.textBox3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(163)))), ((int)(((byte)(150)))));
-            this.textBox3.Font = new System.Drawing.Font("Calibri", 12F);
-            this.textBox3.ForeColor = System.Drawing.Color.White;
-            this.textBox3.Location = new System.Drawing.Point(571, 170);
-            this.textBox3.Margin = new System.Windows.Forms.Padding(2);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(247, 27);
-            this.textBox3.TabIndex = 78;
+            this.ContactNumTb.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(163)))), ((int)(((byte)(150)))));
+            this.ContactNumTb.Font = new System.Drawing.Font("Calibri", 12F);
+            this.ContactNumTb.ForeColor = System.Drawing.Color.White;
+            this.ContactNumTb.Location = new System.Drawing.Point(571, 170);
+            this.ContactNumTb.Margin = new System.Windows.Forms.Padding(2);
+            this.ContactNumTb.Name = "ContactNumTb";
+            this.ContactNumTb.Size = new System.Drawing.Size(247, 27);
+            this.ContactNumTb.TabIndex = 78;
             // 
             // label20
             // 
@@ -238,16 +238,16 @@
             this.label20.TabIndex = 77;
             this.label20.Text = "Contact Number *";
             // 
-            // textBox4
+            // CustomerNameTb
             // 
-            this.textBox4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(163)))), ((int)(((byte)(150)))));
-            this.textBox4.Font = new System.Drawing.Font("Calibri", 12F);
-            this.textBox4.ForeColor = System.Drawing.Color.White;
-            this.textBox4.Location = new System.Drawing.Point(570, 104);
-            this.textBox4.Margin = new System.Windows.Forms.Padding(2);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(247, 27);
-            this.textBox4.TabIndex = 76;
+            this.CustomerNameTb.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(163)))), ((int)(((byte)(150)))));
+            this.CustomerNameTb.Font = new System.Drawing.Font("Calibri", 12F);
+            this.CustomerNameTb.ForeColor = System.Drawing.Color.White;
+            this.CustomerNameTb.Location = new System.Drawing.Point(570, 104);
+            this.CustomerNameTb.Margin = new System.Windows.Forms.Padding(2);
+            this.CustomerNameTb.Name = "CustomerNameTb";
+            this.CustomerNameTb.Size = new System.Drawing.Size(247, 27);
+            this.CustomerNameTb.TabIndex = 76;
             // 
             // label21
             // 
@@ -260,16 +260,16 @@
             this.label21.TabIndex = 75;
             this.label21.Text = "Customer Name *";
             // 
-            // textBox5
+            // EmailAddressTb
             // 
-            this.textBox5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(163)))), ((int)(((byte)(150)))));
-            this.textBox5.Font = new System.Drawing.Font("Calibri", 12F);
-            this.textBox5.ForeColor = System.Drawing.Color.White;
-            this.textBox5.Location = new System.Drawing.Point(569, 237);
-            this.textBox5.Margin = new System.Windows.Forms.Padding(2);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(247, 27);
-            this.textBox5.TabIndex = 80;
+            this.EmailAddressTb.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(163)))), ((int)(((byte)(150)))));
+            this.EmailAddressTb.Font = new System.Drawing.Font("Calibri", 12F);
+            this.EmailAddressTb.ForeColor = System.Drawing.Color.White;
+            this.EmailAddressTb.Location = new System.Drawing.Point(569, 237);
+            this.EmailAddressTb.Margin = new System.Windows.Forms.Padding(2);
+            this.EmailAddressTb.Name = "EmailAddressTb";
+            this.EmailAddressTb.Size = new System.Drawing.Size(247, 27);
+            this.EmailAddressTb.TabIndex = 80;
             // 
             // label22
             // 
@@ -305,16 +305,16 @@
             this.label24.TabIndex = 85;
             this.label24.Text = "Menu/ Meal Type *";
             // 
-            // textBox6
+            // NumOfGuestsTb
             // 
-            this.textBox6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(163)))), ((int)(((byte)(150)))));
-            this.textBox6.Font = new System.Drawing.Font("Calibri", 12F);
-            this.textBox6.ForeColor = System.Drawing.Color.White;
-            this.textBox6.Location = new System.Drawing.Point(571, 391);
-            this.textBox6.Margin = new System.Windows.Forms.Padding(2);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(247, 27);
-            this.textBox6.TabIndex = 84;
+            this.NumOfGuestsTb.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(163)))), ((int)(((byte)(150)))));
+            this.NumOfGuestsTb.Font = new System.Drawing.Font("Calibri", 12F);
+            this.NumOfGuestsTb.ForeColor = System.Drawing.Color.White;
+            this.NumOfGuestsTb.Location = new System.Drawing.Point(571, 391);
+            this.NumOfGuestsTb.Margin = new System.Windows.Forms.Padding(2);
+            this.NumOfGuestsTb.Name = "NumOfGuestsTb";
+            this.NumOfGuestsTb.Size = new System.Drawing.Size(247, 27);
+            this.NumOfGuestsTb.TabIndex = 84;
             // 
             // label25
             // 
@@ -345,9 +345,8 @@
             this.StatusLbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(71)))), ((int)(((byte)(56)))));
             this.StatusLbl.Location = new System.Drawing.Point(388, 932);
             this.StatusLbl.Name = "StatusLbl";
-            this.StatusLbl.Size = new System.Drawing.Size(134, 19);
+            this.StatusLbl.Size = new System.Drawing.Size(0, 19);
             this.StatusLbl.TabIndex = 118;
-            this.StatusLbl.Text = "Under/Over/Exact";
             // 
             // TotalExpensesLbl
             // 
@@ -356,9 +355,8 @@
             this.TotalExpensesLbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(71)))), ((int)(((byte)(56)))));
             this.TotalExpensesLbl.Location = new System.Drawing.Point(433, 899);
             this.TotalExpensesLbl.Name = "TotalExpensesLbl";
-            this.TotalExpensesLbl.Size = new System.Drawing.Size(43, 19);
+            this.TotalExpensesLbl.Size = new System.Drawing.Size(0, 19);
             this.TotalExpensesLbl.TabIndex = 117;
-            this.TotalExpensesLbl.Text = "Total";
             // 
             // label26
             // 
@@ -404,16 +402,16 @@
             this.label28.TabIndex = 113;
             this.label28.Text = "Miscellaneous:";
             // 
-            // TransportationTb
+            // TranspoTb
             // 
-            this.TransportationTb.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(163)))), ((int)(((byte)(150)))));
-            this.TransportationTb.Font = new System.Drawing.Font("Calibri", 12F);
-            this.TransportationTb.ForeColor = System.Drawing.Color.White;
-            this.TransportationTb.Location = new System.Drawing.Point(411, 773);
-            this.TransportationTb.Margin = new System.Windows.Forms.Padding(2);
-            this.TransportationTb.Name = "TransportationTb";
-            this.TransportationTb.Size = new System.Drawing.Size(84, 27);
-            this.TransportationTb.TabIndex = 112;
+            this.TranspoTb.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(163)))), ((int)(((byte)(150)))));
+            this.TranspoTb.Font = new System.Drawing.Font("Calibri", 12F);
+            this.TranspoTb.ForeColor = System.Drawing.Color.White;
+            this.TranspoTb.Location = new System.Drawing.Point(411, 773);
+            this.TranspoTb.Margin = new System.Windows.Forms.Padding(2);
+            this.TranspoTb.Name = "TranspoTb";
+            this.TranspoTb.Size = new System.Drawing.Size(84, 27);
+            this.TranspoTb.TabIndex = 112;
             // 
             // label29
             // 
@@ -448,16 +446,16 @@
             this.label30.TabIndex = 109;
             this.label30.Text = "Rentals (Venue/ Equip):";
             // 
-            // DecorationsTb
+            // DecoTb
             // 
-            this.DecorationsTb.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(163)))), ((int)(((byte)(150)))));
-            this.DecorationsTb.Font = new System.Drawing.Font("Calibri", 12F);
-            this.DecorationsTb.ForeColor = System.Drawing.Color.White;
-            this.DecorationsTb.Location = new System.Drawing.Point(411, 692);
-            this.DecorationsTb.Margin = new System.Windows.Forms.Padding(2);
-            this.DecorationsTb.Name = "DecorationsTb";
-            this.DecorationsTb.Size = new System.Drawing.Size(84, 27);
-            this.DecorationsTb.TabIndex = 108;
+            this.DecoTb.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(163)))), ((int)(((byte)(150)))));
+            this.DecoTb.Font = new System.Drawing.Font("Calibri", 12F);
+            this.DecoTb.ForeColor = System.Drawing.Color.White;
+            this.DecoTb.Location = new System.Drawing.Point(411, 692);
+            this.DecoTb.Margin = new System.Windows.Forms.Padding(2);
+            this.DecoTb.Name = "DecoTb";
+            this.DecoTb.Size = new System.Drawing.Size(84, 27);
+            this.DecoTb.TabIndex = 108;
             // 
             // label31
             // 
@@ -525,16 +523,16 @@
             this.label34.TabIndex = 102;
             this.label34.Text = "Expense Breakdown";
             // 
-            // textBox7
+            // EstBudgetTb
             // 
-            this.textBox7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(163)))), ((int)(((byte)(150)))));
-            this.textBox7.Font = new System.Drawing.Font("Calibri", 12F);
-            this.textBox7.ForeColor = System.Drawing.Color.White;
-            this.textBox7.Location = new System.Drawing.Point(249, 530);
-            this.textBox7.Margin = new System.Windows.Forms.Padding(2);
-            this.textBox7.Name = "textBox7";
-            this.textBox7.Size = new System.Drawing.Size(247, 27);
-            this.textBox7.TabIndex = 101;
+            this.EstBudgetTb.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(163)))), ((int)(((byte)(150)))));
+            this.EstBudgetTb.Font = new System.Drawing.Font("Calibri", 12F);
+            this.EstBudgetTb.ForeColor = System.Drawing.Color.White;
+            this.EstBudgetTb.Location = new System.Drawing.Point(249, 530);
+            this.EstBudgetTb.Margin = new System.Windows.Forms.Padding(2);
+            this.EstBudgetTb.Name = "EstBudgetTb";
+            this.EstBudgetTb.Size = new System.Drawing.Size(247, 27);
+            this.EstBudgetTb.TabIndex = 101;
             // 
             // label35
             // 
@@ -582,30 +580,31 @@
             this.label3.TabIndex = 120;
             this.label3.Text = "Customer Notes/ Requests *";
             // 
-            // AddNewEventBtn
+            // SaveBtn
             // 
-            this.AddNewEventBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(71)))), ((int)(((byte)(56)))));
-            this.AddNewEventBtn.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.AddNewEventBtn.ForeColor = System.Drawing.Color.White;
-            this.AddNewEventBtn.Location = new System.Drawing.Point(665, 916);
-            this.AddNewEventBtn.Name = "AddNewEventBtn";
-            this.AddNewEventBtn.Size = new System.Drawing.Size(151, 35);
-            this.AddNewEventBtn.TabIndex = 122;
-            this.AddNewEventBtn.Text = "Add New Event";
-            this.AddNewEventBtn.UseVisualStyleBackColor = false;
-            this.AddNewEventBtn.Click += new System.EventHandler(this.AddNewEventBtn_Click);
+            this.SaveBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(71)))), ((int)(((byte)(56)))));
+            this.SaveBtn.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SaveBtn.ForeColor = System.Drawing.Color.White;
+            this.SaveBtn.Location = new System.Drawing.Point(736, 916);
+            this.SaveBtn.Name = "SaveBtn";
+            this.SaveBtn.Size = new System.Drawing.Size(80, 35);
+            this.SaveBtn.TabIndex = 122;
+            this.SaveBtn.Text = "Save";
+            this.SaveBtn.UseVisualStyleBackColor = false;
+            this.SaveBtn.Click += new System.EventHandler(this.SaveBtn_Click);
             // 
-            // button2
+            // CalculateBtn
             // 
-            this.button2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(71)))), ((int)(((byte)(56)))));
-            this.button2.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.ForeColor = System.Drawing.Color.White;
-            this.button2.Location = new System.Drawing.Point(248, 854);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(104, 31);
-            this.button2.TabIndex = 123;
-            this.button2.Text = "Calculate";
-            this.button2.UseVisualStyleBackColor = false;
+            this.CalculateBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(71)))), ((int)(((byte)(56)))));
+            this.CalculateBtn.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CalculateBtn.ForeColor = System.Drawing.Color.White;
+            this.CalculateBtn.Location = new System.Drawing.Point(248, 854);
+            this.CalculateBtn.Name = "CalculateBtn";
+            this.CalculateBtn.Size = new System.Drawing.Size(104, 31);
+            this.CalculateBtn.TabIndex = 123;
+            this.CalculateBtn.Text = "Calculate";
+            this.CalculateBtn.UseVisualStyleBackColor = false;
+            this.CalculateBtn.Click += new System.EventHandler(this.CalculateBtn_Click);
             // 
             // label5
             // 
@@ -629,17 +628,17 @@
             this.label7.TabIndex = 127;
             this.label7.Text = "Total Expenses:";
             // 
-            // textBox1
+            // MenuDetailsTb
             // 
-            this.textBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(163)))), ((int)(((byte)(150)))));
-            this.textBox1.Font = new System.Drawing.Font("Calibri", 12F);
-            this.textBox1.ForeColor = System.Drawing.Color.White;
-            this.textBox1.Location = new System.Drawing.Point(572, 524);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(2);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(247, 102);
-            this.textBox1.TabIndex = 130;
+            this.MenuDetailsTb.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(163)))), ((int)(((byte)(150)))));
+            this.MenuDetailsTb.Font = new System.Drawing.Font("Calibri", 12F);
+            this.MenuDetailsTb.ForeColor = System.Drawing.Color.White;
+            this.MenuDetailsTb.Location = new System.Drawing.Point(572, 524);
+            this.MenuDetailsTb.Margin = new System.Windows.Forms.Padding(2);
+            this.MenuDetailsTb.Multiline = true;
+            this.MenuDetailsTb.Name = "MenuDetailsTb";
+            this.MenuDetailsTb.Size = new System.Drawing.Size(247, 102);
+            this.MenuDetailsTb.TabIndex = 130;
             // 
             // label1
             // 
@@ -670,14 +669,14 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(234)))), ((int)(((byte)(218)))));
-            this.ClientSize = new System.Drawing.Size(884, 561);
+            this.ClientSize = new System.Drawing.Size(901, 561);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.MenuDetailsTb);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label7);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.AddNewEventBtn);
+            this.Controls.Add(this.CalculateBtn);
+            this.Controls.Add(this.SaveBtn);
             this.Controls.Add(this.NotesTb);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.StatusLbl);
@@ -686,30 +685,30 @@
             this.Controls.Add(this.label27);
             this.Controls.Add(this.MiscTb);
             this.Controls.Add(this.label28);
-            this.Controls.Add(this.TransportationTb);
+            this.Controls.Add(this.TranspoTb);
             this.Controls.Add(this.label29);
             this.Controls.Add(this.RentalsTb);
             this.Controls.Add(this.label30);
-            this.Controls.Add(this.DecorationsTb);
+            this.Controls.Add(this.DecoTb);
             this.Controls.Add(this.label31);
             this.Controls.Add(this.LaborTb);
             this.Controls.Add(this.label32);
             this.Controls.Add(this.FoodDrinksTb);
             this.Controls.Add(this.label33);
             this.Controls.Add(this.label34);
-            this.Controls.Add(this.textBox7);
+            this.Controls.Add(this.EstBudgetTb);
             this.Controls.Add(this.label35);
             this.Controls.Add(this.label36);
             this.Controls.Add(this.label24);
-            this.Controls.Add(this.textBox6);
+            this.Controls.Add(this.NumOfGuestsTb);
             this.Controls.Add(this.label25);
             this.Controls.Add(this.MenuTypeCb);
             this.Controls.Add(this.label23);
-            this.Controls.Add(this.textBox5);
+            this.Controls.Add(this.EmailAddressTb);
             this.Controls.Add(this.label22);
-            this.Controls.Add(this.textBox3);
+            this.Controls.Add(this.ContactNumTb);
             this.Controls.Add(this.label20);
-            this.Controls.Add(this.textBox4);
+            this.Controls.Add(this.CustomerNameTb);
             this.Controls.Add(this.label21);
             this.Controls.Add(this.label19);
             this.Controls.Add(this.VenueTb);
@@ -747,15 +746,15 @@
         private System.Windows.Forms.TextBox VenueTb;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label19;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox ContactNumTb;
         private System.Windows.Forms.Label label20;
-        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.TextBox CustomerNameTb;
         private System.Windows.Forms.Label label21;
-        private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.TextBox EmailAddressTb;
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.Label label23;
         private System.Windows.Forms.Label label24;
-        private System.Windows.Forms.TextBox textBox6;
+        private System.Windows.Forms.TextBox NumOfGuestsTb;
         private System.Windows.Forms.Label label25;
         private System.Windows.Forms.ComboBox MenuTypeCb;
         private System.Windows.Forms.Label StatusLbl;
@@ -764,27 +763,27 @@
         private System.Windows.Forms.Label label27;
         private System.Windows.Forms.TextBox MiscTb;
         private System.Windows.Forms.Label label28;
-        private System.Windows.Forms.TextBox TransportationTb;
+        private System.Windows.Forms.TextBox TranspoTb;
         private System.Windows.Forms.Label label29;
         private System.Windows.Forms.TextBox RentalsTb;
         private System.Windows.Forms.Label label30;
-        private System.Windows.Forms.TextBox DecorationsTb;
+        private System.Windows.Forms.TextBox DecoTb;
         private System.Windows.Forms.Label label31;
         private System.Windows.Forms.TextBox LaborTb;
         private System.Windows.Forms.Label label32;
         private System.Windows.Forms.TextBox FoodDrinksTb;
         private System.Windows.Forms.Label label33;
         private System.Windows.Forms.Label label34;
-        private System.Windows.Forms.TextBox textBox7;
+        private System.Windows.Forms.TextBox EstBudgetTb;
         private System.Windows.Forms.Label label35;
         private System.Windows.Forms.Label label36;
         private System.Windows.Forms.TextBox NotesTb;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Button AddNewEventBtn;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button SaveBtn;
+        private System.Windows.Forms.Button CalculateBtn;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox MenuDetailsTb;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
     }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,8 @@ namespace Event_Catering_Order___Expense_Tracker
 {
     public partial class AddNew : Form
     {
+        SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\ashbs\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30");
+
         private Timer fadeTimer;
         private Form nextFormToOpen;
         private SidebarPanel sidebarPanel;
@@ -214,10 +217,209 @@ namespace Event_Catering_Order___Expense_Tracker
             // Handle panel painting if needed
         }
 
-        private void AddNewEventBtn_Click(object sender, EventArgs e)
+        private void CalculateBtn_Click(object sender, EventArgs e)
         {
-            // Handle adding new event
-            // This will be implemented later
+            try
+            {
+                decimal foodDrinks = decimal.Parse(FoodDrinksTb.Text);
+                decimal labor = decimal.Parse(LaborTb.Text);
+                decimal deco = decimal.Parse(DecoTb.Text);
+                decimal rentals = decimal.Parse(RentalsTb.Text);
+                decimal transpo = decimal.Parse(TranspoTb.Text);
+                decimal misc = decimal.Parse(MiscTb.Text);
+
+                decimal totalExpenses = foodDrinks + labor + deco + rentals + transpo + misc;
+                TotalExpensesLbl.Text = totalExpenses.ToString("0.00");
+
+                decimal estimatedBudget = decimal.Parse(EstBudgetTb.Text);
+                if (totalExpenses < estimatedBudget)
+                {
+                    StatusLbl.Text = "Under Budget";
+                    StatusLbl.ForeColor = Color.Green;
+                }
+                else if (totalExpenses > estimatedBudget)
+                {
+                    StatusLbl.Text = "Over Budget";
+                    StatusLbl.ForeColor = Color.Red;
+                }
+                else
+                {
+                    StatusLbl.Text = "Exact Budget";
+                    StatusLbl.ForeColor = Color.Blue;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Please enter valid numbers for all expense fields: " + ex.Message);
+            }
+        }
+
+        private void SaveBtn_Click(object sender, EventArgs e)
+        {
+            if (!ValidateInputs())
+                return;
+
+            SqlTransaction transaction = null;
+            try
+            {
+                con.Open();
+                transaction = con.BeginTransaction();
+
+                // Insert into EventTable (with corrected column names)
+                string eventQuery = @"
+                INSERT INTO EventTable (
+                    EventTitle, EventType, EventDate, EventTime, Venue,
+                    CustomerName, ContactNumber, EmailAddress, NumberOfGuests,
+                    MenuType, MenuDetails, CustomerNotes, EstimatedBudget
+                ) VALUES (
+                    @EventTitle, @EventType, @EventDate, @EventTime, @Venue,
+                    @CustomerName, @ContactNumber, @EmailAddress, @NumberOfGuests,
+                    @MenuType, @MenuDetails, @CustomerNotes, @EstimatedBudget
+                ); SELECT SCOPE_IDENTITY();";
+
+                SqlCommand cmd = new SqlCommand(eventQuery, con, transaction);
+
+                // Add parameters with proper validation
+                cmd.Parameters.AddWithValue("@EventTitle", EventTitleTb.Text.Trim());
+                cmd.Parameters.AddWithValue("@EventType", EventTypeCb.SelectedItem.ToString());
+                cmd.Parameters.AddWithValue("@EventDate", EventDateDtp.Value.Date);
+                cmd.Parameters.AddWithValue("@EventTime", TimeSpan.Parse(EventTimeTb.Text));
+                cmd.Parameters.AddWithValue("@Venue", VenueTb.Text.Trim());
+                cmd.Parameters.AddWithValue("@CustomerName", CustomerNameTb.Text.Trim());
+                cmd.Parameters.AddWithValue("@ContactNumber", ContactNumTb.Text.Trim());
+                cmd.Parameters.AddWithValue("@EmailAddress", EmailAddressTb.Text.Trim());
+                cmd.Parameters.AddWithValue("@NumberOfGuests", int.Parse(NumOfGuestsTb.Text));
+                cmd.Parameters.AddWithValue("@MenuType", MenuTypeCb.SelectedItem.ToString());
+                cmd.Parameters.AddWithValue("@MenuDetails", MenuDetailsTb.Text.Trim());
+                cmd.Parameters.AddWithValue("@CustomerNotes", NotesTb.Text.Trim());
+                cmd.Parameters.AddWithValue("@EstimatedBudget", decimal.Parse(EstBudgetTb.Text));
+
+                // Execute and get EventID
+                object result = cmd.ExecuteScalar();
+                if (result == null || result == DBNull.Value)
+                {
+                    transaction.Rollback();
+                    MessageBox.Show("Failed to create event record.");
+                    return;
+                }
+                int eventId = Convert.ToInt32(result);
+
+                // Insert into ExpensesTable
+                string expenseQuery = @"
+                INSERT INTO ExpensesTable (
+                    EventID, FoodBeverages, Labor, Decorations,
+                    Rentals, Transportation, Miscellaneous,
+                    TotalExpenses, BudgetStatus
+                ) VALUES (
+                    @EventID, @FoodBeverages, @Labor, @Decorations,
+                    @Rentals, @Transportation, @Miscellaneous,
+                    @TotalExpenses, @BudgetStatus
+                )";
+
+                cmd = new SqlCommand(expenseQuery, con, transaction);
+                cmd.Parameters.AddWithValue("@EventID", eventId);
+                cmd.Parameters.AddWithValue("@FoodBeverages", decimal.Parse(FoodDrinksTb.Text));
+                cmd.Parameters.AddWithValue("@Labor", decimal.Parse(LaborTb.Text));
+                cmd.Parameters.AddWithValue("@Decorations", decimal.Parse(DecoTb.Text));
+                cmd.Parameters.AddWithValue("@Rentals", decimal.Parse(RentalsTb.Text));
+                cmd.Parameters.AddWithValue("@Transportation", decimal.Parse(TranspoTb.Text));
+                cmd.Parameters.AddWithValue("@Miscellaneous", decimal.Parse(MiscTb.Text));
+                cmd.Parameters.AddWithValue("@TotalExpenses", decimal.Parse(TotalExpensesLbl.Text));
+                cmd.Parameters.AddWithValue("@BudgetStatus", StatusLbl.Text);
+
+                cmd.ExecuteNonQuery();
+                transaction.Commit();
+
+                MessageBox.Show("Event saved successfully!");
+                ClearForm();
+            }
+            catch (FormatException)
+            {
+                transaction?.Rollback();
+                MessageBox.Show("Please check your input formats.\nTime should be HH:mm, numbers should be valid.");
+            }
+            catch (SqlException ex)
+            {
+                transaction?.Rollback();
+                MessageBox.Show($"Database error: {ex.Message}\nError code: {ex.Number}");
+            }
+            catch (Exception ex)
+            {
+                transaction?.Rollback();
+                MessageBox.Show($"Error: {ex.Message}");
+            }
+            finally
+            {
+                if (con.State == ConnectionState.Open)
+                    con.Close();
+            }
+        }
+
+        private bool ValidateInputs()
+        {
+            // Check required fields
+            if (string.IsNullOrWhiteSpace(EventTitleTb.Text) ||
+                EventTypeCb.SelectedIndex == -1 ||
+                string.IsNullOrWhiteSpace(EventTimeTb.Text) ||
+                string.IsNullOrWhiteSpace(VenueTb.Text) ||
+                string.IsNullOrWhiteSpace(CustomerNameTb.Text) ||
+                string.IsNullOrWhiteSpace(ContactNumTb.Text) ||
+                string.IsNullOrWhiteSpace(EmailAddressTb.Text) ||
+                string.IsNullOrWhiteSpace(NumOfGuestsTb.Text) ||
+                MenuTypeCb.SelectedIndex == -1 ||
+                string.IsNullOrWhiteSpace(MenuDetailsTb.Text) ||
+                string.IsNullOrWhiteSpace(EstBudgetTb.Text) ||
+                string.IsNullOrWhiteSpace(FoodDrinksTb.Text) ||
+                string.IsNullOrWhiteSpace(LaborTb.Text) ||
+                string.IsNullOrWhiteSpace(DecoTb.Text) ||
+                string.IsNullOrWhiteSpace(RentalsTb.Text) ||
+                string.IsNullOrWhiteSpace(TranspoTb.Text) ||
+                string.IsNullOrWhiteSpace(MiscTb.Text))
+            {
+                MessageBox.Show("All fields are required!");
+                return false;
+            }
+
+            // Validate specific formats
+            if (!TimeSpan.TryParse(EventTimeTb.Text, out _))
+            {
+                MessageBox.Show("Please enter time in HH:mm format (e.g. 14:30)");
+                return false;
+            }
+
+            if (!int.TryParse(NumOfGuestsTb.Text, out int guests) || guests <= 0)
+            {
+                MessageBox.Show("Number of guests must be a positive whole number");
+                return false;
+            }
+
+            return true;
+        }
+        
+
+        private void ClearForm()
+        {
+            EventTitleTb.Clear();
+            EventTypeCb.SelectedIndex = -1;
+            EventDateDtp.Value = DateTime.Now;
+            EventTimeTb.Clear();
+            VenueTb.Clear();
+            CustomerNameTb.Clear();
+            ContactNumTb.Clear();
+            EmailAddressTb.Clear();
+            NumOfGuestsTb.Clear();
+            MenuTypeCb.SelectedIndex = -1;
+            MenuDetailsTb.Clear();
+            EstBudgetTb.Clear();
+            FoodDrinksTb.Clear();
+            LaborTb.Clear();
+            DecoTb.Clear();
+            RentalsTb.Clear();
+            TranspoTb.Clear();
+            MiscTb.Clear();
+            NotesTb.Clear();
+            TotalExpensesLbl.Text = "";
+            StatusLbl.Text = "";
         }
     }
 }
