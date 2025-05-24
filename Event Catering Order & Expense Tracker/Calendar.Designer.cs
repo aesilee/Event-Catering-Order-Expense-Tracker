@@ -1,6 +1,8 @@
-﻿namespace Event_Catering_Order___Expense_Tracker
+﻿using System.Windows.Forms;
+
+namespace Event_Catering_Order___Expense_Tracker
 {
-    partial class Calendar
+    partial class Calendar : Form
     {
         /// <summary>
         /// Required designer variable.

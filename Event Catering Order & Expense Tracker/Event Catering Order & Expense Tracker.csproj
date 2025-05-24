@@ -70,12 +70,6 @@
     <Compile Include="AddNew.Designer.cs">
       <DependentUpon>AddNew.cs</DependentUpon>
     </Compile>
-    <Compile Include="Backup.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Backup.Designer.cs">
-      <DependentUpon>Backup.cs</DependentUpon>
-    </Compile>
     <Compile Include="Calendar.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -134,9 +128,6 @@
     </Compile>
     <EmbeddedResource Include="AddNew.resx">
       <DependentUpon>AddNew.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Backup.resx">
-      <DependentUpon>Backup.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Calendar.resx">
       <DependentUpon>Calendar.cs</DependentUpon>
