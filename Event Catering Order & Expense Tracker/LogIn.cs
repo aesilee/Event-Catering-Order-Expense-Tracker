@@ -16,6 +16,7 @@ namespace Event_Catering_Order___Expense_Tracker
 
         private Timer fadeTimer;
         private Form nextFormToOpen;
+        private const string RememberMeFileName = "rememberme.dat";
 
         SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\ashbs\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30");
 
@@ -24,8 +25,60 @@ namespace Event_Catering_Order___Expense_Tracker
             InitializeComponent();
 
             InitializeFadeTimer();
-            this.Opacity = 0.0; 
+            this.Opacity = 0.0;
+
+            LoadRememberedCredentials();
         }
+
+        private void LoadRememberedCredentials()
+        {
+            try
+            {
+                if (System.IO.File.Exists(RememberMeFileName))
+                {
+                    string[] lines = System.IO.File.ReadAllLines(RememberMeFileName);
+                    if (lines.Length >= 2)
+                    {
+                        UsernameTb.Text = lines[0];
+                        PasswordTb.Text = lines[1];
+                        RemMeChkB.Checked = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Silent fail - if we can't load remembered credentials, just continue normally
+                Console.WriteLine("Error loading remembered credentials: " + ex.Message);
+            }
+        }
+
+        private void SaveCredentials()
+        {
+            try
+            {
+                System.IO.File.WriteAllText(RememberMeFileName, $"{UsernameTb.Text}\n{PasswordTb.Text}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error saving credentials: " + ex.Message);
+            }
+        }
+
+        private void ClearSavedCredentials()
+        {
+            try
+            {
+                if (System.IO.File.Exists(RememberMeFileName))
+                {
+                    System.IO.File.Delete(RememberMeFileName);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error clearing credentials: " + ex.Message);
+            }
+        }
+
         private void InitializeFadeTimer()
         {
             fadeTimer = new Timer();
@@ -91,8 +144,18 @@ namespace Event_Catering_Order___Expense_Tracker
                     sda.Fill(dt);
                     if (dt.Rows[0][0].ToString() == "1")
                     {
+                        if (RemMeChkB.Checked)
+                        {
+                            SaveCredentials();
+                        }
+                        else
+                        {
+                            ClearSavedCredentials();
+                        }
+
                         StartFadeOutAndNavigate(new Home());
                     }
+                
                     else
                     {
                         MessageBox.Show("Invalid username or password");

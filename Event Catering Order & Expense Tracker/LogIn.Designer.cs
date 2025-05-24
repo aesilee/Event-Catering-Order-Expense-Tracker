@@ -31,14 +31,14 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Login));
             this.label3 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.SignUpLlbl = new System.Windows.Forms.LinkLabel();
+            this.label5 = new System.Windows.Forms.Label();
+            this.RemMeChkB = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.UsernameTb = new System.Windows.Forms.TextBox();
             this.LoginBtn = new System.Windows.Forms.Button();
             this.PasswordTb = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.RemMeChkB = new System.Windows.Forms.CheckBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.SignUpLlbl = new System.Windows.Forms.LinkLabel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label4 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
@@ -51,7 +51,7 @@
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Calibri", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(71)))), ((int)(((byte)(56)))));
-            this.label3.Location = new System.Drawing.Point(146, 132);
+            this.label3.Location = new System.Drawing.Point(136, 128);
             this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(81, 33);
@@ -78,12 +78,46 @@
             this.panel1.Size = new System.Drawing.Size(362, 573);
             this.panel1.TabIndex = 10;
             // 
+            // SignUpLlbl
+            // 
+            this.SignUpLlbl.AutoSize = true;
+            this.SignUpLlbl.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SignUpLlbl.Location = new System.Drawing.Point(232, 396);
+            this.SignUpLlbl.Name = "SignUpLlbl";
+            this.SignUpLlbl.Size = new System.Drawing.Size(48, 14);
+            this.SignUpLlbl.TabIndex = 14;
+            this.SignUpLlbl.TabStop = true;
+            this.SignUpLlbl.Text = "Sign Up";
+            this.SignUpLlbl.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.SignUpLlbl_LinkClicked);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(96, 396);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(133, 14);
+            this.label5.TabIndex = 13;
+            this.label5.Text = "Don\'t have an account?";
+            // 
+            // RemMeChkB
+            // 
+            this.RemMeChkB.AutoSize = true;
+            this.RemMeChkB.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RemMeChkB.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(71)))), ((int)(((byte)(56)))));
+            this.RemMeChkB.Location = new System.Drawing.Point(80, 312);
+            this.RemMeChkB.Name = "RemMeChkB";
+            this.RemMeChkB.Size = new System.Drawing.Size(105, 18);
+            this.RemMeChkB.TabIndex = 12;
+            this.RemMeChkB.Text = "Remember me";
+            this.RemMeChkB.UseVisualStyleBackColor = true;
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold);
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(71)))), ((int)(((byte)(56)))));
-            this.label1.Location = new System.Drawing.Point(83, 184);
+            this.label1.Location = new System.Drawing.Point(80, 184);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(77, 19);
@@ -94,10 +128,10 @@
             // 
             this.UsernameTb.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(234)))), ((int)(((byte)(218)))));
             this.UsernameTb.Font = new System.Drawing.Font("Calibri", 12F);
-            this.UsernameTb.Location = new System.Drawing.Point(86, 210);
+            this.UsernameTb.Location = new System.Drawing.Point(80, 210);
             this.UsernameTb.Margin = new System.Windows.Forms.Padding(2);
             this.UsernameTb.Name = "UsernameTb";
-            this.UsernameTb.Size = new System.Drawing.Size(209, 27);
+            this.UsernameTb.Size = new System.Drawing.Size(215, 27);
             this.UsernameTb.TabIndex = 2;
             // 
             // LoginBtn
@@ -105,10 +139,10 @@
             this.LoginBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(71)))), ((int)(((byte)(56)))));
             this.LoginBtn.Font = new System.Drawing.Font("Calibri", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LoginBtn.ForeColor = System.Drawing.Color.White;
-            this.LoginBtn.Location = new System.Drawing.Point(86, 340);
+            this.LoginBtn.Location = new System.Drawing.Point(80, 344);
             this.LoginBtn.Margin = new System.Windows.Forms.Padding(2);
             this.LoginBtn.Name = "LoginBtn";
-            this.LoginBtn.Size = new System.Drawing.Size(209, 35);
+            this.LoginBtn.Size = new System.Drawing.Size(215, 35);
             this.LoginBtn.TabIndex = 5;
             this.LoginBtn.Text = "Log In";
             this.LoginBtn.UseVisualStyleBackColor = false;
@@ -118,10 +152,10 @@
             // 
             this.PasswordTb.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(234)))), ((int)(((byte)(218)))));
             this.PasswordTb.Font = new System.Drawing.Font("Calibri", 12F);
-            this.PasswordTb.Location = new System.Drawing.Point(86, 275);
+            this.PasswordTb.Location = new System.Drawing.Point(80, 275);
             this.PasswordTb.Margin = new System.Windows.Forms.Padding(2);
             this.PasswordTb.Name = "PasswordTb";
-            this.PasswordTb.Size = new System.Drawing.Size(209, 27);
+            this.PasswordTb.Size = new System.Drawing.Size(215, 27);
             this.PasswordTb.TabIndex = 4;
             // 
             // label2
@@ -129,46 +163,12 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold);
             this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(71)))), ((int)(((byte)(56)))));
-            this.label2.Location = new System.Drawing.Point(83, 249);
+            this.label2.Location = new System.Drawing.Point(80, 248);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(74, 19);
             this.label2.TabIndex = 3;
             this.label2.Text = "Password";
-            // 
-            // RemMeChkB
-            // 
-            this.RemMeChkB.AutoSize = true;
-            this.RemMeChkB.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RemMeChkB.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(71)))), ((int)(((byte)(56)))));
-            this.RemMeChkB.Location = new System.Drawing.Point(86, 307);
-            this.RemMeChkB.Name = "RemMeChkB";
-            this.RemMeChkB.Size = new System.Drawing.Size(105, 18);
-            this.RemMeChkB.TabIndex = 12;
-            this.RemMeChkB.Text = "Remember me";
-            this.RemMeChkB.UseVisualStyleBackColor = true;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(94, 397);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(133, 14);
-            this.label5.TabIndex = 13;
-            this.label5.Text = "Don\'t have an account?";
-            // 
-            // SignUpLlbl
-            // 
-            this.SignUpLlbl.AutoSize = true;
-            this.SignUpLlbl.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SignUpLlbl.Location = new System.Drawing.Point(233, 397);
-            this.SignUpLlbl.Name = "SignUpLlbl";
-            this.SignUpLlbl.Size = new System.Drawing.Size(48, 14);
-            this.SignUpLlbl.TabIndex = 14;
-            this.SignUpLlbl.TabStop = true;
-            this.SignUpLlbl.Text = "Sign Up";
-            this.SignUpLlbl.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.SignUpLlbl_LinkClicked);
             // 
             // pictureBox1
             // 

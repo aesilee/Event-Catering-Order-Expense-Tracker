@@ -564,7 +564,7 @@
             this.NotesTb.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(163)))), ((int)(((byte)(150)))));
             this.NotesTb.Font = new System.Drawing.Font("Calibri", 12F);
             this.NotesTb.ForeColor = System.Drawing.Color.White;
-            this.NotesTb.Location = new System.Drawing.Point(572, 743);
+            this.NotesTb.Location = new System.Drawing.Point(572, 726);
             this.NotesTb.Margin = new System.Windows.Forms.Padding(2);
             this.NotesTb.Multiline = true;
             this.NotesTb.Name = "NotesTb";
@@ -576,7 +576,7 @@
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(71)))), ((int)(((byte)(56)))));
-            this.label3.Location = new System.Drawing.Point(568, 716);
+            this.label3.Location = new System.Drawing.Point(568, 699);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(195, 19);
             this.label3.TabIndex = 120;
@@ -657,7 +657,7 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Cambria", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(71)))), ((int)(((byte)(56)))));
-            this.label2.Location = new System.Drawing.Point(568, 669);
+            this.label2.Location = new System.Drawing.Point(568, 659);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(79, 25);
