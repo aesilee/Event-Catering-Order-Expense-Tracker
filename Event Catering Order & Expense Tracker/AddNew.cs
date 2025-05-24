@@ -450,5 +450,11 @@ namespace Event_Catering_Order___Expense_Tracker
             TotalExpensesLbl.Text = "";
             StatusLbl.Text = "";
         }
+
+        protected override void OnFormClosed(FormClosedEventArgs e)
+        {
+            base.OnFormClosed(e);
+            Application.Exit();
+        }
     }
 }

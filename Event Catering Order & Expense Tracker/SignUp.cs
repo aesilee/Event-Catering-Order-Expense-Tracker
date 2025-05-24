@@ -75,5 +75,11 @@ namespace Event_Catering_Order___Expense_Tracker
             loginForm.Show();
             this.Hide();
         }
+
+        protected override void OnFormClosed(FormClosedEventArgs e)
+        {
+            base.OnFormClosed(e);
+            Application.Exit();
+        }
     }
 }

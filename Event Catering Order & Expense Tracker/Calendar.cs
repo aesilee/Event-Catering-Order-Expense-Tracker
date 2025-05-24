@@ -164,5 +164,11 @@ namespace Event_Catering_Order___Expense_Tracker
         {
             // Handle panel painting if needed
         }
+
+        protected override void OnFormClosed(FormClosedEventArgs e)
+        {
+            base.OnFormClosed(e);
+            Application.Exit();
+        }
     }
 }

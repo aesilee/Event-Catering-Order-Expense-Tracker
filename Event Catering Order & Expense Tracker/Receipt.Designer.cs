@@ -434,7 +434,7 @@
             // 
             // printBtn
             // 
-            this.printBtn.Location = new System.Drawing.Point(169, 788);
+            this.printBtn.Location = new System.Drawing.Point(155, 788);
             this.printBtn.Name = "printBtn";
             this.printBtn.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.printBtn.Size = new System.Drawing.Size(75, 23);
