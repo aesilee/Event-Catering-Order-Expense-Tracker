@@ -38,6 +38,7 @@
             // EventsFlowPanel
             // 
             this.EventsFlowPanel.AutoScroll = true;
+            this.EventsFlowPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(70)))), ((int)(((byte)(56)))));
             this.EventsFlowPanel.Location = new System.Drawing.Point(8, 56);
             this.EventsFlowPanel.Name = "EventsFlowPanel";
             this.EventsFlowPanel.Size = new System.Drawing.Size(368, 296);
@@ -58,8 +59,8 @@
             // 
             this.DateLbl.AutoSize = true;
             this.DateLbl.Font = new System.Drawing.Font("Cambria", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DateLbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(70)))), ((int)(((byte)(56)))));
-            this.DateLbl.Location = new System.Drawing.Point(64, 16);
+            this.DateLbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(74)))), ((int)(((byte)(57)))), ((int)(((byte)(49)))));
+            this.DateLbl.Location = new System.Drawing.Point(72, 16);
             this.DateLbl.Name = "DateLbl";
             this.DateLbl.Size = new System.Drawing.Size(198, 28);
             this.DateLbl.TabIndex = 86;

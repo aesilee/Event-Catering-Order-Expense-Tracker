@@ -63,6 +63,7 @@
             this.label22 = new System.Windows.Forms.Label();
             this.MiscLbl = new System.Windows.Forms.Label();
             this.Misc = new System.Windows.Forms.Label();
+            this.panel4 = new System.Windows.Forms.Panel();
             this.BackBtn = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.BackBtn)).BeginInit();
@@ -70,7 +71,7 @@
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(71)))), ((int)(((byte)(56)))));
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(163)))), ((int)(((byte)(150)))));
             this.panel1.Controls.Add(this.BackBtn);
             this.panel1.Controls.Add(this.EventTitleLbl);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
@@ -81,20 +82,19 @@
             // 
             // EventTitleLbl
             // 
-            this.EventTitleLbl.AutoSize = true;
-            this.EventTitleLbl.Font = new System.Drawing.Font("Cambria", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.EventTitleLbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(234)))), ((int)(((byte)(218)))));
-            this.EventTitleLbl.Location = new System.Drawing.Point(184, 16);
+            this.EventTitleLbl.Font = new System.Drawing.Font("Cambria", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.EventTitleLbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(74)))), ((int)(((byte)(57)))), ((int)(((byte)(49)))));
+            this.EventTitleLbl.Location = new System.Drawing.Point(0, 16);
             this.EventTitleLbl.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.EventTitleLbl.Name = "EventTitleLbl";
-            this.EventTitleLbl.Size = new System.Drawing.Size(17, 25);
+            this.EventTitleLbl.Size = new System.Drawing.Size(432, 28);
             this.EventTitleLbl.TabIndex = 33;
-            this.EventTitleLbl.Text = ".";
+            this.EventTitleLbl.Text = "EventTitle";
             this.EventTitleLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // panel2
             // 
-            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(71)))), ((int)(((byte)(56)))));
+            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(163)))), ((int)(((byte)(150)))));
             this.panel2.Location = new System.Drawing.Point(0, 112);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(440, 8);
@@ -226,7 +226,7 @@
             this.LocationLbl.AutoSize = true;
             this.LocationLbl.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LocationLbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(71)))), ((int)(((byte)(56)))));
-            this.LocationLbl.Location = new System.Drawing.Point(104, 208);
+            this.LocationLbl.Location = new System.Drawing.Point(128, 208);
             this.LocationLbl.Name = "LocationLbl";
             this.LocationLbl.Size = new System.Drawing.Size(83, 19);
             this.LocationLbl.TabIndex = 51;
@@ -259,7 +259,7 @@
             this.CustomerNameLbl.AutoSize = true;
             this.CustomerNameLbl.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CustomerNameLbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(71)))), ((int)(((byte)(56)))));
-            this.CustomerNameLbl.Location = new System.Drawing.Point(168, 256);
+            this.CustomerNameLbl.Location = new System.Drawing.Point(184, 256);
             this.CustomerNameLbl.Name = "CustomerNameLbl";
             this.CustomerNameLbl.Size = new System.Drawing.Size(128, 19);
             this.CustomerNameLbl.TabIndex = 52;
@@ -270,7 +270,7 @@
             this.MenuTypeLbl.AutoSize = true;
             this.MenuTypeLbl.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MenuTypeLbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(71)))), ((int)(((byte)(56)))));
-            this.MenuTypeLbl.Location = new System.Drawing.Point(128, 368);
+            this.MenuTypeLbl.Location = new System.Drawing.Point(184, 368);
             this.MenuTypeLbl.Name = "MenuTypeLbl";
             this.MenuTypeLbl.Size = new System.Drawing.Size(95, 19);
             this.MenuTypeLbl.TabIndex = 55;
@@ -278,7 +278,7 @@
             // 
             // panel3
             // 
-            this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(71)))), ((int)(((byte)(56)))));
+            this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(163)))), ((int)(((byte)(150)))));
             this.panel3.Location = new System.Drawing.Point(0, 416);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(440, 8);
@@ -289,7 +289,7 @@
             this.TotalExpensesLbl.AutoSize = true;
             this.TotalExpensesLbl.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TotalExpensesLbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(71)))), ((int)(((byte)(56)))));
-            this.TotalExpensesLbl.Location = new System.Drawing.Point(184, 648);
+            this.TotalExpensesLbl.Location = new System.Drawing.Point(168, 648);
             this.TotalExpensesLbl.Name = "TotalExpensesLbl";
             this.TotalExpensesLbl.Size = new System.Drawing.Size(49, 19);
             this.TotalExpensesLbl.TabIndex = 68;
@@ -300,7 +300,7 @@
             this.TranspoLbl.AutoSize = true;
             this.TranspoLbl.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TranspoLbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(71)))), ((int)(((byte)(56)))));
-            this.TranspoLbl.Location = new System.Drawing.Point(184, 576);
+            this.TranspoLbl.Location = new System.Drawing.Point(168, 576);
             this.TranspoLbl.Name = "TranspoLbl";
             this.TranspoLbl.Size = new System.Drawing.Size(57, 19);
             this.TranspoLbl.TabIndex = 67;
@@ -322,7 +322,7 @@
             this.DecoLbl.AutoSize = true;
             this.DecoLbl.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.DecoLbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(71)))), ((int)(((byte)(56)))));
-            this.DecoLbl.Location = new System.Drawing.Point(136, 512);
+            this.DecoLbl.Location = new System.Drawing.Point(168, 512);
             this.DecoLbl.Name = "DecoLbl";
             this.DecoLbl.Size = new System.Drawing.Size(57, 19);
             this.DecoLbl.TabIndex = 65;
@@ -333,7 +333,7 @@
             this.LaborLbl.AutoSize = true;
             this.LaborLbl.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LaborLbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(71)))), ((int)(((byte)(56)))));
-            this.LaborLbl.Location = new System.Drawing.Point(80, 480);
+            this.LaborLbl.Location = new System.Drawing.Point(168, 480);
             this.LaborLbl.Name = "LaborLbl";
             this.LaborLbl.Size = new System.Drawing.Size(57, 19);
             this.LaborLbl.TabIndex = 64;
@@ -421,7 +421,7 @@
             this.MiscLbl.AutoSize = true;
             this.MiscLbl.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MiscLbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(71)))), ((int)(((byte)(56)))));
-            this.MiscLbl.Location = new System.Drawing.Point(184, 608);
+            this.MiscLbl.Location = new System.Drawing.Point(168, 608);
             this.MiscLbl.Name = "MiscLbl";
             this.MiscLbl.Size = new System.Drawing.Size(57, 19);
             this.MiscLbl.TabIndex = 70;
@@ -438,9 +438,18 @@
             this.Misc.TabIndex = 69;
             this.Misc.Text = "Miscellaneous:";
             // 
+            // panel4
+            // 
+            this.panel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(163)))), ((int)(((byte)(150)))));
+            this.panel4.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel4.Location = new System.Drawing.Point(0, 683);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(434, 8);
+            this.panel4.TabIndex = 3;
+            // 
             // BackBtn
             // 
-            this.BackBtn.Image = global::Event_Catering_Order___Expense_Tracker.Properties.Resources.Eventra__5__removebg_preview;
+            this.BackBtn.Image = global::Event_Catering_Order___Expense_Tracker.Properties.Resources.Eventra__2__removebg_preview;
             this.BackBtn.Location = new System.Drawing.Point(8, 8);
             this.BackBtn.Name = "BackBtn";
             this.BackBtn.Size = new System.Drawing.Size(24, 24);
@@ -455,6 +464,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(234)))), ((int)(((byte)(218)))));
             this.ClientSize = new System.Drawing.Size(434, 691);
+            this.Controls.Add(this.panel4);
             this.Controls.Add(this.MiscLbl);
             this.Controls.Add(this.Misc);
             this.Controls.Add(this.TotalExpensesLbl);
@@ -493,7 +503,6 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Event";
             this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.BackBtn)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -537,5 +546,6 @@
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.Label MiscLbl;
         private System.Windows.Forms.Label Misc;
+        private System.Windows.Forms.Panel panel4;
     }
 }

@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using System.Reflection.Emit;
 
 namespace Event_Catering_Order___Expense_Tracker
 {
@@ -47,10 +48,8 @@ namespace Event_Catering_Order___Expense_Tracker
             EstBudgetTb.Text = estBudget.ToString("0.00");
             TotalExpensesLbl.Text = totalExpenses.ToString("0.00");
             EventIdLbl.Text = $"#{eventId}";
-
-            // Wire up the event
-            printBtn.Click += printBtn_Click;
         }
+
 
         private void printBtn_Click(object sender, EventArgs e)
         {
