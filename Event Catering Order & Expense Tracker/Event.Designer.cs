@@ -40,7 +40,6 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.BackBtn = new System.Windows.Forms.PictureBox();
             this.EventTypeLbl = new System.Windows.Forms.Label();
             this.EventDateLbl = new System.Windows.Forms.Label();
             this.EventTimeLbl = new System.Windows.Forms.Label();
@@ -49,6 +48,22 @@
             this.CustomerNumLbl = new System.Windows.Forms.Label();
             this.CustomerNameLbl = new System.Windows.Forms.Label();
             this.MenuTypeLbl = new System.Windows.Forms.Label();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.TotalExpensesLbl = new System.Windows.Forms.Label();
+            this.TranspoLbl = new System.Windows.Forms.Label();
+            this.RentalsLbl = new System.Windows.Forms.Label();
+            this.DecoLbl = new System.Windows.Forms.Label();
+            this.LaborLbl = new System.Windows.Forms.Label();
+            this.FoodDrinksLbl = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
+            this.label22 = new System.Windows.Forms.Label();
+            this.MiscLbl = new System.Windows.Forms.Label();
+            this.Misc = new System.Windows.Forms.Label();
+            this.BackBtn = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.BackBtn)).BeginInit();
             this.SuspendLayout();
@@ -69,12 +84,13 @@
             this.EventTitleLbl.AutoSize = true;
             this.EventTitleLbl.Font = new System.Drawing.Font("Cambria", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.EventTitleLbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(234)))), ((int)(((byte)(218)))));
-            this.EventTitleLbl.Location = new System.Drawing.Point(144, 16);
+            this.EventTitleLbl.Location = new System.Drawing.Point(184, 16);
             this.EventTitleLbl.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.EventTitleLbl.Name = "EventTitleLbl";
-            this.EventTitleLbl.Size = new System.Drawing.Size(141, 25);
+            this.EventTitleLbl.Size = new System.Drawing.Size(17, 25);
             this.EventTitleLbl.TabIndex = 33;
-            this.EventTitleLbl.Text = "EventTitleLbl";
+            this.EventTitleLbl.Text = ".";
+            this.EventTitleLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // panel2
             // 
@@ -172,17 +188,6 @@
             this.label7.TabIndex = 46;
             this.label7.Text = "Number of Guests:";
             // 
-            // BackBtn
-            // 
-            this.BackBtn.Image = global::Event_Catering_Order___Expense_Tracker.Properties.Resources.Eventra__5__removebg_preview;
-            this.BackBtn.Location = new System.Drawing.Point(8, 8);
-            this.BackBtn.Name = "BackBtn";
-            this.BackBtn.Size = new System.Drawing.Size(24, 24);
-            this.BackBtn.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.BackBtn.TabIndex = 70;
-            this.BackBtn.TabStop = false;
-            this.BackBtn.Click += new System.EventHandler(this.BackBtn_Click);
-            // 
             // EventTypeLbl
             // 
             this.EventTypeLbl.AutoSize = true;
@@ -271,12 +276,200 @@
             this.MenuTypeLbl.TabIndex = 55;
             this.MenuTypeLbl.Text = "MenuTypeLbl";
             // 
+            // panel3
+            // 
+            this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(71)))), ((int)(((byte)(56)))));
+            this.panel3.Location = new System.Drawing.Point(0, 416);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(440, 8);
+            this.panel3.TabIndex = 2;
+            // 
+            // TotalExpensesLbl
+            // 
+            this.TotalExpensesLbl.AutoSize = true;
+            this.TotalExpensesLbl.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TotalExpensesLbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(71)))), ((int)(((byte)(56)))));
+            this.TotalExpensesLbl.Location = new System.Drawing.Point(184, 648);
+            this.TotalExpensesLbl.Name = "TotalExpensesLbl";
+            this.TotalExpensesLbl.Size = new System.Drawing.Size(49, 19);
+            this.TotalExpensesLbl.TabIndex = 68;
+            this.TotalExpensesLbl.Text = "label9";
+            // 
+            // TranspoLbl
+            // 
+            this.TranspoLbl.AutoSize = true;
+            this.TranspoLbl.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TranspoLbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(71)))), ((int)(((byte)(56)))));
+            this.TranspoLbl.Location = new System.Drawing.Point(184, 576);
+            this.TranspoLbl.Name = "TranspoLbl";
+            this.TranspoLbl.Size = new System.Drawing.Size(57, 19);
+            this.TranspoLbl.TabIndex = 67;
+            this.TranspoLbl.Text = "label10";
+            // 
+            // RentalsLbl
+            // 
+            this.RentalsLbl.AutoSize = true;
+            this.RentalsLbl.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RentalsLbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(71)))), ((int)(((byte)(56)))));
+            this.RentalsLbl.Location = new System.Drawing.Point(168, 544);
+            this.RentalsLbl.Name = "RentalsLbl";
+            this.RentalsLbl.Size = new System.Drawing.Size(57, 19);
+            this.RentalsLbl.TabIndex = 66;
+            this.RentalsLbl.Text = "label11";
+            // 
+            // DecoLbl
+            // 
+            this.DecoLbl.AutoSize = true;
+            this.DecoLbl.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DecoLbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(71)))), ((int)(((byte)(56)))));
+            this.DecoLbl.Location = new System.Drawing.Point(136, 512);
+            this.DecoLbl.Name = "DecoLbl";
+            this.DecoLbl.Size = new System.Drawing.Size(57, 19);
+            this.DecoLbl.TabIndex = 65;
+            this.DecoLbl.Text = "label12";
+            // 
+            // LaborLbl
+            // 
+            this.LaborLbl.AutoSize = true;
+            this.LaborLbl.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LaborLbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(71)))), ((int)(((byte)(56)))));
+            this.LaborLbl.Location = new System.Drawing.Point(80, 480);
+            this.LaborLbl.Name = "LaborLbl";
+            this.LaborLbl.Size = new System.Drawing.Size(57, 19);
+            this.LaborLbl.TabIndex = 64;
+            this.LaborLbl.Text = "label13";
+            // 
+            // FoodDrinksLbl
+            // 
+            this.FoodDrinksLbl.AutoSize = true;
+            this.FoodDrinksLbl.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FoodDrinksLbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(71)))), ((int)(((byte)(56)))));
+            this.FoodDrinksLbl.Location = new System.Drawing.Point(168, 448);
+            this.FoodDrinksLbl.Name = "FoodDrinksLbl";
+            this.FoodDrinksLbl.Size = new System.Drawing.Size(57, 19);
+            this.FoodDrinksLbl.TabIndex = 63;
+            this.FoodDrinksLbl.Text = "label14";
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label17.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(71)))), ((int)(((byte)(56)))));
+            this.label17.Location = new System.Drawing.Point(16, 648);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(53, 23);
+            this.label17.TabIndex = 61;
+            this.label17.Text = "Total:";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label18.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(71)))), ((int)(((byte)(56)))));
+            this.label18.Location = new System.Drawing.Point(16, 576);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(131, 23);
+            this.label18.TabIndex = 60;
+            this.label18.Text = "Transportation:";
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label19.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(71)))), ((int)(((byte)(56)))));
+            this.label19.Location = new System.Drawing.Point(16, 544);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(75, 23);
+            this.label19.TabIndex = 59;
+            this.label19.Text = "Rentals:";
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label20.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(71)))), ((int)(((byte)(56)))));
+            this.label20.Location = new System.Drawing.Point(16, 512);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(110, 23);
+            this.label20.TabIndex = 58;
+            this.label20.Text = "Decorations:";
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label21.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(71)))), ((int)(((byte)(56)))));
+            this.label21.Location = new System.Drawing.Point(16, 480);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(59, 23);
+            this.label21.TabIndex = 57;
+            this.label21.Text = "Labor:";
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label22.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(71)))), ((int)(((byte)(56)))));
+            this.label22.Location = new System.Drawing.Point(16, 448);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(142, 23);
+            this.label22.TabIndex = 56;
+            this.label22.Text = "Food and Drinks:";
+            // 
+            // MiscLbl
+            // 
+            this.MiscLbl.AutoSize = true;
+            this.MiscLbl.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MiscLbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(71)))), ((int)(((byte)(56)))));
+            this.MiscLbl.Location = new System.Drawing.Point(184, 608);
+            this.MiscLbl.Name = "MiscLbl";
+            this.MiscLbl.Size = new System.Drawing.Size(57, 19);
+            this.MiscLbl.TabIndex = 70;
+            this.MiscLbl.Text = "label10";
+            // 
+            // Misc
+            // 
+            this.Misc.AutoSize = true;
+            this.Misc.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Misc.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(71)))), ((int)(((byte)(56)))));
+            this.Misc.Location = new System.Drawing.Point(16, 608);
+            this.Misc.Name = "Misc";
+            this.Misc.Size = new System.Drawing.Size(130, 23);
+            this.Misc.TabIndex = 69;
+            this.Misc.Text = "Miscellaneous:";
+            // 
+            // BackBtn
+            // 
+            this.BackBtn.Image = global::Event_Catering_Order___Expense_Tracker.Properties.Resources.Eventra__5__removebg_preview;
+            this.BackBtn.Location = new System.Drawing.Point(8, 8);
+            this.BackBtn.Name = "BackBtn";
+            this.BackBtn.Size = new System.Drawing.Size(24, 24);
+            this.BackBtn.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.BackBtn.TabIndex = 70;
+            this.BackBtn.TabStop = false;
+            this.BackBtn.Click += new System.EventHandler(this.BackBtn_Click);
+            // 
             // Event
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(234)))), ((int)(((byte)(218)))));
-            this.ClientSize = new System.Drawing.Size(434, 411);
+            this.ClientSize = new System.Drawing.Size(434, 691);
+            this.Controls.Add(this.MiscLbl);
+            this.Controls.Add(this.Misc);
+            this.Controls.Add(this.TotalExpensesLbl);
+            this.Controls.Add(this.TranspoLbl);
+            this.Controls.Add(this.RentalsLbl);
+            this.Controls.Add(this.DecoLbl);
+            this.Controls.Add(this.LaborLbl);
+            this.Controls.Add(this.FoodDrinksLbl);
+            this.Controls.Add(this.label17);
+            this.Controls.Add(this.label18);
+            this.Controls.Add(this.label19);
+            this.Controls.Add(this.label20);
+            this.Controls.Add(this.label21);
+            this.Controls.Add(this.label22);
+            this.Controls.Add(this.panel3);
             this.Controls.Add(this.MenuTypeLbl);
             this.Controls.Add(this.NumOfGuestsLbl);
             this.Controls.Add(this.CustomerNumLbl);
@@ -329,5 +522,20 @@
         private System.Windows.Forms.Label CustomerNumLbl;
         private System.Windows.Forms.Label CustomerNameLbl;
         private System.Windows.Forms.Label MenuTypeLbl;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Label TotalExpensesLbl;
+        private System.Windows.Forms.Label TranspoLbl;
+        private System.Windows.Forms.Label RentalsLbl;
+        private System.Windows.Forms.Label DecoLbl;
+        private System.Windows.Forms.Label LaborLbl;
+        private System.Windows.Forms.Label FoodDrinksLbl;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.Label MiscLbl;
+        private System.Windows.Forms.Label Misc;
     }
 }

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Data.SqlClient;
 
 namespace Event_Catering_Order___Expense_Tracker
 {
@@ -15,12 +16,7 @@ namespace Event_Catering_Order___Expense_Tracker
         string _day, date;
         DateTime currentDate;
         int _year, _month;
-
-        private void panel1_click(object sender, EventArgs e)
-        {
-            Event eventForm = new Event();
-            eventForm.Show();
-        }
+        private List<string> eventTitles = new List<string>();
 
         public ucDays(string day, int year, int month)
         {
@@ -34,8 +30,54 @@ namespace Event_Catering_Order___Expense_Tracker
             {
                 currentDate = new DateTime(_year, _month, int.Parse(_day));
                 date = _month + "/" + _day + "/" + _year;
+                LoadEventsForDate();
             }
             label1.ForeColor = Color.FromArgb(88, 71, 56);
+        }
+        private void LoadEventsForDate()
+        {
+            eventTitles.Clear();
+            using (SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\ashbs\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30"))
+            {
+                con.Open();
+                string query = "SELECT EventTitle FROM EventTable WHERE CONVERT(date, EventDate) = @EventDate";
+                SqlCommand cmd = new SqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@EventDate", currentDate.Date);
+
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        eventTitles.Add(reader["EventTitle"].ToString());
+                    }
+                }
+            }
+
+            // Display event titles in the control
+            if (eventTitles.Count > 0)
+            {
+                StringBuilder eventsText = new StringBuilder();
+                foreach (string title in eventTitles)
+                {
+                    eventsText.AppendLine(title);
+                }
+                EventsLabel.Text = eventsText.ToString();
+                EventsLabel.Visible = true;
+            }
+            else
+            {
+                EventsLabel.Visible = false;
+            }
+        }
+
+        private void panel1_click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(_day) && eventTitles.Count > 0)
+            {
+                EventsInDate eventsInDateForm = new EventsInDate(currentDate);
+                eventsInDateForm.Show();
+                ((Form)this.TopLevelControl).Hide();
+            }
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)

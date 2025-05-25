@@ -234,6 +234,7 @@ namespace Event_Catering_Order___Expense_Tracker
             this.NotificationPnl.Name = "NotificationPnl";
             this.NotificationPnl.Size = new System.Drawing.Size(228, 195);
             this.NotificationPnl.TabIndex = 17;
+            this.NotificationPnl.Paint += new System.Windows.Forms.PaintEventHandler(this.NotificationPnl_Paint);
             // 
             // Home
             // 

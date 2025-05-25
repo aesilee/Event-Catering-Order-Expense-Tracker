@@ -34,8 +34,6 @@ namespace Event_Catering_Order___Expense_Tracker
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
             this.monthLbl = new System.Windows.Forms.Label();
-            this.prevBtn = new System.Windows.Forms.PictureBox();
-            this.nextbtn = new System.Windows.Forms.PictureBox();
             this.lblmonthYear = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -44,8 +42,10 @@ namespace Event_Catering_Order___Expense_Tracker
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.prevBtn)).BeginInit();
+            this.nextbtn = new System.Windows.Forms.PictureBox();
+            this.prevBtn = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.nextbtn)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.prevBtn)).BeginInit();
             this.SuspendLayout();
             // 
             // flowLayoutPanel1
@@ -74,28 +74,6 @@ namespace Event_Catering_Order___Expense_Tracker
             this.monthLbl.Name = "monthLbl";
             this.monthLbl.Size = new System.Drawing.Size(0, 27);
             this.monthLbl.TabIndex = 68;
-            // 
-            // prevBtn
-            // 
-            this.prevBtn.Image = global::Event_Catering_Order___Expense_Tracker.Properties.Resources.Untitled_design__6__removebg_preview;
-            this.prevBtn.Location = new System.Drawing.Point(792, 32);
-            this.prevBtn.Name = "prevBtn";
-            this.prevBtn.Size = new System.Drawing.Size(24, 24);
-            this.prevBtn.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.prevBtn.TabIndex = 69;
-            this.prevBtn.TabStop = false;
-            this.prevBtn.Click += new System.EventHandler(this.prevBtn_Click);
-            // 
-            // nextbtn
-            // 
-            this.nextbtn.Image = global::Event_Catering_Order___Expense_Tracker.Properties.Resources.Untitled_design__5__removebg_preview;
-            this.nextbtn.Location = new System.Drawing.Point(831, 32);
-            this.nextbtn.Name = "nextbtn";
-            this.nextbtn.Size = new System.Drawing.Size(24, 24);
-            this.nextbtn.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.nextbtn.TabIndex = 70;
-            this.nextbtn.TabStop = false;
-            this.nextbtn.Click += new System.EventHandler(this.nextbtn_Click);
             // 
             // lblmonthYear
             // 
@@ -185,6 +163,28 @@ namespace Event_Catering_Order___Expense_Tracker
             this.label8.TabIndex = 78;
             this.label8.Text = "Saturday";
             // 
+            // nextbtn
+            // 
+            this.nextbtn.Image = global::Event_Catering_Order___Expense_Tracker.Properties.Resources.Untitled_design__5__removebg_preview;
+            this.nextbtn.Location = new System.Drawing.Point(831, 32);
+            this.nextbtn.Name = "nextbtn";
+            this.nextbtn.Size = new System.Drawing.Size(24, 24);
+            this.nextbtn.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.nextbtn.TabIndex = 70;
+            this.nextbtn.TabStop = false;
+            this.nextbtn.Click += new System.EventHandler(this.nextbtn_Click);
+            // 
+            // prevBtn
+            // 
+            this.prevBtn.Image = global::Event_Catering_Order___Expense_Tracker.Properties.Resources.Untitled_design__6__removebg_preview;
+            this.prevBtn.Location = new System.Drawing.Point(792, 32);
+            this.prevBtn.Name = "prevBtn";
+            this.prevBtn.Size = new System.Drawing.Size(24, 24);
+            this.prevBtn.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.prevBtn.TabIndex = 69;
+            this.prevBtn.TabStop = false;
+            this.prevBtn.Click += new System.EventHandler(this.prevBtn_Click);
+            // 
             // Calendar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -210,8 +210,8 @@ namespace Event_Catering_Order___Expense_Tracker
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Calendar";
             this.Load += new System.EventHandler(this.Calendar_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.prevBtn)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nextbtn)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.prevBtn)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -30,12 +30,14 @@
         {
             this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
+            this.EventsLabel = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.White;
+            this.panel1.Controls.Add(this.EventsLabel);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(1, 1);
@@ -54,6 +56,14 @@
             this.label1.Size = new System.Drawing.Size(22, 18);
             this.label1.TabIndex = 0;
             this.label1.Text = "00";
+            // 
+            // EventsLabel
+            // 
+            this.EventsLabel.AutoSize = true;
+            this.EventsLabel.Location = new System.Drawing.Point(8, 24);
+            this.EventsLabel.Name = "EventsLabel";
+            this.EventsLabel.Size = new System.Drawing.Size(0, 13);
+            this.EventsLabel.TabIndex = 1;
             // 
             // ucDays
             // 
@@ -74,5 +84,6 @@
 
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label EventsLabel;
     }
 }

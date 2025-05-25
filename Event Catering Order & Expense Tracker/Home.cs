@@ -467,5 +467,10 @@ namespace Event_Catering_Order___Expense_Tracker
                     return "";
             }
         }
+
+        private void NotificationPnl_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

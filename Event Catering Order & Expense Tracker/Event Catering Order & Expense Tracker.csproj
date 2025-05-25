@@ -82,6 +82,18 @@
     <Compile Include="Event.Designer.cs">
       <DependentUpon>Event.cs</DependentUpon>
     </Compile>
+    <Compile Include="EventItemControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="EventItemControl.Designer.cs">
+      <DependentUpon>EventItemControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EventsInDate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EventsInDate.Designer.cs">
+      <DependentUpon>EventsInDate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Home.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -134,6 +146,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Event.resx">
       <DependentUpon>Event.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EventItemControl.resx">
+      <DependentUpon>EventItemControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EventsInDate.resx">
+      <DependentUpon>EventsInDate.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Home.resx">
       <DependentUpon>Home.cs</DependentUpon>
