@@ -30,30 +30,30 @@ namespace Event_Catering_Order___Expense_Tracker
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Home));
             this.label1 = new System.Windows.Forms.Label();
             this.AnalyticsPnl = new System.Windows.Forms.Panel();
+            this.AnalyticsChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.OngoingEventsDgv = new System.Windows.Forms.DataGridView();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.UpcomingEventsDgv = new System.Windows.Forms.DataGridView();
             this.label5 = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.AnalyticsChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.NotificationPnl = new System.Windows.Forms.Panel();
             this.AnalyticsPnl.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.AnalyticsChart)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.OngoingEventsDgv)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.UpcomingEventsDgv)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.AnalyticsChart)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -80,6 +80,23 @@ namespace Event_Catering_Order___Expense_Tracker
             this.AnalyticsPnl.Name = "AnalyticsPnl";
             this.AnalyticsPnl.Size = new System.Drawing.Size(404, 195);
             this.AnalyticsPnl.TabIndex = 10;
+            // 
+            // AnalyticsChart
+            // 
+            chartArea1.Name = "ChartArea1";
+            this.AnalyticsChart.ChartAreas.Add(chartArea1);
+            this.AnalyticsChart.Dock = System.Windows.Forms.DockStyle.Fill;
+            legend1.Name = "Legend1";
+            this.AnalyticsChart.Legends.Add(legend1);
+            this.AnalyticsChart.Location = new System.Drawing.Point(0, 0);
+            this.AnalyticsChart.Name = "AnalyticsChart";
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.AnalyticsChart.Series.Add(series1);
+            this.AnalyticsChart.Size = new System.Drawing.Size(404, 195);
+            this.AnalyticsChart.TabIndex = 0;
+            this.AnalyticsChart.Text = "chart1";
             // 
             // OngoingEventsDgv
             // 
@@ -207,33 +224,16 @@ namespace Event_Catering_Order___Expense_Tracker
             this.label5.TabIndex = 16;
             this.label5.Text = "Notificatons";
             // 
-            // panel1
+            // NotificationPnl
             // 
-            this.panel1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(71)))), ((int)(((byte)(56)))));
-            this.panel1.ForeColor = System.Drawing.Color.BlueViolet;
-            this.panel1.Location = new System.Drawing.Point(628, 117);
-            this.panel1.Margin = new System.Windows.Forms.Padding(2);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(228, 195);
-            this.panel1.TabIndex = 17;
-            // 
-            // AnalyticsChart
-            // 
-            chartArea1.Name = "ChartArea1";
-            this.AnalyticsChart.ChartAreas.Add(chartArea1);
-            this.AnalyticsChart.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend1.Name = "Legend1";
-            this.AnalyticsChart.Legends.Add(legend1);
-            this.AnalyticsChart.Location = new System.Drawing.Point(0, 0);
-            this.AnalyticsChart.Name = "AnalyticsChart";
-            series1.ChartArea = "ChartArea1";
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            this.AnalyticsChart.Series.Add(series1);
-            this.AnalyticsChart.Size = new System.Drawing.Size(404, 195);
-            this.AnalyticsChart.TabIndex = 0;
-            this.AnalyticsChart.Text = "chart1";
+            this.NotificationPnl.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.NotificationPnl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(71)))), ((int)(((byte)(56)))));
+            this.NotificationPnl.ForeColor = System.Drawing.Color.BlueViolet;
+            this.NotificationPnl.Location = new System.Drawing.Point(628, 117);
+            this.NotificationPnl.Margin = new System.Windows.Forms.Padding(2);
+            this.NotificationPnl.Name = "NotificationPnl";
+            this.NotificationPnl.Size = new System.Drawing.Size(228, 195);
+            this.NotificationPnl.TabIndex = 17;
             // 
             // Home
             // 
@@ -242,7 +242,7 @@ namespace Event_Catering_Order___Expense_Tracker
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(234)))), ((int)(((byte)(218)))));
             this.ClientSize = new System.Drawing.Size(884, 561);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.NotificationPnl);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.UpcomingEventsDgv);
             this.Controls.Add(this.label3);
@@ -256,9 +256,9 @@ namespace Event_Catering_Order___Expense_Tracker
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Home";
             this.AnalyticsPnl.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.AnalyticsChart)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.OngoingEventsDgv)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.UpcomingEventsDgv)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.AnalyticsChart)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -273,7 +273,7 @@ namespace Event_Catering_Order___Expense_Tracker
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.DataGridView UpcomingEventsDgv;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel NotificationPnl;
         private System.Windows.Forms.DataVisualization.Charting.Chart AnalyticsChart;
     }
 }

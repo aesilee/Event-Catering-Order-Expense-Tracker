@@ -77,12 +77,11 @@
             // 
             // EventNameLbl
             // 
-            this.EventNameLbl.AutoSize = true;
             this.EventNameLbl.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.EventNameLbl.ForeColor = System.Drawing.Color.Black;
-            this.EventNameLbl.Location = new System.Drawing.Point(272, 102);
+            this.EventNameLbl.Location = new System.Drawing.Point(164, 102);
             this.EventNameLbl.Name = "EventNameLbl";
-            this.EventNameLbl.Size = new System.Drawing.Size(102, 19);
+            this.EventNameLbl.Size = new System.Drawing.Size(254, 19);
             this.EventNameLbl.TabIndex = 49;
             this.EventNameLbl.Text = "EventNameLbl";
             // 
@@ -201,12 +200,11 @@
             // 
             // VenueTb
             // 
-            this.VenueTb.AutoSize = true;
             this.VenueTb.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.VenueTb.ForeColor = System.Drawing.Color.Black;
-            this.VenueTb.Location = new System.Drawing.Point(272, 251);
+            this.VenueTb.Location = new System.Drawing.Point(168, 251);
             this.VenueTb.Name = "VenueTb";
-            this.VenueTb.Size = new System.Drawing.Size(65, 19);
+            this.VenueTb.Size = new System.Drawing.Size(250, 19);
             this.VenueTb.TabIndex = 60;
             this.VenueTb.Text = "VenueTb";
             // 
@@ -223,23 +221,21 @@
             // 
             // EmailAddressTb
             // 
-            this.EmailAddressTb.AutoSize = true;
             this.EmailAddressTb.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.EmailAddressTb.ForeColor = System.Drawing.Color.Black;
-            this.EmailAddressTb.Location = new System.Drawing.Point(243, 406);
+            this.EmailAddressTb.Location = new System.Drawing.Point(112, 406);
             this.EmailAddressTb.Name = "EmailAddressTb";
-            this.EmailAddressTb.Size = new System.Drawing.Size(113, 19);
+            this.EmailAddressTb.Size = new System.Drawing.Size(306, 19);
             this.EmailAddressTb.TabIndex = 69;
             this.EmailAddressTb.Text = "EmailAddressTb";
             // 
             // ContactNumTb
             // 
-            this.ContactNumTb.AutoSize = true;
             this.ContactNumTb.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ContactNumTb.ForeColor = System.Drawing.Color.Black;
-            this.ContactNumTb.Location = new System.Drawing.Point(243, 368);
+            this.ContactNumTb.Location = new System.Drawing.Point(131, 368);
             this.ContactNumTb.Name = "ContactNumTb";
-            this.ContactNumTb.Size = new System.Drawing.Size(105, 19);
+            this.ContactNumTb.Size = new System.Drawing.Size(287, 19);
             this.ContactNumTb.TabIndex = 68;
             this.ContactNumTb.Text = "ContactNumTb";
             // 
@@ -300,12 +296,11 @@
             // 
             // CustomerNameTb
             // 
-            this.CustomerNameTb.AutoSize = true;
             this.CustomerNameTb.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CustomerNameTb.ForeColor = System.Drawing.Color.Black;
-            this.CustomerNameTb.Location = new System.Drawing.Point(243, 336);
+            this.CustomerNameTb.Location = new System.Drawing.Point(185, 336);
             this.CustomerNameTb.Name = "CustomerNameTb";
-            this.CustomerNameTb.Size = new System.Drawing.Size(125, 19);
+            this.CustomerNameTb.Size = new System.Drawing.Size(233, 19);
             this.CustomerNameTb.TabIndex = 62;
             this.CustomerNameTb.Text = "CustomerNameTb";
             // 
@@ -368,12 +363,11 @@
             // 
             // MenuDetailsTb
             // 
-            this.MenuDetailsTb.AutoSize = true;
             this.MenuDetailsTb.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MenuDetailsTb.ForeColor = System.Drawing.Color.Black;
-            this.MenuDetailsTb.Location = new System.Drawing.Point(243, 534);
+            this.MenuDetailsTb.Location = new System.Drawing.Point(164, 534);
             this.MenuDetailsTb.Name = "MenuDetailsTb";
-            this.MenuDetailsTb.Size = new System.Drawing.Size(108, 19);
+            this.MenuDetailsTb.Size = new System.Drawing.Size(254, 53);
             this.MenuDetailsTb.TabIndex = 80;
             this.MenuDetailsTb.Text = "MenuDetailsTb";
             // 

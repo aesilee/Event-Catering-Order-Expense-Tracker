@@ -17,21 +17,27 @@ namespace Event_Catering_Order___Expense_Tracker
         private Timer fadeTimer;
         private Form nextFormToOpen;
         private SidebarPanel sidebarPanel;
-        private Timer refreshTimer;
+        private Timer eventsTimer;
+        private FlowLayoutPanel notificationPanel;
 
         public Home()
         {
             InitializeComponent();
             InitializeFadeTimer();
             InitializeSidebar();
+            InitializeNotificationPanel();
             LoadOngoingEvents();
             LoadUpcomingEvents();
+            LoadNotifications();
 
-            // Set up live refresh every 10 seconds
-            refreshTimer = new Timer();
-            refreshTimer.Interval = 10000; // 10 seconds
-            refreshTimer.Tick += (s, e) => { LoadOngoingEvents(); LoadUpcomingEvents(); };
-            refreshTimer.Start();
+            // Set up live refresh every 10 seconds for events only
+            eventsTimer = new Timer();
+            eventsTimer.Interval = 10000; // 10 seconds
+            eventsTimer.Tick += (s, e) => { 
+                LoadOngoingEvents(); 
+                LoadUpcomingEvents(); 
+            };
+            eventsTimer.Start();
 
             LoadAnalyticsChart("Month"); // or "Year", "Quarter", "Day"
         }
@@ -105,6 +111,11 @@ namespace Event_Catering_Order___Expense_Tracker
         protected override void OnFormClosed(FormClosedEventArgs e)
         {
             base.OnFormClosed(e);
+            if (eventsTimer != null)
+            {
+                eventsTimer.Stop();
+                eventsTimer.Dispose();
+            }
             Application.Exit();
         }
 
@@ -112,7 +123,7 @@ namespace Event_Catering_Order___Expense_Tracker
         {
             //string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Kyle\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30";
             string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\ashbs\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30";
-            
+
             string query = "SELECT EventTitle, EventDate, EventTime, Venue FROM EventTable WHERE Hidden = 0 AND CONVERT(date, EventDate) = @today";
             using (SqlConnection con = new SqlConnection(connectionString))
             {
@@ -298,6 +309,162 @@ namespace Event_Catering_Order___Expense_Tracker
                 {
                     MessageBox.Show("Error loading analytics chart: " + ex.Message);
                 }
+            }
+        }
+
+        private void InitializeNotificationPanel()
+        {
+            notificationPanel = new FlowLayoutPanel
+            {
+                Dock = DockStyle.Fill,
+                AutoScroll = true,
+                FlowDirection = FlowDirection.TopDown,
+                WrapContents = false,
+                Padding = new Padding(10),
+                BackColor = Color.FromArgb(88, 71, 56)
+            };
+            NotificationPnl.Controls.Add(notificationPanel);
+        }
+
+        private void LoadNotifications()
+        {
+            notificationPanel.Controls.Clear();
+            //string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Kyle\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30";
+            string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\ashbs\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30";
+
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    con.Open();
+
+                    // 1. Newly created events (created in the last 24 hours)
+                    string newEventsQuery = @"
+                        SELECT EventTitle, EventDate, EventTime, Venue, DateCreated
+                        FROM EventTable 
+                        WHERE Hidden = 0 
+                        AND DateCreated >= DATEADD(HOUR, -24, GETDATE())";
+
+                    // 2. Events happening today
+                    string todayEventsQuery = @"
+                        SELECT EventTitle, EventDate, EventTime, Venue 
+                        FROM EventTable 
+                        WHERE Hidden = 0 
+                        AND CONVERT(date, EventDate) = @today";
+
+                    // 3. Events over budget
+                    string overBudgetQuery = @"
+                        SELECT e.EventTitle, e.EventDate, e.EventTime, e.Venue, e.EstimatedBudget, 
+                               exp.TotalExpenses, exp.BudgetStatus
+                        FROM EventTable e
+                        INNER JOIN ExpensesTable exp ON e.EventID = exp.EventID
+                        WHERE e.Hidden = 0 
+                        AND exp.BudgetStatus = 'Over Budget'";
+
+                    // 4. Venue conflicts
+                    string venueConflictsQuery = @"
+                        SELECT e1.EventTitle as Event1, e2.EventTitle as Event2, e1.Venue, e1.EventDate
+                        FROM EventTable e1
+                        JOIN EventTable e2 ON e1.Venue = e2.Venue 
+                            AND e1.EventDate = e2.EventDate 
+                            AND e1.EventID < e2.EventID
+                        WHERE e1.Hidden = 0 AND e2.Hidden = 0";
+
+                    // Execute queries and create notification panels
+                    AddNotificationSection("New Events", newEventsQuery, con, Color.FromArgb(46, 204, 113));
+                    AddNotificationSection("Today's Events", todayEventsQuery, con, Color.FromArgb(52, 152, 219));
+                    AddNotificationSection("Over Budget Events", overBudgetQuery, con, Color.FromArgb(231, 76, 60));
+                    AddNotificationSection("Venue Conflicts", venueConflictsQuery, con, Color.FromArgb(243, 156, 18));
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error loading notifications: " + ex.Message);
+                }
+            }
+        }
+
+        private void AddNotificationSection(string title, string query, SqlConnection con, Color color)
+        {
+            using (SqlCommand cmd = new SqlCommand(query, con))
+            {
+                if (query.Contains("@today"))
+                {
+                    cmd.Parameters.AddWithValue("@today", DateTime.Today);
+                }
+
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    if (reader.HasRows)
+                    {
+                        // Create section header
+                        var headerPanel = new Panel
+                        {
+                            Width = notificationPanel.Width - 20,
+                            Height = 30,
+                            Margin = new Padding(0, 10, 0, 5),
+                            BackColor = color
+                        };
+
+                        var headerLabel = new Label
+                        {
+                            Text = title,
+                            ForeColor = Color.White,
+                            Font = new Font("Calibri", 12, FontStyle.Bold),
+                            Dock = DockStyle.Fill,
+                            TextAlign = ContentAlignment.MiddleLeft,
+                            Padding = new Padding(10, 0, 0, 0)
+                        };
+
+                        headerPanel.Controls.Add(headerLabel);
+                        notificationPanel.Controls.Add(headerPanel);
+
+                        // Add notification items
+                        while (reader.Read())
+                        {
+                            var notificationPanel = new Panel
+                            {
+                                Width = this.notificationPanel.Width - 20,
+                                Height = 60,
+                                Margin = new Padding(0, 0, 0, 5),
+                                BackColor = Color.FromArgb(241, 234, 218)
+                            };
+
+                            var contentLabel = new Label
+                            {
+                                Text = FormatNotificationContent(reader, title),
+                                ForeColor = Color.FromArgb(88, 71, 56),
+                                Font = new Font("Calibri", 10),
+                                Dock = DockStyle.Fill,
+                                TextAlign = ContentAlignment.MiddleLeft,
+                                Padding = new Padding(10, 0, 0, 0)
+                            };
+
+                            notificationPanel.Controls.Add(contentLabel);
+                            this.notificationPanel.Controls.Add(notificationPanel);
+                        }
+                    }
+                }
+            }
+        }
+
+        private string FormatNotificationContent(SqlDataReader reader, string section)
+        {
+            switch (section)
+            {
+                case "New Events":
+                    return $"{reader["EventTitle"]}\nCreated: {reader["DateCreated"]:MM/dd/yyyy HH:mm}\n{reader["EventDate"]:MM/dd/yyyy} at {reader["EventTime"]} - {reader["Venue"]}";
+                
+                case "Today's Events":
+                    return $"{reader["EventTitle"]}\n{reader["EventDate"]:MM/dd/yyyy} at {reader["EventTime"]} - {reader["Venue"]}";
+                
+                case "Over Budget Events":
+                    return $"{reader["EventTitle"]}\nBudget: ${reader["EstimatedBudget"]:N2} | Expenses: ${reader["TotalExpenses"]:N2}\nStatus: {reader["BudgetStatus"]}";
+                
+                case "Venue Conflicts":
+                    return $"Venue Conflict: {reader["Venue"]}\n{reader["Event1"]} and {reader["Event2"]}\nDate: {reader["EventDate"]:MM/dd/yyyy}";
+                
+                default:
+                    return "";
             }
         }
     }
