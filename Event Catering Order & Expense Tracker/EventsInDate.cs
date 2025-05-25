@@ -30,7 +30,7 @@ namespace Event_Catering_Order___Expense_Tracker
                 using (SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\ashbs\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30"))
                 {
                     con.Open();
-                    string query = "SELECT EventID, EventTitle FROM EventTable WHERE CONVERT(date, EventDate) = @EventDate";
+                    string query = "SELECT EventID, EventTitle FROM EventTable WHERE CONVERT(date, EventDate) = @EventDate AND Hidden = 0";
                     SqlCommand cmd = new SqlCommand(query, con);
                     cmd.Parameters.AddWithValue("@EventDate", selectedDate.Date);
 

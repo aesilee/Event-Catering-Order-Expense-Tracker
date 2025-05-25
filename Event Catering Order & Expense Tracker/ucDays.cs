@@ -40,7 +40,7 @@ namespace Event_Catering_Order___Expense_Tracker
             using (SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\ashbs\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30"))
             {
                 con.Open();
-                string query = "SELECT EventTitle FROM EventTable WHERE CONVERT(date, EventDate) = @EventDate";
+                string query = "SELECT EventTitle FROM EventTable WHERE CONVERT(date, EventDate) = @EventDate AND Hidden = 0";
                 SqlCommand cmd = new SqlCommand(query, con);
                 cmd.Parameters.AddWithValue("@EventDate", currentDate.Date);
 
@@ -53,7 +53,6 @@ namespace Event_Catering_Order___Expense_Tracker
                 }
             }
 
-            // Display event titles in the control
             if (eventTitles.Count > 0)
             {
                 StringBuilder eventsText = new StringBuilder();
@@ -63,6 +62,8 @@ namespace Event_Catering_Order___Expense_Tracker
                 }
                 EventsLabel.Text = eventsText.ToString();
                 EventsLabel.Visible = true;
+                EventsLabel.ForeColor = Color.FromArgb(88, 71, 56);
+                EventsLabel.BackColor = Color.Transparent;
             }
             else
             {
@@ -72,11 +73,31 @@ namespace Event_Catering_Order___Expense_Tracker
 
         private void panel1_click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(_day) && eventTitles.Count > 0)
+            if (!string.IsNullOrEmpty(_day))
             {
-                EventsInDate eventsInDateForm = new EventsInDate(currentDate);
-                eventsInDateForm.Show();
-                ((Form)this.TopLevelControl).Hide();
+                using (SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\ashbs\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30"))
+                {
+                    con.Open();
+                    string query = @"SELECT COUNT(*) FROM EventTable 
+                                   WHERE CONVERT(date, EventDate) = @EventDate
+                                   AND Hidden = 0";
+                    SqlCommand cmd = new SqlCommand(query, con);
+                    cmd.Parameters.AddWithValue("@EventDate", currentDate.Date);
+
+                    int eventCount = (int)cmd.ExecuteScalar();
+
+                    if (eventCount > 0)
+                    {
+                        EventsInDate eventsInDateForm = new EventsInDate(currentDate);
+                        eventsInDateForm.Show();
+                        ((Form)this.TopLevelControl).Hide();
+                    }
+                    else
+                    {
+                        MessageBox.Show("No events scheduled for this date", "Information",
+                                      MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
             }
         }
 
@@ -89,6 +110,12 @@ namespace Event_Catering_Order___Expense_Tracker
         {
             this.BackColor = Color.FromArgb(170, 163, 150);
             label1.Font = new Font(label1.Font, FontStyle.Bold);
+
+            if (eventTitles.Count > 0)
+            {
+                EventsLabel.ForeColor = Color.FromArgb(88, 71, 56);
+                EventsLabel.BackColor = Color.Transparent;
+            }
         }
 
         private void ucDays_Load(object sender, EventArgs e)
