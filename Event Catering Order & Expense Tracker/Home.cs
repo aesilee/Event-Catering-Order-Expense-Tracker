@@ -314,21 +314,16 @@ namespace Event_Catering_Order___Expense_Tracker
 
         private void InitializeNotificationPanel()
         {
-            notificationPanel = new FlowLayoutPanel
-            {
-                Dock = DockStyle.Fill,
-                AutoScroll = true,
-                FlowDirection = FlowDirection.TopDown,
-                WrapContents = false,
-                Padding = new Padding(10),
-                BackColor = Color.FromArgb(88, 71, 56)
-            };
-            NotificationPnl.Controls.Add(notificationPanel);
+            NotificationFlowPanel.AutoScroll = true;
+            NotificationFlowPanel.FlowDirection = FlowDirection.TopDown;
+            NotificationFlowPanel.WrapContents = false;
+            NotificationFlowPanel.Padding = new Padding(10);
+            NotificationFlowPanel.BackColor = Color.FromArgb(206, 193, 168);
         }
 
         private void LoadNotifications()
         {
-            notificationPanel.Controls.Clear();
+            NotificationFlowPanel.Controls.Clear();
             //string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Kyle\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30";
             string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\ashbs\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30";
 
@@ -340,41 +335,41 @@ namespace Event_Catering_Order___Expense_Tracker
 
                     // 1. Newly created events (created in the last 24 hours)
                     string newEventsQuery = @"
-                        SELECT EventTitle, EventDate, EventTime, Venue, DateCreated
-                        FROM EventTable 
-                        WHERE Hidden = 0 
-                        AND DateCreated >= DATEADD(HOUR, -24, GETDATE())";
-
+                    SELECT EventTitle, EventDate, EventTime, Venue, DateCreated
+                    FROM EventTable 
+                    WHERE Hidden = 0 
+                    AND DateCreated >= DATEADD(HOUR, -24, GETDATE())";
+    
                     // 2. Events happening today
                     string todayEventsQuery = @"
-                        SELECT EventTitle, EventDate, EventTime, Venue 
-                        FROM EventTable 
-                        WHERE Hidden = 0 
-                        AND CONVERT(date, EventDate) = @today";
+                    SELECT EventTitle, EventDate, EventTime, Venue 
+                    FROM EventTable 
+                    WHERE Hidden = 0 
+                    AND CONVERT(date, EventDate) = @today";
 
                     // 3. Events over budget
                     string overBudgetQuery = @"
-                        SELECT e.EventTitle, e.EventDate, e.EventTime, e.Venue, e.EstimatedBudget, 
-                               exp.TotalExpenses, exp.BudgetStatus
-                        FROM EventTable e
-                        INNER JOIN ExpensesTable exp ON e.EventID = exp.EventID
-                        WHERE e.Hidden = 0 
-                        AND exp.BudgetStatus = 'Over Budget'";
+                    SELECT e.EventTitle, e.EventDate, e.EventTime, e.Venue, e.EstimatedBudget, 
+                    exp.TotalExpenses, exp.BudgetStatus
+                    FROM EventTable e
+                    INNER JOIN ExpensesTable exp ON e.EventID = exp.EventID
+                    WHERE e.Hidden = 0 
+                    AND exp.BudgetStatus = 'Over Budget'";
 
                     // 4. Venue conflicts
                     string venueConflictsQuery = @"
-                        SELECT e1.EventTitle as Event1, e2.EventTitle as Event2, e1.Venue, e1.EventDate
-                        FROM EventTable e1
-                        JOIN EventTable e2 ON e1.Venue = e2.Venue 
-                            AND e1.EventDate = e2.EventDate 
-                            AND e1.EventID < e2.EventID
-                        WHERE e1.Hidden = 0 AND e2.Hidden = 0";
+                    SELECT e1.EventTitle as Event1, e2.EventTitle as Event2, e1.Venue, e1.EventDate
+                    FROM EventTable e1
+                    JOIN EventTable e2 ON e1.Venue = e2.Venue 
+                    AND e1.EventDate = e2.EventDate 
+                    AND e1.EventID < e2.EventID
+                    WHERE e1.Hidden = 0 AND e2.Hidden = 0";
 
                     // Execute queries and create notification panels
-                    AddNotificationSection("New Events", newEventsQuery, con, Color.FromArgb(170, 163, 150));
-                    AddNotificationSection("Today's Events", todayEventsQuery, con, Color.FromArgb(52, 152, 219));
-                    AddNotificationSection("Over Budget Events", overBudgetQuery, con, Color.FromArgb(231, 76, 60));
-                    AddNotificationSection("Venue Conflicts", venueConflictsQuery, con, Color.FromArgb(255, 189, 89));
+                    AddNotificationSection("New Events Added", newEventsQuery, con, Color.FromArgb(87, 153, 123));
+                    AddNotificationSection("Today's Events", todayEventsQuery, con, Color.FromArgb(110, 164, 200));
+                    AddNotificationSection("Over Budget Events", overBudgetQuery, con, Color.FromArgb(159, 71, 62));
+                    AddNotificationSection("Venue Conflicts", venueConflictsQuery, con, Color.FromArgb(230, 159, 124));
                 }
                 catch (Exception ex)
                 {
@@ -396,12 +391,12 @@ namespace Event_Catering_Order___Expense_Tracker
                 {
                     if (reader.HasRows)
                     {
-                        // Create section header
+                        // Create header panel
                         var headerPanel = new Panel
                         {
-                            Width = notificationPanel.Width - 20,
+                            Width = NotificationFlowPanel.Width - 38,
                             Height = 30,
-                            Margin = new Padding(0, 10, 0, 5),
+                            Margin = new Padding(0, 0, 0, 8),
                             BackColor = color
                         };
 
@@ -411,21 +406,20 @@ namespace Event_Catering_Order___Expense_Tracker
                             ForeColor = Color.White,
                             Font = new Font("Cambria", 12, FontStyle.Bold),
                             Dock = DockStyle.Fill,
-                            TextAlign = ContentAlignment.MiddleCenter,
-                            Padding = new Padding(10, 0, 0, 0)
+                            TextAlign = ContentAlignment.MiddleCenter
                         };
 
                         headerPanel.Controls.Add(headerLabel);
-                        notificationPanel.Controls.Add(headerPanel);
+                        NotificationFlowPanel.Controls.Add(headerPanel);
 
                         // Add notification items
                         while (reader.Read())
                         {
-                            var notificationPanel = new Panel
+                            var notificationItem = new Panel
                             {
-                                Width = this.notificationPanel.Width - 20,
-                                Height = 60,
-                                Margin = new Padding(0, 0, 0, 5),
+                                Width = NotificationFlowPanel.Width - 38,
+                                Height = 70,
+                                Margin = new Padding(0, 0, 0, 8),
                                 BackColor = Color.FromArgb(241, 234, 218)
                             };
 
@@ -436,11 +430,11 @@ namespace Event_Catering_Order___Expense_Tracker
                                 Font = new Font("Calibri", 10),
                                 Dock = DockStyle.Fill,
                                 TextAlign = ContentAlignment.MiddleLeft,
-                                Padding = new Padding(10, 0, 0, 0)
+                                Padding = new Padding(0)
                             };
 
-                            notificationPanel.Controls.Add(contentLabel);
-                            this.notificationPanel.Controls.Add(notificationPanel);
+                            notificationItem.Controls.Add(contentLabel);
+                            NotificationFlowPanel.Controls.Add(notificationItem);
                         }
                     }
                 }
@@ -451,7 +445,7 @@ namespace Event_Catering_Order___Expense_Tracker
         {
             switch (section)
             {
-                case "New Events":
+                case "New Events Added":
                     return $"{reader["EventTitle"]}\nCreated: {reader["DateCreated"]:MM/dd/yyyy HH:mm}\n{reader["EventDate"]:MM/dd/yyyy} at {reader["EventTime"]} - {reader["Venue"]}";
                 
                 case "Today's Events":
