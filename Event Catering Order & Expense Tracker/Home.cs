@@ -371,10 +371,10 @@ namespace Event_Catering_Order___Expense_Tracker
                         WHERE e1.Hidden = 0 AND e2.Hidden = 0";
 
                     // Execute queries and create notification panels
-                    AddNotificationSection("New Events", newEventsQuery, con, Color.FromArgb(46, 204, 113));
+                    AddNotificationSection("New Events", newEventsQuery, con, Color.FromArgb(170, 163, 150));
                     AddNotificationSection("Today's Events", todayEventsQuery, con, Color.FromArgb(52, 152, 219));
                     AddNotificationSection("Over Budget Events", overBudgetQuery, con, Color.FromArgb(231, 76, 60));
-                    AddNotificationSection("Venue Conflicts", venueConflictsQuery, con, Color.FromArgb(243, 156, 18));
+                    AddNotificationSection("Venue Conflicts", venueConflictsQuery, con, Color.FromArgb(255, 189, 89));
                 }
                 catch (Exception ex)
                 {
@@ -409,9 +409,9 @@ namespace Event_Catering_Order___Expense_Tracker
                         {
                             Text = title,
                             ForeColor = Color.White,
-                            Font = new Font("Calibri", 12, FontStyle.Bold),
+                            Font = new Font("Cambria", 12, FontStyle.Bold),
                             Dock = DockStyle.Fill,
-                            TextAlign = ContentAlignment.MiddleLeft,
+                            TextAlign = ContentAlignment.MiddleCenter,
                             Padding = new Padding(10, 0, 0, 0)
                         };
 
