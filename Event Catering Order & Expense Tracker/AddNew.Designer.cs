@@ -81,6 +81,8 @@
             this.MenuDetailsTb = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.PaymentDateDtp = new System.Windows.Forms.DateTimePicker();
+            this.label6 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label14
@@ -663,6 +665,27 @@
             this.label2.TabIndex = 131;
             this.label2.Text = "Others";
             // 
+            // PaymentDateDtp
+            // 
+            this.PaymentDateDtp.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PaymentDateDtp.Location = new System.Drawing.Point(571, 872);
+            this.PaymentDateDtp.Margin = new System.Windows.Forms.Padding(2);
+            this.PaymentDateDtp.Name = "PaymentDateDtp";
+            this.PaymentDateDtp.Size = new System.Drawing.Size(245, 27);
+            this.PaymentDateDtp.TabIndex = 133;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Cambria", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(71)))), ((int)(((byte)(56)))));
+            this.label6.Location = new System.Drawing.Point(568, 836);
+            this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(152, 25);
+            this.label6.TabIndex = 134;
+            this.label6.Text = "Payment Date:";
+            // 
             // AddNew
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -670,6 +693,8 @@
             this.AutoScroll = true;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(234)))), ((int)(((byte)(218)))));
             this.ClientSize = new System.Drawing.Size(901, 561);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.PaymentDateDtp);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.MenuDetailsTb);
             this.Controls.Add(this.label1);
@@ -786,5 +811,7 @@
         private System.Windows.Forms.TextBox MenuDetailsTb;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.DateTimePicker PaymentDateDtp;
+        private System.Windows.Forms.Label label6;
     }
 }

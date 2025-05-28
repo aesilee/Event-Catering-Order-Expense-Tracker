@@ -18,6 +18,7 @@ namespace Event_Catering_Order___Expense_Tracker
         private Panel calendarPanel;
         private Panel spreadsheetsPanel;
         private Panel addNewPanel;
+        private Panel expensesPanel;
 
         // Logout button
         private Button logoutButton;
@@ -75,6 +76,7 @@ namespace Event_Catering_Order___Expense_Tracker
             calendarPanel = CreatePanel("Calendar", 1);
             spreadsheetsPanel = CreatePanel("Spreadsheets", 2);
             addNewPanel = CreatePanel("Add New", 3);
+            expensesPanel = CreatePanel("Expenses", 4);
 
             // Create logout button
             logoutButton = new Button
@@ -90,7 +92,7 @@ namespace Event_Catering_Order___Expense_Tracker
             logoutButton.Click += LogoutButton_Click;
 
             // Add controls to the sidebar
-            Controls.AddRange(new Control[] { logoPanel, dashboardPanel, calendarPanel, spreadsheetsPanel, addNewPanel, logoutButton });
+            Controls.AddRange(new Control[] { logoPanel, dashboardPanel, calendarPanel, spreadsheetsPanel, addNewPanel, expensesPanel, logoutButton });
 
             // Set initial active panel based on currentPanelName
             switch (currentPanelName)
@@ -99,6 +101,7 @@ namespace Event_Catering_Order___Expense_Tracker
                 case "Calendar": SetActivePanel(calendarPanel); break;
                 case "Spreadsheets": SetActivePanel(spreadsheetsPanel); break;
                 case "Add New": SetActivePanel(addNewPanel); break;
+                case "Expenses": SetActivePanel(expensesPanel); break;
                 default: SetActivePanel(dashboardPanel); break;
             }
         }
@@ -187,6 +190,8 @@ namespace Event_Catering_Order___Expense_Tracker
                     return Properties.Resources.Untitled_design__2__removebg_preview;
                 case "Add New":
                     return Properties.Resources.Untitled_design__3__removebg_preview;
+                case "Expenses":
+                    return Properties.Resources.Untitled_design__2__removebg_preview; // You may want to add a specific icon for Expenses
                 default:
                     return null;
             }
@@ -212,6 +217,9 @@ namespace Event_Catering_Order___Expense_Tracker
                     break;
                 case "Add New":
                     formToOpen = new AddNew();
+                    break;
+                case "Expenses":
+                    formToOpen = new Expenses();
                     break;
             }
 
@@ -255,6 +263,7 @@ namespace Event_Catering_Order___Expense_Tracker
                 case "Calendar": SetActivePanel(calendarPanel); break;
                 case "Spreadsheets": SetActivePanel(spreadsheetsPanel); break;
                 case "Add New": SetActivePanel(addNewPanel); break;
+                case "Expenses": SetActivePanel(expensesPanel); break;
                 default: SetActivePanel(dashboardPanel); break;
             }
         }

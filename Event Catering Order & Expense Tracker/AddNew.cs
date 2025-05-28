@@ -311,11 +311,13 @@ namespace Event_Catering_Order___Expense_Tracker
                 INSERT INTO ExpensesTable (
                     EventID, FoodBeverages, Labor, Decorations,
                     Rentals, Transportation, Miscellaneous,
-                    TotalExpenses, BudgetStatus
+                    TotalExpenses, BudgetStatus, PaymentStatus,
+                    NextPayment, RemainingBalance
                 ) VALUES (
                     @EventID, @FoodBeverages, @Labor, @Decorations,
                     @Rentals, @Transportation, @Miscellaneous,
-                    @TotalExpenses, @BudgetStatus
+                    @TotalExpenses, @BudgetStatus, @PaymentStatus,
+                    @NextPayment, @RemainingBalance
                 )";
 
                 cmd = new SqlCommand(expenseQuery, con, transaction);
@@ -328,6 +330,9 @@ namespace Event_Catering_Order___Expense_Tracker
                 cmd.Parameters.AddWithValue("@Miscellaneous", decimal.Parse(MiscTb.Text));
                 cmd.Parameters.AddWithValue("@TotalExpenses", decimal.Parse(TotalExpensesLbl.Text));
                 cmd.Parameters.AddWithValue("@BudgetStatus", StatusLbl.Text);
+                cmd.Parameters.AddWithValue("@PaymentStatus", "Unpaid");
+                cmd.Parameters.AddWithValue("@NextPayment", PaymentDateDtp.Value.Date);
+                cmd.Parameters.AddWithValue("@RemainingBalance", decimal.Parse(EstBudgetTb.Text));
 
                 cmd.ExecuteNonQuery();
                 transaction.Commit();
