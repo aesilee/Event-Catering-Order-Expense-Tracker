@@ -48,6 +48,10 @@ namespace Event_Catering_Order___Expense_Tracker
             ArchiveBtn.Click += ArchiveBtn_Click;
             UnarchiveBtn.Click += UnarchiveBtn_Click;
 
+            // Wire up cell double-click events
+            EventsDgv.CellDoubleClick += EventsDgv_CellDoubleClick;
+            ArchivesDgv.CellDoubleClick += ArchivesDgv_CellDoubleClick;
+
             LoadEvents();
             LoadArchives();
         }
@@ -349,6 +353,58 @@ namespace Event_Catering_Order___Expense_Tracker
                 catch (Exception ex)
                 {
                     MessageBox.Show("Error loading archives: " + ex.Message);
+                }
+            }
+        }
+
+        private void EventsDgv_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0) // Ensure we're clicking on a row, not the header
+            {
+                DataGridView dgv = (DataGridView)sender;
+                int eventID = Convert.ToInt32(dgv.Rows[e.RowIndex].Cells["EventID"].Value);
+                Event eventForm = new Event(eventID);
+                eventForm.TopMost = true;
+                eventForm.Show();
+            }
+        }
+
+        private void ArchivesDgv_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0) // Ensure we're clicking on a row, not the header
+            {
+                DataGridView dgv = (DataGridView)sender;
+                string eventTitle = dgv.Rows[e.RowIndex].Cells["EventTitle"].Value.ToString();
+                DateTime eventDate = Convert.ToDateTime(dgv.Rows[e.RowIndex].Cells["EventDate"].Value);
+                TimeSpan eventTime = TimeSpan.Parse(dgv.Rows[e.RowIndex].Cells["EventTime"].Value.ToString());
+
+                string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Kyle\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30";
+                //string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\ashbs\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30";
+
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    try
+                    {
+                        con.Open();
+                        string query = "SELECT EventID FROM EventTable WHERE EventTitle = @EventTitle AND EventDate = @EventDate AND EventTime = @EventTime";
+                        SqlCommand cmd = new SqlCommand(query, con);
+                        cmd.Parameters.AddWithValue("@EventTitle", eventTitle);
+                        cmd.Parameters.AddWithValue("@EventDate", eventDate);
+                        cmd.Parameters.AddWithValue("@EventTime", eventTime);
+
+                        object result = cmd.ExecuteScalar();
+                        if (result != null)
+                        {
+                            int eventID = Convert.ToInt32(result);
+                            Event eventForm = new Event(eventID);
+                            eventForm.TopMost = true;
+                            eventForm.Show();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error opening event details: " + ex.Message);
+                    }
                 }
             }
         }

@@ -30,12 +30,53 @@ namespace Event_Catering_Order___Expense_Tracker
             LoadUpcomingEvents();
             LoadNotifications();
 
+            // Make tables read-only
+            OngoingEventsDgv.ReadOnly = true;
+            OngoingEventsDgv.AllowUserToAddRows = false;
+            OngoingEventsDgv.AllowUserToDeleteRows = false;
+            OngoingEventsDgv.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            OngoingEventsDgv.MultiSelect = false;
+
+            UpcomingEventsDgv.ReadOnly = true;
+            UpcomingEventsDgv.AllowUserToAddRows = false;
+            UpcomingEventsDgv.AllowUserToDeleteRows = false;
+            UpcomingEventsDgv.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            UpcomingEventsDgv.MultiSelect = false;
+
+            // Wire up cell double-click events
+            OngoingEventsDgv.CellDoubleClick += EventsDgv_CellDoubleClick;
+            UpcomingEventsDgv.CellDoubleClick += EventsDgv_CellDoubleClick;
+
             // Set up live refresh every 10 seconds for events only
             eventsTimer = new Timer();
             eventsTimer.Interval = 10000; // 10 seconds
             eventsTimer.Tick += (s, e) => { 
+                // Store current selections
+                var ongoingSelection = OngoingEventsDgv.SelectedRows.Cast<DataGridViewRow>()
+                    .Select(r => r.Cells["EventTitle"].Value.ToString())
+                    .ToList();
+                var upcomingSelection = UpcomingEventsDgv.SelectedRows.Cast<DataGridViewRow>()
+                    .Select(r => r.Cells["EventTitle"].Value.ToString())
+                    .ToList();
+
                 LoadOngoingEvents(); 
                 LoadUpcomingEvents(); 
+
+                // Restore selections
+                foreach (DataGridViewRow row in OngoingEventsDgv.Rows)
+                {
+                    if (ongoingSelection.Contains(row.Cells["EventTitle"].Value.ToString()))
+                    {
+                        row.Selected = true;
+                    }
+                }
+                foreach (DataGridViewRow row in UpcomingEventsDgv.Rows)
+                {
+                    if (upcomingSelection.Contains(row.Cells["EventTitle"].Value.ToString()))
+                    {
+                        row.Selected = true;
+                    }
+                }
             };
             eventsTimer.Start();
 
@@ -470,6 +511,46 @@ namespace Event_Catering_Order___Expense_Tracker
         private void NotificationPnl_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void EventsDgv_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0) // Ensure we're clicking on a row, not the header
+            {
+                DataGridView dgv = (DataGridView)sender;
+                string eventTitle = dgv.Rows[e.RowIndex].Cells["EventTitle"].Value.ToString();
+                DateTime eventDate = Convert.ToDateTime(dgv.Rows[e.RowIndex].Cells["EventDate"].Value);
+                TimeSpan eventTime = TimeSpan.Parse(dgv.Rows[e.RowIndex].Cells["EventTime"].Value.ToString());
+
+                string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Kyle\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30";
+                //string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\ashbs\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30";
+
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    try
+                    {
+                        con.Open();
+                        string query = "SELECT EventID FROM EventTable WHERE EventTitle = @EventTitle AND EventDate = @EventDate AND EventTime = @EventTime AND Hidden = 0";
+                        SqlCommand cmd = new SqlCommand(query, con);
+                        cmd.Parameters.AddWithValue("@EventTitle", eventTitle);
+                        cmd.Parameters.AddWithValue("@EventDate", eventDate);
+                        cmd.Parameters.AddWithValue("@EventTime", eventTime);
+
+                        object result = cmd.ExecuteScalar();
+                        if (result != null)
+                        {
+                            int eventID = Convert.ToInt32(result);
+                            Event eventForm = new Event(eventID);
+                            eventForm.TopMost = true;
+                            eventForm.Show();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error opening event details: " + ex.Message);
+                    }
+                }
+            }
         }
     }
 }
