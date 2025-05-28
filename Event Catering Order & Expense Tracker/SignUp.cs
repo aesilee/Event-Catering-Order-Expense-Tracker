@@ -13,13 +13,55 @@ namespace Event_Catering_Order___Expense_Tracker
 {
     public partial class SignUp: Form
     {
+        SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\ashbs\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30");
+        //SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Kyle\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30");
+
         public SignUp()
         {
             InitializeComponent();
+
+            SignUpBtn.MouseEnter += SignUpBtn_MouseEnter;
+            SignUpBtn.MouseLeave += SignUpBtn_MouseLeave;
+        }
+        private async Task AnimateButtonColors(Button button, Color targetBackColor, Color targetForeColor)
+        {
+            Color originalBackColor = button.BackColor;
+            Color originalForeColor = button.ForeColor;
+
+            for (int i = 0; i <= 10; i++)
+            {
+                if (button.IsDisposed) return;
+
+                // Animate BackColor
+                int backR = originalBackColor.R + (int)((targetBackColor.R - originalBackColor.R) * (i / 10f));
+                int backG = originalBackColor.G + (int)((targetBackColor.G - originalBackColor.G) * (i / 10f));
+                int backB = originalBackColor.B + (int)((targetBackColor.B - originalBackColor.B) * (i / 10f));
+
+                // Animate ForeColor
+                int foreR = originalForeColor.R + (int)((targetForeColor.R - originalForeColor.R) * (i / 10f));
+                int foreG = originalForeColor.G + (int)((targetForeColor.G - originalForeColor.G) * (i / 10f));
+                int foreB = originalForeColor.B + (int)((targetForeColor.B - originalForeColor.B) * (i / 10f));
+
+                button.BackColor = Color.FromArgb(backR, backG, backB);
+                button.ForeColor = Color.FromArgb(foreR, foreG, foreB);
+
+                await Task.Delay(15);
+            }
         }
 
-        SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\ashbs\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30");
-        //SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Kyle\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30");
+        private async void SignUpBtn_MouseEnter(object sender, EventArgs e)
+        {
+            await AnimateButtonColors(SignUpBtn,
+                Color.FromArgb(170, 163, 150),
+                Color.Black);
+        }
+
+        private async void SignUpBtn_MouseLeave(object sender, EventArgs e)
+        {
+            await AnimateButtonColors(SignUpBtn,
+                Color.FromArgb(88, 71, 56),
+                Color.White);
+        }
 
         private void SignUpBtn_Click(object sender, EventArgs e)
         {
