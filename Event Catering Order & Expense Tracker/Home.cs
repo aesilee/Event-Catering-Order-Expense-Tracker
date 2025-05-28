@@ -124,7 +124,11 @@ namespace Event_Catering_Order___Expense_Tracker
             string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Kyle\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30";
             //string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\ashbs\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30";
 
-            string query = "SELECT EventTitle, EventDate, EventTime, Venue FROM EventTable WHERE Hidden = 0 AND CONVERT(date, EventDate) = @today";
+            string query = @"SELECT EventTitle, EventDate, EventTime, Venue 
+                           FROM EventTable 
+                           WHERE Hidden = 0 
+                           AND CONVERT(date, EventDate) = @today 
+                           AND CONVERT(time, EventTime) <= @currentTime";
             using (SqlConnection con = new SqlConnection(connectionString))
             {
                 try
@@ -132,6 +136,7 @@ namespace Event_Catering_Order___Expense_Tracker
                     con.Open();
                     SqlDataAdapter adapter = new SqlDataAdapter(query, con);
                     adapter.SelectCommand.Parameters.AddWithValue("@today", DateTime.Today);
+                    adapter.SelectCommand.Parameters.AddWithValue("@currentTime", DateTime.Now.TimeOfDay);
                     DataTable dt = new DataTable();
                     adapter.Fill(dt);
                     OngoingEventsDgv.DataSource = dt;
