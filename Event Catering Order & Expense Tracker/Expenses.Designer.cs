@@ -34,6 +34,12 @@
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Expenses));
             this.EventCharts = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.ProfitChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.EventsDgv = new System.Windows.Forms.DataGridView();
@@ -51,13 +57,13 @@
             this.EventCharts.ChartAreas.Add(chartArea1);
             legend1.Name = "Legend1";
             this.EventCharts.Legends.Add(legend1);
-            this.EventCharts.Location = new System.Drawing.Point(192, 339);
+            this.EventCharts.Location = new System.Drawing.Point(192, 352);
             this.EventCharts.Name = "EventCharts";
             series1.ChartArea = "ChartArea1";
             series1.Legend = "Legend1";
             series1.Name = "Series1";
             this.EventCharts.Series.Add(series1);
-            this.EventCharts.Size = new System.Drawing.Size(329, 200);
+            this.EventCharts.Size = new System.Drawing.Size(312, 189);
             this.EventCharts.TabIndex = 0;
             this.EventCharts.Text = "chart1";
             // 
@@ -67,22 +73,58 @@
             this.ProfitChart.ChartAreas.Add(chartArea2);
             legend2.Name = "Legend1";
             this.ProfitChart.Legends.Add(legend2);
-            this.ProfitChart.Location = new System.Drawing.Point(527, 339);
+            this.ProfitChart.Location = new System.Drawing.Point(528, 352);
             this.ProfitChart.Name = "ProfitChart";
             series2.ChartArea = "ChartArea1";
             series2.Legend = "Legend1";
             series2.Name = "Series1";
             this.ProfitChart.Series.Add(series2);
-            this.ProfitChart.Size = new System.Drawing.Size(322, 200);
+            this.ProfitChart.Size = new System.Drawing.Size(322, 189);
             this.ProfitChart.TabIndex = 1;
             this.ProfitChart.Text = "chart2";
             // 
             // EventsDgv
             // 
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.LightGray;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.EventsDgv.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            this.EventsDgv.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.EventsDgv.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(234)))), ((int)(((byte)(218)))));
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Cambria", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.EventsDgv.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.EventsDgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.EventsDgv.Location = new System.Drawing.Point(192, 104);
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(71)))), ((int)(((byte)(56)))));
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.EventsDgv.DefaultCellStyle = dataGridViewCellStyle3;
+            this.EventsDgv.EnableHeadersVisualStyles = false;
+            this.EventsDgv.Location = new System.Drawing.Point(192, 112);
+            this.EventsDgv.MultiSelect = false;
             this.EventsDgv.Name = "EventsDgv";
-            this.EventsDgv.Size = new System.Drawing.Size(657, 197);
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(71)))), ((int)(((byte)(56)))));
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.EventsDgv.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            this.EventsDgv.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.EventsDgv.RowsDefaultCellStyle = dataGridViewCellStyle5;
+            this.EventsDgv.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.EventsDgv.Size = new System.Drawing.Size(657, 189);
             this.EventsDgv.TabIndex = 2;
             // 
             // label2
@@ -91,7 +133,7 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold);
             this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(71)))), ((int)(((byte)(56)))));
-            this.label2.Location = new System.Drawing.Point(192, 82);
+            this.label2.Location = new System.Drawing.Point(192, 80);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(54, 19);
@@ -104,7 +146,7 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold);
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(71)))), ((int)(((byte)(56)))));
-            this.label1.Location = new System.Drawing.Point(188, 317);
+            this.label1.Location = new System.Drawing.Point(184, 320);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(70, 19);
@@ -117,7 +159,7 @@
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Calibri", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(71)))), ((int)(((byte)(56)))));
-            this.label3.Location = new System.Drawing.Point(192, 32);
+            this.label3.Location = new System.Drawing.Point(192, 24);
             this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(118, 33);
@@ -136,6 +178,7 @@
             this.Controls.Add(this.EventsDgv);
             this.Controls.Add(this.ProfitChart);
             this.Controls.Add(this.EventCharts);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Expenses";
             this.Text = "Expenses";
             ((System.ComponentModel.ISupportInitialize)(this.EventCharts)).EndInit();

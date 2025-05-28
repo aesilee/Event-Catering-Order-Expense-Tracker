@@ -66,7 +66,7 @@ namespace Event_Catering_Order___Expense_Tracker
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Calibri", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(71)))), ((int)(((byte)(56)))));
-            this.label1.Location = new System.Drawing.Point(192, 32);
+            this.label1.Location = new System.Drawing.Point(192, 24);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(136, 33);
@@ -79,7 +79,7 @@ namespace Event_Catering_Order___Expense_Tracker
             this.AnalyticsPnl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(71)))), ((int)(((byte)(56)))));
             this.AnalyticsPnl.Controls.Add(this.AnalyticsChart);
             this.AnalyticsPnl.ForeColor = System.Drawing.Color.BlueViolet;
-            this.AnalyticsPnl.Location = new System.Drawing.Point(196, 117);
+            this.AnalyticsPnl.Location = new System.Drawing.Point(196, 125);
             this.AnalyticsPnl.Margin = new System.Windows.Forms.Padding(2);
             this.AnalyticsPnl.Name = "AnalyticsPnl";
             this.AnalyticsPnl.Size = new System.Drawing.Size(404, 195);
@@ -87,6 +87,7 @@ namespace Event_Catering_Order___Expense_Tracker
             // 
             // AnalyticsChart
             // 
+            this.AnalyticsChart.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(206)))), ((int)(((byte)(193)))), ((int)(((byte)(168)))));
             chartArea1.Name = "ChartArea1";
             this.AnalyticsChart.ChartAreas.Add(chartArea1);
             this.AnalyticsChart.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -94,6 +95,7 @@ namespace Event_Catering_Order___Expense_Tracker
             this.AnalyticsChart.Legends.Add(legend1);
             this.AnalyticsChart.Location = new System.Drawing.Point(0, 0);
             this.AnalyticsChart.Name = "AnalyticsChart";
+            this.AnalyticsChart.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Pastel;
             series1.ChartArea = "ChartArea1";
             series1.Legend = "Legend1";
             series1.Name = "Series1";
@@ -129,7 +131,7 @@ namespace Event_Catering_Order___Expense_Tracker
             this.OngoingEventsDgv.DefaultCellStyle = dataGridViewCellStyle3;
             this.OngoingEventsDgv.EnableHeadersVisualStyles = false;
             this.OngoingEventsDgv.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(71)))), ((int)(((byte)(56)))));
-            this.OngoingEventsDgv.Location = new System.Drawing.Point(196, 349);
+            this.OngoingEventsDgv.Location = new System.Drawing.Point(196, 365);
             this.OngoingEventsDgv.Margin = new System.Windows.Forms.Padding(2);
             this.OngoingEventsDgv.MultiSelect = false;
             this.OngoingEventsDgv.Name = "OngoingEventsDgv";
@@ -147,7 +149,7 @@ namespace Event_Catering_Order___Expense_Tracker
             this.OngoingEventsDgv.RowsDefaultCellStyle = dataGridViewCellStyle5;
             this.OngoingEventsDgv.RowTemplate.Height = 28;
             this.OngoingEventsDgv.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.OngoingEventsDgv.Size = new System.Drawing.Size(308, 195);
+            this.OngoingEventsDgv.Size = new System.Drawing.Size(316, 179);
             this.OngoingEventsDgv.TabIndex = 11;
             // 
             // label2
@@ -169,7 +171,7 @@ namespace Event_Catering_Order___Expense_Tracker
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold);
             this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(71)))), ((int)(((byte)(56)))));
-            this.label3.Location = new System.Drawing.Point(192, 328);
+            this.label3.Location = new System.Drawing.Point(192, 336);
             this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(116, 19);
@@ -182,7 +184,7 @@ namespace Event_Catering_Order___Expense_Tracker
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold);
             this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(71)))), ((int)(((byte)(56)))));
-            this.label4.Location = new System.Drawing.Point(520, 328);
+            this.label4.Location = new System.Drawing.Point(528, 336);
             this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(127, 19);
@@ -216,7 +218,7 @@ namespace Event_Catering_Order___Expense_Tracker
             this.UpcomingEventsDgv.DefaultCellStyle = dataGridViewCellStyle8;
             this.UpcomingEventsDgv.EnableHeadersVisualStyles = false;
             this.UpcomingEventsDgv.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(71)))), ((int)(((byte)(56)))));
-            this.UpcomingEventsDgv.Location = new System.Drawing.Point(520, 349);
+            this.UpcomingEventsDgv.Location = new System.Drawing.Point(528, 365);
             this.UpcomingEventsDgv.Margin = new System.Windows.Forms.Padding(2);
             this.UpcomingEventsDgv.MultiSelect = false;
             this.UpcomingEventsDgv.Name = "UpcomingEventsDgv";
@@ -234,7 +236,7 @@ namespace Event_Catering_Order___Expense_Tracker
             this.UpcomingEventsDgv.RowsDefaultCellStyle = dataGridViewCellStyle10;
             this.UpcomingEventsDgv.RowTemplate.Height = 28;
             this.UpcomingEventsDgv.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.UpcomingEventsDgv.Size = new System.Drawing.Size(336, 195);
+            this.UpcomingEventsDgv.Size = new System.Drawing.Size(328, 179);
             this.UpcomingEventsDgv.TabIndex = 14;
             // 
             // label5
@@ -254,7 +256,7 @@ namespace Event_Catering_Order___Expense_Tracker
             // 
             this.NotificationFlowPanel.AutoScroll = true;
             this.NotificationFlowPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(234)))), ((int)(((byte)(218)))));
-            this.NotificationFlowPanel.Location = new System.Drawing.Point(616, 120);
+            this.NotificationFlowPanel.Location = new System.Drawing.Point(616, 128);
             this.NotificationFlowPanel.Name = "NotificationFlowPanel";
             this.NotificationFlowPanel.Size = new System.Drawing.Size(240, 192);
             this.NotificationFlowPanel.TabIndex = 17;

@@ -143,6 +143,26 @@ namespace Event_Catering_Order___Expense_Tracker.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap ExpensesLogo {
+            get {
+                object obj = ResourceManager.GetObject("ExpensesLogo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap NewExpenseLogo {
+            get {
+                object obj = ResourceManager.GetObject("NewExpenseLogo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Sidebar_Panel_Logo_Eventra {
             get {
                 object obj = ResourceManager.GetObject("Sidebar_Panel_Logo_Eventra", resourceCulture);

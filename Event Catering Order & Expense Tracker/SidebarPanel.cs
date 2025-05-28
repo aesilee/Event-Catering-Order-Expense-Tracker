@@ -191,7 +191,7 @@ namespace Event_Catering_Order___Expense_Tracker
                 case "Add New":
                     return Properties.Resources.Untitled_design__3__removebg_preview;
                 case "Expenses":
-                    return Properties.Resources.Untitled_design__2__removebg_preview; // You may want to add a specific icon for Expenses
+                    return Properties.Resources.NewExpenseLogo; // You may want to add a specific icon for Expenses
                 default:
                     return null;
             }
