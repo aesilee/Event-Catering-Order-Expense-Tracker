@@ -47,6 +47,7 @@
             this.ArchivesDgv = new System.Windows.Forms.DataGridView();
             this.label2 = new System.Windows.Forms.Label();
             this.ArchiveBtn = new System.Windows.Forms.Button();
+            this.UnarchiveBtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.EventsDgv)).BeginInit();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
@@ -218,12 +219,25 @@
             this.ArchiveBtn.Text = "Archive";
             this.ArchiveBtn.UseVisualStyleBackColor = false;
             // 
+            // UnarchiveBtn
+            // 
+            this.UnarchiveBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(71)))), ((int)(((byte)(56)))));
+            this.UnarchiveBtn.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.UnarchiveBtn.ForeColor = System.Drawing.SystemColors.Window;
+            this.UnarchiveBtn.Location = new System.Drawing.Point(778, 317);
+            this.UnarchiveBtn.Name = "UnarchiveBtn";
+            this.UnarchiveBtn.Size = new System.Drawing.Size(86, 32);
+            this.UnarchiveBtn.TabIndex = 74;
+            this.UnarchiveBtn.Text = "Unarchive";
+            this.UnarchiveBtn.UseVisualStyleBackColor = false;
+            // 
             // Spreadsheet
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(234)))), ((int)(((byte)(218)))));
             this.ClientSize = new System.Drawing.Size(884, 561);
+            this.Controls.Add(this.UnarchiveBtn);
             this.Controls.Add(this.ArchiveBtn);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.ArchivesDgv);
@@ -255,5 +269,6 @@
         private System.Windows.Forms.DataGridView ArchivesDgv;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button ArchiveBtn;
+        private System.Windows.Forms.Button UnarchiveBtn;
     }
 }

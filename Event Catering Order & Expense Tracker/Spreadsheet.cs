@@ -34,14 +34,19 @@ namespace Event_Catering_Order___Expense_Tracker
             EventsDgv.MultiSelect = true;
             EventsDgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
-            // Allow multi-select in both DataGridViews
+            // Make ArchivesDgv read-only and non-editable
+            ArchivesDgv.ReadOnly = true;
+            ArchivesDgv.AllowUserToAddRows = false;
+            ArchivesDgv.AllowUserToDeleteRows = false;
+            ArchivesDgv.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             ArchivesDgv.MultiSelect = true;
 
             // Wire up search
             SearchTb.TextChanged += SearchTb_TextChanged;
 
-            // Wire up archive button
+            // Wire up archive and unarchive buttons
             ArchiveBtn.Click += ArchiveBtn_Click;
+            UnarchiveBtn.Click += UnarchiveBtn_Click;
 
             LoadEvents();
             LoadArchives();
@@ -125,8 +130,8 @@ namespace Event_Catering_Order___Expense_Tracker
 
         private void LoadEvents(string search = "")
         {
-            //string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Kyle\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30";
-            string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\ashbs\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30";
+            string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Kyle\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30";
+            //string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\ashbs\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30";
             
             string query = "SELECT * FROM EventTable WHERE Hidden = 0";
             if (!string.IsNullOrWhiteSpace(search))
@@ -189,8 +194,8 @@ namespace Event_Catering_Order___Expense_Tracker
                 return;
             }
 
-            //string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Kyle\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30";
-            string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\ashbs\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30";
+            string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Kyle\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30";
+            //string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\ashbs\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30";
             
             using (SqlConnection con = new SqlConnection(connectionString))
             {
@@ -248,15 +253,72 @@ namespace Event_Catering_Order___Expense_Tracker
             }
         }
 
+        private void UnarchiveBtn_Click(object sender, EventArgs e)
+        {
+            if (ArchivesDgv.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Please select at least one event to unarchive.");
+                return;
+            }
+
+            string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Kyle\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30";
+            //string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\ashbs\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30";
+            
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                con.Open();
+                SqlTransaction transaction = con.BeginTransaction();
+
+                try
+                {
+                    foreach (DataGridViewRow row in ArchivesDgv.SelectedRows)
+                    {
+                        if (!row.IsNewRow)
+                        {
+                            // Update EventTable to mark the event as not hidden
+                            SqlCommand updateCmd = new SqlCommand(
+                                "UPDATE EventTable SET Hidden = 0 WHERE EventTitle = @EventTitle AND EventDate = @EventDate AND EventTime = @EventTime", con, transaction);
+                            
+                            updateCmd.Parameters.AddWithValue("@EventTitle", row.Cells["EventTitle"].Value ?? DBNull.Value);
+                            updateCmd.Parameters.AddWithValue("@EventDate", row.Cells["EventDate"].Value ?? DBNull.Value);
+                            updateCmd.Parameters.AddWithValue("@EventTime", row.Cells["EventTime"].Value ?? DBNull.Value);
+                            updateCmd.ExecuteNonQuery();
+
+                            // Update ArchivesTable to mark the event as hidden
+                            SqlCommand updateArchiveCmd = new SqlCommand(
+                                "UPDATE ArchivesTable SET Hidden = 1 WHERE EventTitle = @EventTitle AND EventDate = @EventDate AND EventTime = @EventTime", con, transaction);
+                            
+                            updateArchiveCmd.Parameters.AddWithValue("@EventTitle", row.Cells["EventTitle"].Value ?? DBNull.Value);
+                            updateArchiveCmd.Parameters.AddWithValue("@EventDate", row.Cells["EventDate"].Value ?? DBNull.Value);
+                            updateArchiveCmd.Parameters.AddWithValue("@EventTime", row.Cells["EventTime"].Value ?? DBNull.Value);
+                            updateArchiveCmd.ExecuteNonQuery();
+                        }
+                    }
+
+                    transaction.Commit();
+                    MessageBox.Show("Selected events unarchived successfully!");
+
+                    // Reload both grids
+                    LoadEvents();
+                    LoadArchives();
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    MessageBox.Show("Error unarchiving events: " + ex.Message);
+                }
+            }
+        }
+
         private void LoadArchives(string search = "")
         {
-            //string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Kyle\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30";
-            string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\ashbs\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30";
+            string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Kyle\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30";
+            //string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\ashbs\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30";
 
-            string query = "SELECT * FROM ArchivesTable";
+            string query = "SELECT * FROM ArchivesTable WHERE Hidden = 0";
             if (!string.IsNullOrWhiteSpace(search))
             {
-                query += " WHERE EventTitle LIKE @search OR EventType LIKE @search OR Venue LIKE @search OR CustomerName LIKE @search OR ContactNumber LIKE @search OR EmailAddress LIKE @search OR MenuType LIKE @search OR MenuDetails LIKE @search";
+                query += " AND (EventTitle LIKE @search OR EventType LIKE @search OR Venue LIKE @search OR CustomerName LIKE @search OR ContactNumber LIKE @search OR EmailAddress LIKE @search OR MenuType LIKE @search OR MenuDetails LIKE @search)";
             }
 
             using (SqlConnection con = new SqlConnection(connectionString))

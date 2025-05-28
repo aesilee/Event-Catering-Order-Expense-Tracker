@@ -27,7 +27,9 @@ namespace Event_Catering_Order___Expense_Tracker
             {
                 EventsFlowPanel.Controls.Clear();
 
-                using (SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\ashbs\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30"))
+                //using (SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\ashbs\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30"))
+                using (SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Kyle\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30"))
+
                 {
                     con.Open();
                     string query = "SELECT EventID, EventTitle FROM EventTable WHERE CONVERT(date, EventDate) = @EventDate AND Hidden = 0";
