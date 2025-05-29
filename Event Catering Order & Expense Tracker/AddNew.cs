@@ -122,16 +122,16 @@ namespace Event_Catering_Order___Expense_Tracker
 
             InitialPaymentDateDtp.Enter += InstallmentDatePicker_Enter;
             FinalPaymentDateDtp.Enter += InstallmentDatePicker_Enter;
-            EstimatedPaymentDateDtp.Enter += FullPaymentDatePicker_Enter;
+            EstimatedPaymentDueDtp.Enter += FullPaymentDatePicker_Enter;
         }
         private void InstallmentDatePicker_Enter(object sender, EventArgs e)
         {
             if (FullPaymentRb.Checked)
             {
                 MessageBox.Show("Please select 'Installment' payment type to use these date pickers", "Invalid Access", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                if (EstimatedPaymentDateDtp.Enabled)
+                if (EstimatedPaymentDueDtp.Enabled)
                 {
-                    EstimatedPaymentDateDtp.Focus();
+                    EstimatedPaymentDueDtp.Focus();
                 }
             }
         }
@@ -152,12 +152,12 @@ namespace Event_Catering_Order___Expense_Tracker
         {
             if (!FullPaymentRb.Checked && !InstallmentRb.Checked)
             {
-                EstimatedPaymentDateDtp.Enabled = false;
+                EstimatedPaymentDueDtp.Enabled = false;
                 InitialPaymentDateDtp.Enabled = false;
                 FinalPaymentDateDtp.Enabled = false;
                 PaymentMethodCb.Enabled = false;
 
-                EstimatedPaymentDateDtp.BackColor = SystemColors.Control;
+                EstimatedPaymentDueDtp.BackColor = SystemColors.Control;
                 InitialPaymentDateDtp.BackColor = SystemColors.Control;
                 FinalPaymentDateDtp.BackColor = SystemColors.Control;
                 PaymentMethodCb.BackColor = SystemColors.Control;
@@ -166,12 +166,12 @@ namespace Event_Catering_Order___Expense_Tracker
             {
                 bool isInstallment = InstallmentRb.Checked;
 
-                EstimatedPaymentDateDtp.Enabled = !isInstallment;
+                EstimatedPaymentDueDtp.Enabled = !isInstallment;
                 InitialPaymentDateDtp.Enabled = isInstallment;
                 FinalPaymentDateDtp.Enabled = isInstallment;
                 PaymentMethodCb.Enabled = isInstallment;
 
-                EstimatedPaymentDateDtp.BackColor = !isInstallment ? SystemColors.Window : SystemColors.Control;
+                EstimatedPaymentDueDtp.BackColor = !isInstallment ? SystemColors.Window : SystemColors.Control;
                 InitialPaymentDateDtp.BackColor = isInstallment ? SystemColors.Window : SystemColors.Control;
                 FinalPaymentDateDtp.BackColor = isInstallment ? SystemColors.Window : SystemColors.Control;
                 PaymentMethodCb.BackColor = isInstallment ? SystemColors.Window : SystemColors.Control;
@@ -181,7 +181,7 @@ namespace Event_Catering_Order___Expense_Tracker
         {
             DateTime currentDate = DateTime.Now;
 
-            EstimatedPaymentDateDtp.Value = currentDate;
+            EstimatedPaymentDueDtp.Value = currentDate;
             InitialPaymentDateDtp.Value = currentDate;
             FinalPaymentDateDtp.Value = currentDate.AddDays(30);
 
@@ -579,7 +579,7 @@ namespace Event_Catering_Order___Expense_Tracker
             }
 
             // Validate payment date for full payment
-            if (FullPaymentRb.Checked && EstimatedPaymentDateDtp.Value < DateTime.Today)
+            if (FullPaymentRb.Checked && EstimatedPaymentDueDtp.Value < DateTime.Today)
             {
                 MessageBox.Show("Payment date cannot be in the past");
                 return false;
@@ -614,7 +614,7 @@ namespace Event_Catering_Order___Expense_Tracker
             FullPaymentRb.Checked = false;
             InstallmentRb.Checked = false;
             PaymentMethodCb.SelectedIndex = -1;
-            EstimatedPaymentDateDtp.Value = DateTime.Now;
+            EstimatedPaymentDueDtp.Value = DateTime.Now;
             InitialPaymentDateDtp.Value = DateTime.Now;
             FinalPaymentDateDtp.Value = DateTime.Now.AddDays(30);
             UpdatePaymentFieldsAccessibility();
