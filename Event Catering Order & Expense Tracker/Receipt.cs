@@ -32,6 +32,7 @@ namespace Event_Catering_Order___Expense_Tracker
         )
         {
             InitializeComponent();
+            this.TopMost = true; // Set form to always be on top
 
             // Set the labels/textboxes with the received data
             EventNameLbl.Text = eventName;
@@ -51,50 +52,69 @@ namespace Event_Catering_Order___Expense_Tracker
         }
 
 
-        private void printBtn_Click(object sender, EventArgs e)
+        private void printBtn_Click_1(object sender, EventArgs e)
         {
-            // Get the user's Downloads folder
-            string downloadsPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Downloads");
-            string fileName = $"EventReceipt_{EventIdLbl.Text.Replace("#", "")}_{DateTime.Now:yyyyMMdd_HHmmss}.txt";
-            string filePath = Path.Combine(downloadsPath, fileName);
-
-            // Build the receipt content
-            StringBuilder sb = new StringBuilder();
-            sb.AppendLine("========================================");
-            sb.AppendLine("         Event Catering Order Receipt   ");
-            sb.AppendLine("========================================");
-            sb.AppendLine($"Event Name:         {EventNameLbl.Text}");
-            sb.AppendLine($"Event Date:         {EventDateDtp.Text}");
-            sb.AppendLine($"Event Time:         {EventTimeTb.Text}");
-            sb.AppendLine($"Event Type:         {EventTypeCb.Text}");
-            sb.AppendLine($"Venue:              {VenueTb.Text}");
-            sb.AppendLine("----------------------------------------");
-            sb.AppendLine($"Customer Name:      {CustomerNameTb.Text}");
-            sb.AppendLine($"Contact #:          {ContactNumTb.Text}");
-            sb.AppendLine($"Email:              {EmailAddressTb.Text}");
-            sb.AppendLine($"Number of Guests:   {NumOfGuestsTb.Text}");
-            sb.AppendLine($"Menu/Meal Type:     {MenuTypeCb.Text}");
-            sb.AppendLine($"Menu Details:       {MenuDetailsTb.Text}");
-            sb.AppendLine("----------------------------------------");
-            sb.AppendLine($"Estimated Budget:   {EstBudgetTb.Text}");
-            sb.AppendLine($"Total Expenses:     {TotalExpensesLbl.Text}");
-            sb.AppendLine();
-            sb.AppendLine("Thank you!");
-            sb.AppendLine($"Event ID:           {EventIdLbl.Text}");
-
-            // Write to file
             try
             {
-                this.Close();
+                // Get the user's Downloads folder
+                string downloadsPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Downloads");
+                string fileName = $"EventReceipt_{EventIdLbl.Text.Replace("#", "")}_{DateTime.Now:yyyyMMdd_HHmmss}.txt";
+                string filePath = Path.Combine(downloadsPath, fileName);
+
+                // Build the receipt content
+                StringBuilder sb = new StringBuilder();
+                sb.AppendLine("========================================");
+                sb.AppendLine("         Event Catering Order Receipt   ");
+                sb.AppendLine("========================================");
+                sb.AppendLine($"Event Name:         {EventNameLbl.Text}");
+                sb.AppendLine($"Event Date:         {EventDateDtp.Text}");
+                sb.AppendLine($"Event Time:         {EventTimeTb.Text}");
+                sb.AppendLine($"Event Type:         {EventTypeCb.Text}");
+                sb.AppendLine($"Venue:              {VenueTb.Text}");
+                sb.AppendLine("----------------------------------------");
+                sb.AppendLine($"Customer Name:      {CustomerNameTb.Text}");
+                sb.AppendLine($"Contact #:          {ContactNumTb.Text}");
+                sb.AppendLine($"Email:              {EmailAddressTb.Text}");
+                sb.AppendLine($"Number of Guests:   {NumOfGuestsTb.Text}");
+                sb.AppendLine($"Menu/Meal Type:     {MenuTypeCb.Text}");
+                sb.AppendLine($"Menu Details:       {MenuDetailsTb.Text}");
+                sb.AppendLine("----------------------------------------");
+                sb.AppendLine($"Estimated Budget:   {EstBudgetTb.Text}");
+                sb.AppendLine($"Total Expenses:     {TotalExpensesLbl.Text}");
+                sb.AppendLine();
+                sb.AppendLine("Thank you!");
+                sb.AppendLine($"Event ID:           {EventIdLbl.Text}");
+
+                // Write to file
                 File.WriteAllText(filePath, sb.ToString());
-                MessageBox.Show($"Receipt saved to {filePath}", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                // Only after the user closes the MessageBox, show AddNew and close this form
-                // var addNewForm = new AddNew();
-                // addNewForm.Show();
+
+                // Ensure form stays on top for the message
+                this.TopMost = true;
+
+                // Show success message with file path
+                MessageBox.Show(
+                    this, // Set the owner form
+                    $"Receipt has been successfully saved to:\n{filePath}",
+                    "Download Successful",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information
+                );
+
+                // Close the form after successful download
+                this.Close();
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Failed to save receipt: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                // Ensure form stays on top for the error message
+                this.TopMost = true;
+
+                MessageBox.Show(
+                    this, // Set the owner form
+                    $"Failed to save receipt: {ex.Message}",
+                    "Download Failed",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
             }
         }
     }

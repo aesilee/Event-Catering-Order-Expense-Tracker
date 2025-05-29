@@ -14,18 +14,33 @@ namespace Event_Catering_Order___Expense_Tracker
     public partial class Event: Form
     {
         private int eventID;
+        private Timer refreshTimer;
 
         public Event(int eventID)
         {
             InitializeComponent();
             this.eventID = eventID;
+            InitializeRefreshTimer();
             LoadEventDetails();
         }
+
+        private void InitializeRefreshTimer()
+        {
+            refreshTimer = new Timer();
+            refreshTimer.Interval = 5000; // Refresh every 5 seconds
+            refreshTimer.Tick += RefreshTimer_Tick;
+            refreshTimer.Start();
+        }
+
+        private void RefreshTimer_Tick(object sender, EventArgs e)
+        {
+            LoadEventDetails();
+        }
+
         private void LoadEventDetails()
         {
             //using (SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\ashbs\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30"))
             using (SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Kyle\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30"))
-
             {
                 con.Open();
                 string query = @"
@@ -96,6 +111,22 @@ namespace Event_Catering_Order___Expense_Tracker
                 }
             }
             this.Close();
+        }
+
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            base.OnFormClosing(e);
+            if (refreshTimer != null)
+            {
+                refreshTimer.Stop();
+                refreshTimer.Dispose();
+            }
+        }
+
+        protected override void OnFormClosed(FormClosedEventArgs e)
+        {
+            //base.OnFormClosed(e);
+            //Application.Exit();
         }
     }
 }

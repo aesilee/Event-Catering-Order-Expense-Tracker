@@ -477,6 +477,7 @@
             this.printBtn.TabIndex = 81;
             this.printBtn.Text = "Print Receipt";
             this.printBtn.UseVisualStyleBackColor = true;
+            this.printBtn.Click += new System.EventHandler(this.printBtn_Click_1);
             // 
             // pictureBox1
             // 

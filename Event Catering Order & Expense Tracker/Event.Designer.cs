@@ -503,6 +503,7 @@
             this.PaymentBtn.TabIndex = 74;
             this.PaymentBtn.Text = "Payment Details";
             this.PaymentBtn.UseVisualStyleBackColor = false;
+            this.PaymentBtn.Click += new System.EventHandler(this.PaymentBtn_Click);
             // 
             // Event
             // 
