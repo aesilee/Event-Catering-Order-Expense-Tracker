@@ -30,7 +30,6 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Event));
             this.panel1 = new System.Windows.Forms.Panel();
-            this.BackBtn = new System.Windows.Forms.PictureBox();
             this.EventTitleLbl = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.label15 = new System.Windows.Forms.Label();
@@ -69,6 +68,7 @@
             this.StatusLbl = new System.Windows.Forms.Label();
             this.panel5 = new System.Windows.Forms.Panel();
             this.PaymentBtn = new System.Windows.Forms.Button();
+            this.BackBtn = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.BackBtn)).BeginInit();
             this.SuspendLayout();
@@ -83,17 +83,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(434, 56);
             this.panel1.TabIndex = 0;
-            // 
-            // BackBtn
-            // 
-            this.BackBtn.Image = ((System.Drawing.Image)(resources.GetObject("BackBtn.Image")));
-            this.BackBtn.Location = new System.Drawing.Point(8, 8);
-            this.BackBtn.Name = "BackBtn";
-            this.BackBtn.Size = new System.Drawing.Size(24, 24);
-            this.BackBtn.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.BackBtn.TabIndex = 70;
-            this.BackBtn.TabStop = false;
-            this.BackBtn.Click += new System.EventHandler(this.BackBtn_Click);
             // 
             // EventTitleLbl
             // 
@@ -504,6 +493,17 @@
             this.PaymentBtn.Text = "Payment Details";
             this.PaymentBtn.UseVisualStyleBackColor = false;
             this.PaymentBtn.Click += new System.EventHandler(this.PaymentBtn_Click);
+            // 
+            // BackBtn
+            // 
+            this.BackBtn.Image = ((System.Drawing.Image)(resources.GetObject("BackBtn.Image")));
+            this.BackBtn.Location = new System.Drawing.Point(8, 8);
+            this.BackBtn.Name = "BackBtn";
+            this.BackBtn.Size = new System.Drawing.Size(24, 24);
+            this.BackBtn.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.BackBtn.TabIndex = 70;
+            this.BackBtn.TabStop = false;
+            this.BackBtn.Click += new System.EventHandler(this.BackBtn_Click);
             // 
             // Event
             // 

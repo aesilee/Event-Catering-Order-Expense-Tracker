@@ -13,8 +13,8 @@ namespace Event_Catering_Order___Expense_Tracker
 {
     public partial class AddNew : Form
     {
-        SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\ashbs\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30");
-        //SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Kyle\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30");
+        //SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\ashbs\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30");
+        SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Kyle\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30");
 
 
         private Timer fadeTimer;
@@ -407,20 +407,22 @@ namespace Event_Catering_Order___Expense_Tracker
                 decimal? initialPaymentAmount = null;
                 decimal? finalPaymentAmount = null;
                 string paymentMethod = null;
+                DateTime? paymentDate = null;
+
+                string paymentTerm = FullPaymentRb.Checked ? "Full Payment" : "Installment";
 
                 if (FullPaymentRb.Checked)
                 {
-                    paymentStatus = "Pending Full Payment";
-                    finalPaymentDate = EstimatedPaymentDateDtp.Value.Date;
-                    finalPaymentAmount = decimal.Parse(EstBudgetTb.Text);
+                    paymentStatus = "Unpaid";
+                    paymentDate = EstimatedPaymentDueDtp.Value.Date;
                 }
                 else if (InstallmentRb.Checked)
                 {
-                    paymentStatus = "Pending Installments";
+                    paymentStatus = "Unpaid";
                     initialPaymentDate = InitialPaymentDateDtp.Value.Date;
                     finalPaymentDate = FinalPaymentDateDtp.Value.Date;
-                    initialPaymentAmount = decimal.Parse(EstBudgetTb.Text) * 0.5m; // 50% initial payment
-                    finalPaymentAmount = decimal.Parse(EstBudgetTb.Text) * 0.5m; // 50% final payment
+                    initialPaymentAmount = decimal.Parse(EstBudgetTb.Text) * 0.5m;
+                    finalPaymentAmount = decimal.Parse(EstBudgetTb.Text) * 0.5m;
                     paymentMethod = PaymentMethodCb.SelectedItem?.ToString();
                 }
 
@@ -433,7 +435,7 @@ namespace Event_Catering_Order___Expense_Tracker
                     NextPayment, RemainingBalance,
                     InitialPaymentDate, InitialPaymentAmount,
                     FinalPaymentDate, FinalPaymentAmount,
-                    PaymentMethod
+                    PaymentMethod, PaymentTerm, PaymentDate
                 ) VALUES (
                     @EventID, @FoodBeverages, @Labor, @Decorations,
                     @Rentals, @Transportation, @Miscellaneous,
@@ -441,7 +443,7 @@ namespace Event_Catering_Order___Expense_Tracker
                     @NextPayment, @RemainingBalance,
                     @InitialPaymentDate, @InitialPaymentAmount,
                     @FinalPaymentDate, @FinalPaymentAmount,
-                    @PaymentMethod
+                    @PaymentMethod, @PaymentTerm, @PaymentDate
                 )";
 
                 cmd = new SqlCommand(expenseQuery, con, transaction);
@@ -455,7 +457,7 @@ namespace Event_Catering_Order___Expense_Tracker
                 cmd.Parameters.AddWithValue("@TotalExpenses", decimal.Parse(TotalExpensesLbl.Text));
                 cmd.Parameters.AddWithValue("@BudgetStatus", StatusLbl.Text);
                 cmd.Parameters.AddWithValue("@PaymentStatus", paymentStatus);
-                cmd.Parameters.AddWithValue("@NextPayment", FullPaymentRb.Checked ? EstimatedPaymentDateDtp.Value.Date : InitialPaymentDateDtp.Value.Date);
+                cmd.Parameters.AddWithValue("@NextPayment", initialPaymentDate ?? (object)DBNull.Value);
                 cmd.Parameters.AddWithValue("@RemainingBalance", decimal.Parse(EstBudgetTb.Text));
 
                 // Add new payment parameters
@@ -464,6 +466,8 @@ namespace Event_Catering_Order___Expense_Tracker
                 cmd.Parameters.AddWithValue("@FinalPaymentDate", finalPaymentDate ?? (object)DBNull.Value);
                 cmd.Parameters.AddWithValue("@FinalPaymentAmount", finalPaymentAmount ?? (object)DBNull.Value);
                 cmd.Parameters.AddWithValue("@PaymentMethod", paymentMethod ?? (object)DBNull.Value);
+                cmd.Parameters.AddWithValue("@PaymentTerm", paymentTerm);
+                cmd.Parameters.AddWithValue("@PaymentDate", paymentDate ?? (object)DBNull.Value);
 
                 cmd.ExecuteNonQuery();
                 transaction.Commit();

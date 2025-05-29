@@ -88,7 +88,7 @@
             this.FinalPaymentDateLbl = new System.Windows.Forms.Label();
             this.FinalPaymentDateDtp = new System.Windows.Forms.DateTimePicker();
             this.label9 = new System.Windows.Forms.Label();
-            this.EstimatedPaymentDateDtp = new System.Windows.Forms.DateTimePicker();
+            this.EstimatedPaymentDueDtp = new System.Windows.Forms.DateTimePicker();
             this.label10 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.InitialPaymentDateLbl = new System.Windows.Forms.Label();
@@ -755,15 +755,15 @@
             this.label9.TabIndex = 141;
             this.label9.Text = "Estimated Payment Date *";
             // 
-            // EstimatedPaymentDateDtp
+            // EstimatedPaymentDueDtp
             // 
-            this.EstimatedPaymentDateDtp.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.EstimatedPaymentDateDtp.Location = new System.Drawing.Point(224, 813);
-            this.EstimatedPaymentDateDtp.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.EstimatedPaymentDateDtp.Name = "EstimatedPaymentDateDtp";
-            this.EstimatedPaymentDateDtp.Size = new System.Drawing.Size(248, 27);
-            this.EstimatedPaymentDateDtp.TabIndex = 140;
-            this.EstimatedPaymentDateDtp.ValueChanged += new System.EventHandler(this.dateTimePicker2_ValueChanged);
+            this.EstimatedPaymentDueDtp.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.EstimatedPaymentDueDtp.Location = new System.Drawing.Point(224, 813);
+            this.EstimatedPaymentDueDtp.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.EstimatedPaymentDueDtp.Name = "EstimatedPaymentDueDtp";
+            this.EstimatedPaymentDueDtp.Size = new System.Drawing.Size(248, 27);
+            this.EstimatedPaymentDueDtp.TabIndex = 140;
+            this.EstimatedPaymentDueDtp.ValueChanged += new System.EventHandler(this.dateTimePicker2_ValueChanged);
             // 
             // label10
             // 
@@ -845,7 +845,7 @@
             this.Controls.Add(this.label12);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.label9);
-            this.Controls.Add(this.EstimatedPaymentDateDtp);
+            this.Controls.Add(this.EstimatedPaymentDueDtp);
             this.Controls.Add(this.FinalPaymentDateLbl);
             this.Controls.Add(this.FinalPaymentDateDtp);
             this.Controls.Add(this.InstallmentRb);
@@ -976,7 +976,7 @@
         private System.Windows.Forms.Label FinalPaymentDateLbl;
         private System.Windows.Forms.DateTimePicker FinalPaymentDateDtp;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.DateTimePicker EstimatedPaymentDateDtp;
+        private System.Windows.Forms.DateTimePicker EstimatedPaymentDueDtp;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label InitialPaymentDateLbl;

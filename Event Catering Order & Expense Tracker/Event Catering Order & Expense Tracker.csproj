@@ -139,6 +139,12 @@
     <Compile Include="Spreadsheet.Designer.cs">
       <DependentUpon>Spreadsheet.cs</DependentUpon>
     </Compile>
+    <Compile Include="TransactionLog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TransactionLog.Designer.cs">
+      <DependentUpon>TransactionLog.cs</DependentUpon>
+    </Compile>
     <Compile Include="ucDays.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -196,6 +202,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Spreadsheet.resx">
       <DependentUpon>Spreadsheet.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TransactionLog.resx">
+      <DependentUpon>TransactionLog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ucDays.resx">
       <DependentUpon>ucDays.cs</DependentUpon>

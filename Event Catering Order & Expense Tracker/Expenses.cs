@@ -114,13 +114,14 @@ namespace Event_Catering_Order___Expense_Tracker
 
         private void LoadExpenses(string search = "")
         {
-            //string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Kyle\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30";
-            string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\ashbs\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30";
+            string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Kyle\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30";
+            //string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\ashbs\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30";
 
             string query = @"SELECT e.EventTitle, 
                                   exp.PaymentStatus, 
                                   exp.NextPayment, 
-                                  exp.RemainingBalance
+                                  exp.RemainingBalance,
+                                  exp.PaymentTerm
                            FROM EventTable e
                            LEFT JOIN ExpensesTable exp ON e.EventID = exp.EventID
                            WHERE e.Hidden = 0";
@@ -162,6 +163,10 @@ namespace Event_Catering_Order___Expense_Tracker
                         EventsDgv.Columns["RemainingBalance"].DefaultCellStyle.Format = "N2";
                         EventsDgv.Columns["RemainingBalance"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
                     }
+                    if (EventsDgv.Columns.Contains("PaymentTerm"))
+                    {
+                        EventsDgv.Columns["PaymentTerm"].HeaderText = "Payment Term";
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -172,8 +177,8 @@ namespace Event_Catering_Order___Expense_Tracker
 
         private void LoadPaymentStatusChart()
         {
-            //string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Kyle\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30";
-            string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\ashbs\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30";
+            string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Kyle\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30";
+            //string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\ashbs\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30";
 
             using (SqlConnection con = new SqlConnection(connectionString))
             {
@@ -275,8 +280,8 @@ namespace Event_Catering_Order___Expense_Tracker
 
         private void LoadExpenseBreakdownChart()
         {
-            //string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Kyle\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30";
-            string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\ashbs\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30";
+            string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Kyle\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30";
+            //string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\ashbs\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30";
 
             using (SqlConnection con = new SqlConnection(connectionString))
             {
@@ -430,8 +435,8 @@ namespace Event_Catering_Order___Expense_Tracker
                 DataGridView dgv = (DataGridView)sender;
                 string eventTitle = dgv.Rows[e.RowIndex].Cells["EventTitle"].Value.ToString();
 
-                //string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Kyle\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30";
-                string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\ashbs\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30";
+                string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Kyle\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30";
+                //string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\ashbs\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30";
 
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
