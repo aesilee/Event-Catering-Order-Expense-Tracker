@@ -38,9 +38,11 @@ namespace Event_Catering_Order___Expense_Tracker
 
             // Initialize chart
             InitializeChart();
+            InitializeProfitChart();
 
             LoadExpenses();
             LoadPaymentStatusChart();
+            LoadExpenseBreakdownChart();
         }
 
         private void InitializeRefreshTimer()
@@ -60,6 +62,7 @@ namespace Event_Catering_Order___Expense_Tracker
 
             LoadExpenses();
             LoadPaymentStatusChart();
+            LoadExpenseBreakdownChart();
 
             // Restore selections
             foreach (DataGridViewRow row in EventsDgv.Rows)
@@ -86,12 +89,30 @@ namespace Event_Catering_Order___Expense_Tracker
 
             // Add series to chart
             EventCharts.Series.Add(series);
+
+            // Set colors for the pie chart
+            Color[] colors = new Color[] 
+            {
+                Color.FromArgb(88, 71, 56),    // Brown
+                Color.FromArgb(170, 163, 150), // Light Brown
+                Color.FromArgb(206, 193, 168), // Tan
+                Color.FromArgb(241, 234, 218), // Light Tan
+                Color.FromArgb(74, 57, 49),    // Dark Brown
+                Color.FromArgb(150, 143, 130)  // Medium Brown
+            };
+
+            // Apply colors to the series
+            series.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.None;
+            series.CustomProperties = "PieLabelStyle=Outside";
+            series["DoughnutRadius"] = "60";
+            series.Label = "#PERCENT{P0}";
+            series.LegendText = "#VALX (#VALY)";
         }
 
         private void LoadExpenses()
         {
-            //string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Kyle\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30";
-            string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\ashbs\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30";
+            string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Kyle\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30";
+            //string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\ashbs\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30";
 
             string query = @"SELECT e.EventTitle, 
                                   exp.PaymentStatus, 
@@ -138,8 +159,8 @@ namespace Event_Catering_Order___Expense_Tracker
 
         private void LoadPaymentStatusChart()
         {
-            //string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Kyle\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30";
-            string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\ashbs\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30";
+            string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Kyle\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30";
+            //string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\ashbs\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30";
 
             using (SqlConnection con = new SqlConnection(connectionString))
             {
@@ -181,22 +202,150 @@ namespace Event_Catering_Order___Expense_Tracker
                     // Set colors for the pie chart
                     if (EventCharts.Series["PaymentStatus"].Points.Count > 0)
                     {
-                        foreach (var point in EventCharts.Series["PaymentStatus"].Points)
+                        Color[] colors = new Color[] 
                         {
-                            if (point.AxisLabel == "Fully Paid")
-                            {
-                                point.Color = Color.Green;
-                            }
-                            else if (point.AxisLabel == "Unpaid")
-                            {
-                                point.Color = Color.Red;
-                            }
+                            Color.FromArgb(88, 71, 56),    // Brown
+                            Color.FromArgb(170, 163, 150), // Light Brown
+                            Color.FromArgb(206, 193, 168), // Tan
+                            Color.FromArgb(241, 234, 218), // Light Tan
+                            Color.FromArgb(74, 57, 49),    // Dark Brown
+                            Color.FromArgb(150, 143, 130)  // Medium Brown
+                        };
+
+                        for (int i = 0; i < EventCharts.Series["PaymentStatus"].Points.Count; i++)
+                        {
+                            EventCharts.Series["PaymentStatus"].Points[i].Color = colors[i % colors.Length];
                         }
                     }
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show("Error loading payment status chart: " + ex.Message);
+                }
+            }
+        }
+
+        private void InitializeProfitChart()
+        {
+            // Clear any existing series
+            ProfitChart.Series.Clear();
+
+            // Create new series
+            var series = new System.Windows.Forms.DataVisualization.Charting.Series("ExpenseBreakdown");
+            series.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
+            series["PieLabelStyle"] = "Outside";
+            series["DoughnutRadius"] = "60";
+            series.Label = "#PERCENT{P0}";
+            series.LegendText = "#VALX (#VALY)";
+
+            // Add series to chart
+            ProfitChart.Series.Add(series);
+
+            // Set colors for the pie chart
+            Color[] colors = new Color[] 
+            {
+                Color.FromArgb(88, 71, 56),    // Brown
+                Color.FromArgb(170, 163, 150), // Light Brown
+                Color.FromArgb(206, 193, 168), // Tan
+                Color.FromArgb(241, 234, 218), // Light Tan
+                Color.FromArgb(74, 57, 49),    // Dark Brown
+                Color.FromArgb(150, 143, 130)  // Medium Brown
+            };
+
+            // Apply colors to the series
+            series.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.None;
+            series.CustomProperties = "PieLabelStyle=Outside";
+            series["DoughnutRadius"] = "60";
+            series.Label = "#PERCENT{P0}";
+            series.LegendText = "#VALX (#VALY)";
+        }
+
+        private void LoadExpenseBreakdownChart()
+        {
+            string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Kyle\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30";
+            //string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\ashbs\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30";
+
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    con.Open();
+                    string query = @"
+                        SELECT 
+                            'Food & Beverages' as Category, SUM(FoodBeverages) as Total
+                        FROM ExpensesTable ex
+                        INNER JOIN EventTable e ON ex.EventID = e.EventID
+                        WHERE e.Hidden = 0
+                        UNION ALL
+                        SELECT 'Labor', SUM(Labor)
+                        FROM ExpensesTable ex
+                        INNER JOIN EventTable e ON ex.EventID = e.EventID
+                        WHERE e.Hidden = 0
+                        UNION ALL
+                        SELECT 'Decorations', SUM(Decorations)
+                        FROM ExpensesTable ex
+                        INNER JOIN EventTable e ON ex.EventID = e.EventID
+                        WHERE e.Hidden = 0
+                        UNION ALL
+                        SELECT 'Rentals', SUM(Rentals)
+                        FROM ExpensesTable ex
+                        INNER JOIN EventTable e ON ex.EventID = e.EventID
+                        WHERE e.Hidden = 0
+                        UNION ALL
+                        SELECT 'Transportation', SUM(Transportation)
+                        FROM ExpensesTable ex
+                        INNER JOIN EventTable e ON ex.EventID = e.EventID
+                        WHERE e.Hidden = 0
+                        UNION ALL
+                        SELECT 'Miscellaneous', SUM(Miscellaneous)
+                        FROM ExpensesTable ex
+                        INNER JOIN EventTable e ON ex.EventID = e.EventID
+                        WHERE e.Hidden = 0";
+
+                    SqlCommand cmd = new SqlCommand(query, con);
+                    SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                    DataTable dt = new DataTable();
+                    adapter.Fill(dt);
+
+                    // Clear existing data
+                    ProfitChart.Series["ExpenseBreakdown"].Points.Clear();
+
+                    // Add data points
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        string category = row["Category"].ToString();
+                        decimal total = Convert.ToDecimal(row["Total"]);
+                        ProfitChart.Series["ExpenseBreakdown"].Points.AddXY(category, total);
+                    }
+
+                    // Set colors for the pie chart
+                    if (ProfitChart.Series["ExpenseBreakdown"].Points.Count > 0)
+                    {
+                        Color[] colors = new Color[] 
+                        {
+                            Color.FromArgb(88, 71, 56),    // Brown
+                            Color.FromArgb(170, 163, 150), // Light Brown
+                            Color.FromArgb(206, 193, 168), // Tan
+                            Color.FromArgb(241, 234, 218), // Light Tan
+                            Color.FromArgb(74, 57, 49),    // Dark Brown
+                            Color.FromArgb(150, 143, 130)  // Medium Brown
+                        };
+
+                        for (int i = 0; i < ProfitChart.Series["ExpenseBreakdown"].Points.Count; i++)
+                        {
+                            ProfitChart.Series["ExpenseBreakdown"].Points[i].Color = colors[i % colors.Length];
+                        }
+                    }
+
+                    // Update the legend text to include peso currency
+                    foreach (var point in ProfitChart.Series["ExpenseBreakdown"].Points)
+                    {
+                        point.LegendText = $"{point.AxisLabel} (₱{point.YValues[0]:N2})";
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error loading expense breakdown chart: " + ex.Message);
                 }
             }
         }
@@ -268,8 +417,8 @@ namespace Event_Catering_Order___Expense_Tracker
                 DataGridView dgv = (DataGridView)sender;
                 string eventTitle = dgv.Rows[e.RowIndex].Cells["EventTitle"].Value.ToString();
 
-                //string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Kyle\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30";
-                string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\ashbs\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30";
+                string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Kyle\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30";
+                //string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\ashbs\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30";
 
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
