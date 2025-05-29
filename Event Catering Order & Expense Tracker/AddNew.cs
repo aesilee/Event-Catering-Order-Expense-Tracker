@@ -68,7 +68,8 @@ namespace Event_Catering_Order___Expense_Tracker
                 "Baby Shower",
                 "Family Reunion",
                 "Product Launch",
-                "Holiday Party"
+                "Holiday Party",
+                "Others"
             });
 
             MenuTypeCb.Items.AddRange(new string[]
@@ -80,7 +81,8 @@ namespace Event_Catering_Order___Expense_Tracker
                 "Grazing Table",
                 "Themed Menu (Customizable)",
                 "Dessert Bar/ Sweet Table",
-                "Breakfast/ Brunch setup"
+                "Breakfast/ Brunch setup",
+                "Others"
             });
 
             EventTypeCb.DrawMode = DrawMode.OwnerDrawFixed;
@@ -88,6 +90,14 @@ namespace Event_Catering_Order___Expense_Tracker
 
             EventTypeCb.DrawItem += ComboBox_DrawItem;
             MenuTypeCb.DrawItem += ComboBox_DrawItem;
+
+            FullPaymentRb.Checked = true;
+            PaymentMethodCb.Items.AddRange(new string[] { "Cash", "Credit Card", "Bank Transfer", "Check", "Online Payment" });
+            UpdatePaymentFieldsVisibility();
+        }
+        private void UpdatePaymentFieldsVisibility()
+        {
+            bool showInstallmentFields = InstallmentRb.Checked;
         }
 
         private void InitializeFadeTimer()
@@ -306,18 +316,48 @@ namespace Event_Catering_Order___Expense_Tracker
                 }
                 int eventId = Convert.ToInt32(result);
 
+                // Determine payment status and dates based on radio button selection
+                string paymentStatus = "Unpaid";
+                DateTime? initialPaymentDate = null;
+                DateTime? finalPaymentDate = null;
+                decimal? initialPaymentAmount = null;
+                decimal? finalPaymentAmount = null;
+                string paymentMethod = null;
+
+                if (FullPaymentRb.Checked)
+                {
+                    paymentStatus = "Pending Full Payment";
+                    finalPaymentDate = InitialPaymentDateDtp.Value.Date;
+                    finalPaymentAmount = decimal.Parse(EstBudgetTb.Text);
+                }
+                else if (InstallmentRb.Checked)
+                {
+                    paymentStatus = "Pending Installments";
+                    initialPaymentDate = InitialPaymentDateDtp.Value.Date;
+                    finalPaymentDate = FinalPaymentDateDtp.Value.Date;
+                    initialPaymentAmount = decimal.Parse(EstBudgetTb.Text) * 0.5m; // 50% initial payment
+                    finalPaymentAmount = decimal.Parse(EstBudgetTb.Text) * 0.5m; // 50% final payment
+                    paymentMethod = PaymentMethodCb.SelectedItem?.ToString();
+                }
+
                 // Insert into ExpensesTable
                 string expenseQuery = @"
                 INSERT INTO ExpensesTable (
                     EventID, FoodBeverages, Labor, Decorations,
                     Rentals, Transportation, Miscellaneous,
                     TotalExpenses, BudgetStatus, PaymentStatus,
-                    NextPayment, RemainingBalance
+                    NextPayment, RemainingBalance,
+                    InitialPaymentDate, InitialPaymentAmount,
+                    FinalPaymentDate, FinalPaymentAmount,
+                    PaymentMethod
                 ) VALUES (
                     @EventID, @FoodBeverages, @Labor, @Decorations,
                     @Rentals, @Transportation, @Miscellaneous,
                     @TotalExpenses, @BudgetStatus, @PaymentStatus,
-                    @NextPayment, @RemainingBalance
+                    @NextPayment, @RemainingBalance,
+                    @InitialPaymentDate, @InitialPaymentAmount,
+                    @FinalPaymentDate, @FinalPaymentAmount,
+                    @PaymentMethod
                 )";
 
                 cmd = new SqlCommand(expenseQuery, con, transaction);
@@ -330,9 +370,16 @@ namespace Event_Catering_Order___Expense_Tracker
                 cmd.Parameters.AddWithValue("@Miscellaneous", decimal.Parse(MiscTb.Text));
                 cmd.Parameters.AddWithValue("@TotalExpenses", decimal.Parse(TotalExpensesLbl.Text));
                 cmd.Parameters.AddWithValue("@BudgetStatus", StatusLbl.Text);
-                cmd.Parameters.AddWithValue("@PaymentStatus", "Unpaid");
-                cmd.Parameters.AddWithValue("@NextPayment", PaymentDateDtp.Value.Date);
+                cmd.Parameters.AddWithValue("@PaymentStatus", paymentStatus);
+                cmd.Parameters.AddWithValue("@NextPayment", InitialPaymentDateDtp.Value.Date);
                 cmd.Parameters.AddWithValue("@RemainingBalance", decimal.Parse(EstBudgetTb.Text));
+
+                // Add new payment parameters
+                cmd.Parameters.AddWithValue("@InitialPaymentDate", initialPaymentDate ?? (object)DBNull.Value);
+                cmd.Parameters.AddWithValue("@InitialPaymentAmount", initialPaymentAmount ?? (object)DBNull.Value);
+                cmd.Parameters.AddWithValue("@FinalPaymentDate", finalPaymentDate ?? (object)DBNull.Value);
+                cmd.Parameters.AddWithValue("@FinalPaymentAmount", finalPaymentAmount ?? (object)DBNull.Value);
+                cmd.Parameters.AddWithValue("@PaymentMethod", paymentMethod ?? (object)DBNull.Value);
 
                 cmd.ExecuteNonQuery();
                 transaction.Commit();
@@ -427,9 +474,24 @@ namespace Event_Catering_Order___Expense_Tracker
                 return false;
             }
 
+            // Validate payment fields if installments selected
+            if (InstallmentRb.Checked)
+            {
+                if (InitialPaymentDateDtp.Value >= FinalPaymentDateDtp.Value)
+                {
+                    MessageBox.Show("Initial payment date must be before final payment date");
+                    return false;
+                }
+
+                if (PaymentMethodCb.SelectedIndex == -1)
+                {
+                    MessageBox.Show("Please select a payment method for installment payments");
+                    return false;
+                }
+            }
+
             return true;
         }
-        
 
         private void ClearForm()
         {
@@ -454,6 +516,19 @@ namespace Event_Catering_Order___Expense_Tracker
             NotesTb.Clear();
             TotalExpensesLbl.Text = "";
             StatusLbl.Text = "";
+            FullPaymentRb.Checked = true;
+            PaymentMethodCb.SelectedIndex = -1;
+            UpdatePaymentFieldsVisibility();
+        }
+
+        private void FullPaymentRadio_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdatePaymentFieldsVisibility();
+        }
+
+        private void InstallmentRadio_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdatePaymentFieldsVisibility();
         }
 
         protected override void OnFormClosed(FormClosedEventArgs e)
