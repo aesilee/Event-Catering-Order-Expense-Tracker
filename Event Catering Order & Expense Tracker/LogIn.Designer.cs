@@ -39,10 +39,12 @@
             this.LoginBtn = new System.Windows.Forms.Button();
             this.PasswordTb = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.ShowPassBtn = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ShowPassBtn)).BeginInit();
             this.SuspendLayout();
             // 
             // label3
@@ -61,6 +63,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(206)))), ((int)(((byte)(193)))), ((int)(((byte)(168)))));
+            this.panel1.Controls.Add(this.ShowPassBtn);
             this.panel1.Controls.Add(this.SignUpLlbl);
             this.panel1.Controls.Add(this.label5);
             this.panel1.Controls.Add(this.RemMeChkB);
@@ -170,16 +173,6 @@
             this.label2.TabIndex = 3;
             this.label2.Text = "Password";
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::Event_Catering_Order___Expense_Tracker.Properties.Resources.ventra__2__removebg_preview;
-            this.pictureBox1.Location = new System.Drawing.Point(25, 122);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(282, 289);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 11;
-            this.pictureBox1.TabStop = false;
-            // 
             // label4
             // 
             this.label4.Anchor = System.Windows.Forms.AnchorStyles.None;
@@ -192,6 +185,26 @@
             this.label4.Size = new System.Drawing.Size(315, 19);
             this.label4.TabIndex = 12;
             this.label4.Text = "— Great events start with smart planning";
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(25, 122);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(282, 289);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 11;
+            this.pictureBox1.TabStop = false;
+            // 
+            // ShowPassBtn
+            // 
+            this.ShowPassBtn.Image = global::Event_Catering_Order___Expense_Tracker.Properties.Resources.E__6__removebg_preview;
+            this.ShowPassBtn.Location = new System.Drawing.Point(264, 248);
+            this.ShowPassBtn.Name = "ShowPassBtn";
+            this.ShowPassBtn.Size = new System.Drawing.Size(24, 24);
+            this.ShowPassBtn.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.ShowPassBtn.TabIndex = 15;
+            this.ShowPassBtn.TabStop = false;
             // 
             // Login
             // 
@@ -211,6 +224,7 @@
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ShowPassBtn)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -230,6 +244,7 @@
         private System.Windows.Forms.LinkLabel SignUpLlbl;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.PictureBox ShowPassBtn;
     }
 }
 

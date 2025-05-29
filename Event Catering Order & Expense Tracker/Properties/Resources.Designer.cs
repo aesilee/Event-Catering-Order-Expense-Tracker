@@ -73,6 +73,26 @@ namespace Event_Catering_Order___Expense_Tracker.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap E__5__removebg_preview {
+            get {
+                object obj = ResourceManager.GetObject("E__5_-removebg-preview", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap E__6__removebg_preview {
+            get {
+                object obj = ResourceManager.GetObject("E__6_-removebg-preview", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap E_removebg_preview {
             get {
                 object obj = ResourceManager.GetObject("E-removebg-preview", resourceCulture);

@@ -18,8 +18,8 @@ namespace Event_Catering_Order___Expense_Tracker
         private Form nextFormToOpen;
         private const string RememberMeFileName = "rememberme.dat";
 
-        //SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\ashbs\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30");
-        SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Kyle\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30");
+        SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\ashbs\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30");
+        //SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Kyle\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30");
 
         public Login()
         {
@@ -31,7 +31,21 @@ namespace Event_Catering_Order___Expense_Tracker
             InitializeFadeTimer();
             this.Opacity = 0.0;
 
+            PasswordTb.PasswordChar = '•';
+
+            ShowPassBtn.MouseDown += ShowPassBtn_MouseDown;
+            ShowPassBtn.MouseUp += ShowPassBtn_MouseUp;
+
             LoadRememberedCredentials();
+        }
+        private void ShowPassBtn_MouseDown(object sender, MouseEventArgs e)
+        {
+            PasswordTb.PasswordChar = '\0'; // Show password
+        }
+
+        private void ShowPassBtn_MouseUp(object sender, MouseEventArgs e)
+        {
+            PasswordTb.PasswordChar = '•'; // Hide password
         }
         private async Task AnimateButtonColors(Button button, Color targetBackColor, Color targetForeColor)
         {

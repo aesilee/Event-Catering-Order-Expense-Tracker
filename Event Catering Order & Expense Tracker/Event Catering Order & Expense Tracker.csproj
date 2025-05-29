@@ -271,6 +271,8 @@
   <ItemGroup>
     <None Include="Resources\ExpensesLogo.png" />
     <None Include="Resources\NewExpenseLogo.png" />
+    <None Include="Resources\E__5_-removebg-preview.png" />
+    <None Include="Resources\E__6_-removebg-preview.png" />
     <Content Include="Resources\Sidebar_Panel_Logo_Eventra.png" />
     <None Include="Resources\Untitled design %288%29.png" />
     <None Include="Resources\Untitled design %287%29.png" />

@@ -13,8 +13,8 @@ namespace Event_Catering_Order___Expense_Tracker
 {
     public partial class SignUp: Form
     {
-        //SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\ashbs\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30");
-        SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Kyle\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30");
+        SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\ashbs\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30");
+        //SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Kyle\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30");
 
         public SignUp()
         {
@@ -22,7 +22,36 @@ namespace Event_Catering_Order___Expense_Tracker
 
             SignUpBtn.MouseEnter += SignUpBtn_MouseEnter;
             SignUpBtn.MouseLeave += SignUpBtn_MouseLeave;
+
+            PasswordTb.PasswordChar = '•';
+            ConfirmPassTb.PasswordChar = '•';
+
+            
+            ShowPassBtn1.MouseDown += ShowPassBtn1_MouseDown;
+            ShowPassBtn1.MouseUp += ShowPassBtn1_MouseUp;
+            ShowPassBtn2.MouseDown += ShowPassBtn2_MouseDown;
+            ShowPassBtn2.MouseUp += ShowPassBtn2_MouseUp;
         }
+        private void ShowPassBtn1_MouseDown(object sender, MouseEventArgs e)
+        {
+            PasswordTb.PasswordChar = '\0'; // Show password
+        }
+
+        private void ShowPassBtn1_MouseUp(object sender, MouseEventArgs e)
+        {
+            PasswordTb.PasswordChar = '•'; // Hide password
+        }
+
+        private void ShowPassBtn2_MouseDown(object sender, MouseEventArgs e)
+        {
+            ConfirmPassTb.PasswordChar = '\0'; // Show password
+        }
+
+        private void ShowPassBtn2_MouseUp(object sender, MouseEventArgs e)
+        {
+            ConfirmPassTb.PasswordChar = '•'; // Hide password
+        }
+
         private async Task AnimateButtonColors(Button button, Color targetBackColor, Color targetForeColor)
         {
             Color originalBackColor = button.BackColor;

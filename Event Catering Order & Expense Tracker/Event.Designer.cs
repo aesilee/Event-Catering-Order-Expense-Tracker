@@ -86,7 +86,7 @@
             // 
             // BackBtn
             // 
-            this.BackBtn.Image = global::Event_Catering_Order___Expense_Tracker.Properties.Resources.Eventra__2__removebg_preview;
+            this.BackBtn.Image = ((System.Drawing.Image)(resources.GetObject("BackBtn.Image")));
             this.BackBtn.Location = new System.Drawing.Point(8, 8);
             this.BackBtn.Name = "BackBtn";
             this.BackBtn.Size = new System.Drawing.Size(24, 24);
@@ -496,7 +496,7 @@
             this.PaymentBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(71)))), ((int)(((byte)(56)))));
             this.PaymentBtn.Font = new System.Drawing.Font("Calibri", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.PaymentBtn.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.PaymentBtn.Location = new System.Drawing.Point(163, 753);
+            this.PaymentBtn.Location = new System.Drawing.Point(152, 760);
             this.PaymentBtn.Margin = new System.Windows.Forms.Padding(2);
             this.PaymentBtn.Name = "PaymentBtn";
             this.PaymentBtn.Size = new System.Drawing.Size(126, 35);
