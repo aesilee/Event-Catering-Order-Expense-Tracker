@@ -45,8 +45,8 @@ namespace Event_Catering_Order___Expense_Tracker
             NumOfGuestsTb.Text = numOfGuests.ToString();
             MenuTypeCb.Text = menuType;
             MenuDetailsTb.Text = menuDetails;
-            EstBudgetTb.Text = estBudget.ToString("0.00");
-            TotalExpensesLbl.Text = totalExpenses.ToString("0.00");
+            EstBudgetTb.Text = $"₱{estBudget:N2}";
+            TotalExpensesLbl.Text = $"₱{totalExpenses:N2}";
             EventIdLbl.Text = $"#{eventId}";
         }
 

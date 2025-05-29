@@ -22,6 +22,8 @@ namespace Event_Catering_Order___Expense_Tracker
             this.eventID = eventID;
             LoadEventData();
             InitializePaymentHandling();
+            InitializeExpenseBreakdownChart();
+            LoadExpenseBreakdownChart();
         }
 
         private void InitializePaymentHandling()
@@ -110,7 +112,7 @@ namespace Event_Catering_Order___Expense_Tracker
 
                             // Update UI
                             currentBalance = newBalance;
-                            RemainingBalanceLbl.Text = newBalance.ToString("C");
+                            RemainingBalanceLbl.Text = $"₱{currentBalance:N2}";
                             StatusLbl.Text = newStatus;
                             StatusLbl.ForeColor = newStatus == "Fully Paid" ? Color.Green : Color.Red;
                             PaymentTb.Clear();
@@ -162,8 +164,8 @@ namespace Event_Catering_Order___Expense_Tracker
                             StatusLbl.Text = reader["PaymentStatus"].ToString();
                             NextPaymentLbl.Text = Convert.ToDateTime(reader["NextPayment"]).ToShortDateString();
                             currentBalance = Convert.ToDecimal(reader["RemainingBalance"]);
-                            RemainingBalanceLbl.Text = currentBalance.ToString("C");
-                            TotalExpensesLbl.Text = Convert.ToDecimal(reader["TotalExpenses"]).ToString("C");
+                            RemainingBalanceLbl.Text = $"₱{currentBalance:N2}";
+                            TotalExpensesLbl.Text = $"₱{Convert.ToDecimal(reader["TotalExpenses"]):N2}";
 
                             // Set status label color based on payment status
                             string paymentStatus = reader["PaymentStatus"].ToString();
@@ -181,6 +183,126 @@ namespace Event_Catering_Order___Expense_Tracker
                 catch (Exception ex)
                 {
                     MessageBox.Show("Error loading event data: " + ex.Message);
+                }
+            }
+        }
+
+        private void InitializeExpenseBreakdownChart()
+        {
+            // Clear any existing series
+            chart2.Series.Clear();
+
+            // Create new series
+            var series = new System.Windows.Forms.DataVisualization.Charting.Series("ExpenseBreakdown");
+            series.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
+            series["PieLabelStyle"] = "Outside";
+            series["DoughnutRadius"] = "60";
+            series.Label = "#PERCENT{P0}";
+            series.LegendText = "#VALX (#VALY)";
+
+            // Add series to chart
+            chart2.Series.Add(series);
+
+            // Set colors for the pie chart
+            Color[] colors = new Color[] 
+            {
+                Color.FromArgb(88, 71, 56),    // Brown
+                Color.FromArgb(170, 163, 150), // Light Brown
+                Color.FromArgb(206, 193, 168), // Tan
+                Color.FromArgb(241, 234, 218), // Light Tan
+                Color.FromArgb(74, 57, 49),    // Dark Brown
+                Color.FromArgb(150, 143, 130)  // Medium Brown
+            };
+
+            // Apply colors to the series
+            series.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.None;
+            series.CustomProperties = "PieLabelStyle=Outside";
+            series["DoughnutRadius"] = "60";
+            series.Label = "#PERCENT{P0}";
+            series.LegendText = "#VALX (#VALY)";
+        }
+
+        private void LoadExpenseBreakdownChart()
+        {
+            string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Kyle\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30";
+            //string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\ashbs\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30";
+
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    con.Open();
+                    string query = @"
+                        SELECT 
+                            'Food & Beverages' as Category, FoodBeverages as Amount
+                        FROM ExpensesTable
+                        WHERE EventID = @EventID
+                        UNION ALL
+                        SELECT 'Labor', Labor
+                        FROM ExpensesTable
+                        WHERE EventID = @EventID
+                        UNION ALL
+                        SELECT 'Decorations', Decorations
+                        FROM ExpensesTable
+                        WHERE EventID = @EventID
+                        UNION ALL
+                        SELECT 'Rentals', Rentals
+                        FROM ExpensesTable
+                        WHERE EventID = @EventID
+                        UNION ALL
+                        SELECT 'Transportation', Transportation
+                        FROM ExpensesTable
+                        WHERE EventID = @EventID
+                        UNION ALL
+                        SELECT 'Miscellaneous', Miscellaneous
+                        FROM ExpensesTable
+                        WHERE EventID = @EventID";
+
+                    SqlCommand cmd = new SqlCommand(query, con);
+                    cmd.Parameters.AddWithValue("@EventID", eventID);
+                    SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                    DataTable dt = new DataTable();
+                    adapter.Fill(dt);
+
+                    // Clear existing data
+                    chart2.Series["ExpenseBreakdown"].Points.Clear();
+
+                    // Add data points
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        string category = row["Category"].ToString();
+                        decimal amount = Convert.ToDecimal(row["Amount"]);
+                        chart2.Series["ExpenseBreakdown"].Points.AddXY(category, amount);
+                    }
+
+                    // Set colors for the pie chart
+                    if (chart2.Series["ExpenseBreakdown"].Points.Count > 0)
+                    {
+                        Color[] colors = new Color[] 
+                        {
+                            Color.FromArgb(88, 71, 56),    // Brown
+                            Color.FromArgb(170, 163, 150), // Light Brown
+                            Color.FromArgb(206, 193, 168), // Tan
+                            Color.FromArgb(241, 234, 218), // Light Tan
+                            Color.FromArgb(74, 57, 49),    // Dark Brown
+                            Color.FromArgb(150, 143, 130)  // Medium Brown
+                        };
+
+                        for (int i = 0; i < chart2.Series["ExpenseBreakdown"].Points.Count; i++)
+                        {
+                            chart2.Series["ExpenseBreakdown"].Points[i].Color = colors[i % colors.Length];
+                        }
+                    }
+
+                    // Update the legend text to include peso currency
+                    foreach (var point in chart2.Series["ExpenseBreakdown"].Points)
+                    {
+                        point.LegendText = $"{point.AxisLabel} (₱{point.YValues[0]:N2})";
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error loading expense breakdown chart: " + ex.Message);
                 }
             }
         }

@@ -95,7 +95,7 @@ namespace Event_Catering_Order___Expense_Tracker
             this.AnalyticsChart.Legends.Add(legend1);
             this.AnalyticsChart.Location = new System.Drawing.Point(0, 0);
             this.AnalyticsChart.Name = "AnalyticsChart";
-            this.AnalyticsChart.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Pastel;
+            this.AnalyticsChart.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Grayscale;
             series1.ChartArea = "ChartArea1";
             series1.Legend = "Legend1";
             series1.Name = "Series1";

@@ -273,40 +273,21 @@ namespace Event_Catering_Order___Expense_Tracker
             string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Kyle\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30";
             //string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\ashbs\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30";
             
-            string dateFormat = "yyyy-MM"; // Default: group by month
-
-            string selectDate = "FORMAT(EventDate, 'yyyy-MM')";
-            if (groupBy == "Year")
-            {
-                selectDate = "FORMAT(EventDate, 'yyyy')";
-                dateFormat = "yyyy";
-            }
-            else if (groupBy == "Quarter")
-            {
-                selectDate = "FORMAT(EventDate, 'yyyy') + '-Q' + DATENAME(QUARTER, EventDate)";
-                dateFormat = "yyyy-'Q'q";
-            }
-            else if (groupBy == "Day")
-            {
-                selectDate = "FORMAT(EventDate, 'yyyy-MM-dd')";
-                dateFormat = "yyyy-MM-dd";
-            }
-
-            string query = $@"
-                SELECT {selectDate} AS Period,
-                       SUM(EventTable.EstimatedBudget) AS TotalEstimatedBudget,
-                       SUM(ISNULL(ExpensesTable.TotalExpenses, 0)) AS TotalExpenses
-                FROM EventTable
-                LEFT JOIN ExpensesTable ON ExpensesTable.EventID = EventTable.EventID
-                WHERE EventTable.Hidden = 0
+            string query = @"
+                SELECT 
+                    e.EventType,
+                    SUM(ISNULL(ex.TotalExpenses, 0)) AS TotalExpenses
+                FROM EventTable e
+                LEFT JOIN ExpensesTable ex ON ex.EventID = e.EventID
+                WHERE e.Hidden = 0
             ";
 
             if (start.HasValue && end.HasValue)
             {
-                query += " AND EventDate >= @start AND EventDate <= @end";
+                query += " AND e.EventDate >= @start AND e.EventDate <= @end";
             }
 
-            query += $" GROUP BY {selectDate} ORDER BY {selectDate}";
+            query += " GROUP BY e.EventType ORDER BY TotalExpenses DESC";
 
             using (SqlConnection con = new SqlConnection(connectionString))
             {
@@ -324,11 +305,6 @@ namespace Event_Catering_Order___Expense_Tracker
                     adapter.Fill(dt);
 
                     // Add series
-                    var budgetSeries = new Series("Total Estimated Budget")
-                    {
-                        ChartType = SeriesChartType.Column,
-                        XValueType = ChartValueType.String
-                    };
                     var expensesSeries = new Series("Total Expenses")
                     {
                         ChartType = SeriesChartType.Column,
@@ -337,19 +313,38 @@ namespace Event_Catering_Order___Expense_Tracker
 
                     foreach (DataRow row in dt.Rows)
                     {
-                        string period = row["Period"].ToString();
-                        decimal budget = row["TotalEstimatedBudget"] != DBNull.Value ? Convert.ToDecimal(row["TotalEstimatedBudget"]) : 0;
+                        string eventType = row["EventType"].ToString();
                         decimal expenses = row["TotalExpenses"] != DBNull.Value ? Convert.ToDecimal(row["TotalExpenses"]) : 0;
 
-                        budgetSeries.Points.AddXY(period, budget);
-                        expensesSeries.Points.AddXY(period, expenses);
+                        expensesSeries.Points.AddXY(eventType, expenses);
                     }
 
-                    AnalyticsChart.Series.Add(budgetSeries);
                     AnalyticsChart.Series.Add(expensesSeries);
 
-                    AnalyticsChart.ChartAreas[0].AxisX.Title = groupBy;
-                    AnalyticsChart.ChartAreas[0].AxisY.Title = "Amount";
+                    // Configure chart appearance
+                    AnalyticsChart.ChartAreas[0].AxisX.Title = "Event Type";
+                    AnalyticsChart.ChartAreas[0].AxisY.Title = "Total Expenses (₱)";
+                    AnalyticsChart.ChartAreas[0].AxisY.LabelStyle.Format = "N0";
+                    
+                    // Set colors for the bars
+                    Color[] colors = new Color[] 
+                    {
+                        Color.FromArgb(88, 71, 56),    // Brown
+                        Color.FromArgb(170, 163, 150), // Light Brown
+                        Color.FromArgb(206, 193, 168), // Tan
+                        Color.FromArgb(241, 234, 218), // Light Tan
+                        Color.FromArgb(74, 57, 49),    // Dark Brown
+                        Color.FromArgb(150, 143, 130)  // Medium Brown
+                    };
+
+                    for (int i = 0; i < expensesSeries.Points.Count; i++)
+                    {
+                        expensesSeries.Points[i].Color = colors[i % colors.Length];
+                    }
+
+                    // Add value labels on top of bars
+                    expensesSeries.Label = "#VALY{₱#,##0}";
+                    expensesSeries.LabelAngle = -90;
                 }
                 catch (Exception ex)
                 {
@@ -411,11 +406,21 @@ namespace Event_Catering_Order___Expense_Tracker
                     AND e1.EventID < e2.EventID
                     WHERE e1.Hidden = 0 AND e2.Hidden = 0";
 
+                    // 5. Recent payments
+                    string recentPaymentsQuery = @"
+                    SELECT e.EventTitle, ex.PaymentStatus, ex.RemainingBalance, ex.DatePayed
+                    FROM EventTable e
+                    INNER JOIN ExpensesTable ex ON e.EventID = ex.EventID
+                    WHERE e.Hidden = 0 
+                    AND ex.DatePayed >= DATEADD(HOUR, -24, GETDATE())
+                    ORDER BY ex.DatePayed DESC";
+
                     // Execute queries and create notification panels
                     AddNotificationSection("New Events Added", newEventsQuery, con, Color.FromArgb(87, 153, 123));
                     AddNotificationSection("Today's Events", todayEventsQuery, con, Color.FromArgb(110, 164, 200));
                     AddNotificationSection("Over Budget Events", overBudgetQuery, con, Color.FromArgb(159, 71, 62));
                     AddNotificationSection("Venue Conflicts", venueConflictsQuery, con, Color.FromArgb(230, 159, 124));
+                    AddNotificationSection("Recent Payments", recentPaymentsQuery, con, Color.FromArgb(86, 180, 211));
                 }
                 catch (Exception ex)
                 {
@@ -502,6 +507,9 @@ namespace Event_Catering_Order___Expense_Tracker
                 
                 case "Venue Conflicts":
                     return $"Venue Conflict: {reader["Venue"]}\n{reader["Event1"]} and {reader["Event2"]}\nDate: {reader["EventDate"]:MM/dd/yyyy}";
+
+                case "Recent Payments":
+                    return $"{reader["EventTitle"]}\nStatus: {reader["PaymentStatus"]}\nRemaining Balance: ₱{Convert.ToDecimal(reader["RemainingBalance"]):N2}\nPaid on: {Convert.ToDateTime(reader["DatePayed"]):MM/dd/yyyy HH:mm}";
                 
                 default:
                     return "";

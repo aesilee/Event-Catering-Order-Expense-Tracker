@@ -36,6 +36,9 @@ namespace Event_Catering_Order___Expense_Tracker
             // Wire up cell double-click event
             EventsDgv.CellDoubleClick += EventsDgv_CellDoubleClick;
 
+            // Wire up search
+            SearchTb.TextChanged += SearchTb_TextChanged;
+
             // Initialize chart
             InitializeChart();
             InitializeProfitChart();
@@ -109,7 +112,7 @@ namespace Event_Catering_Order___Expense_Tracker
             series.LegendText = "#VALX (#VALY)";
         }
 
-        private void LoadExpenses()
+        private void LoadExpenses(string search = "")
         {
             string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Kyle\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30";
             //string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\ashbs\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30";
@@ -120,8 +123,14 @@ namespace Event_Catering_Order___Expense_Tracker
                                   exp.RemainingBalance
                            FROM EventTable e
                            LEFT JOIN ExpensesTable exp ON e.EventID = exp.EventID
-                           WHERE e.Hidden = 0
-                           ORDER BY e.EventDate DESC";
+                           WHERE e.Hidden = 0";
+
+            if (!string.IsNullOrWhiteSpace(search))
+            {
+                query += " AND (e.EventTitle LIKE @search OR e.EventType LIKE @search OR e.Venue LIKE @search OR e.CustomerName LIKE @search OR e.ContactNumber LIKE @search OR e.EmailAddress LIKE @search OR e.MenuType LIKE @search OR e.MenuDetails LIKE @search)";
+            }
+
+            query += " ORDER BY e.EventDate DESC";
 
             using (SqlConnection con = new SqlConnection(connectionString))
             {
@@ -129,6 +138,10 @@ namespace Event_Catering_Order___Expense_Tracker
                 {
                     con.Open();
                     SqlDataAdapter adapter = new SqlDataAdapter(query, con);
+                    if (!string.IsNullOrWhiteSpace(search))
+                    {
+                        adapter.SelectCommand.Parameters.AddWithValue("@search", "%" + search + "%");
+                    }
                     DataTable dt = new DataTable();
                     adapter.Fill(dt);
                     EventsDgv.DataSource = dt;
@@ -444,6 +457,12 @@ namespace Event_Catering_Order___Expense_Tracker
                     }
                 }
             }
+        }
+
+        private void SearchTb_TextChanged(object sender, EventArgs e)
+        {
+            string search = SearchTb.Text.Trim();
+            LoadExpenses(search);
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)

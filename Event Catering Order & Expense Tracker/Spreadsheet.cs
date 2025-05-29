@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using System.IO;
 
 namespace Event_Catering_Order___Expense_Tracker
 {
@@ -51,6 +52,10 @@ namespace Event_Catering_Order___Expense_Tracker
             // Wire up cell double-click events
             EventsDgv.CellDoubleClick += EventsDgv_CellDoubleClick;
             ArchivesDgv.CellDoubleClick += ArchivesDgv_CellDoubleClick;
+
+            // Wire up download buttons
+            EventDownloadBtn.Click += EventDownloadBtn_Click;
+            ArchiveDownloadBtn.Click += ArchiveDownloadBtn_Click;
 
             LoadEvents();
             LoadArchives();
@@ -406,6 +411,130 @@ namespace Event_Catering_Order___Expense_Tracker
                         MessageBox.Show("Error opening event details: " + ex.Message);
                     }
                 }
+            }
+        }
+
+        private void EventDownloadBtn_Click(object sender, EventArgs e)
+        {
+            if (EventsDgv.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Please select at least one event to download.", "No Selection", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            DownloadSelectedEvents(EventsDgv);
+        }
+
+        private void ArchiveDownloadBtn_Click(object sender, EventArgs e)
+        {
+            if (ArchivesDgv.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Please select at least one event to download.", "No Selection", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            DownloadSelectedEvents(ArchivesDgv);
+        }
+
+        private void DownloadSelectedEvents(DataGridView dgv)
+        {
+            try
+            {
+                // Get the user's Downloads folder
+                string downloadsPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Downloads");
+                int successCount = 0;
+                int failCount = 0;
+
+                foreach (DataGridViewRow row in dgv.SelectedRows)
+                {
+                    if (!row.IsNewRow)
+                    {
+                        try
+                        {
+                            string eventTitle = row.Cells["EventTitle"].Value?.ToString() ?? "Unknown";
+                            string eventId = row.Cells["EventID"].Value?.ToString() ?? DateTime.Now.ToString("yyyyMMddHHmmss");
+                            string fileName = $"EventReceipt_{eventId}_{DateTime.Now:yyyyMMdd_HHmmss}.txt";
+                            string filePath = Path.Combine(downloadsPath, fileName);
+
+                            // Build the receipt content
+                            StringBuilder sb = new StringBuilder();
+                            sb.AppendLine("========================================");
+                            sb.AppendLine("         Event Catering Order Receipt   ");
+                            sb.AppendLine("========================================");
+                            sb.AppendLine($"Event Name:         {eventTitle}");
+                            sb.AppendLine($"Event Date:         {row.Cells["EventDate"].Value?.ToString() ?? "N/A"}");
+                            sb.AppendLine($"Event Time:         {row.Cells["EventTime"].Value?.ToString() ?? "N/A"}");
+                            sb.AppendLine($"Event Type:         {row.Cells["EventType"].Value?.ToString() ?? "N/A"}");
+                            sb.AppendLine($"Venue:              {row.Cells["Venue"].Value?.ToString() ?? "N/A"}");
+                            sb.AppendLine("----------------------------------------");
+                            sb.AppendLine($"Customer Name:      {row.Cells["CustomerName"].Value?.ToString() ?? "N/A"}");
+                            sb.AppendLine($"Contact #:          {row.Cells["ContactNumber"].Value?.ToString() ?? "N/A"}");
+                            sb.AppendLine($"Email:              {row.Cells["EmailAddress"].Value?.ToString() ?? "N/A"}");
+                            sb.AppendLine($"Number of Guests:   {row.Cells["NumberOfGuests"].Value?.ToString() ?? "N/A"}");
+                            sb.AppendLine($"Menu/Meal Type:     {row.Cells["MenuType"].Value?.ToString() ?? "N/A"}");
+                            sb.AppendLine($"Menu Details:       {row.Cells["MenuDetails"].Value?.ToString() ?? "N/A"}");
+                            sb.AppendLine("----------------------------------------");
+                            sb.AppendLine($"Estimated Budget:   ₱{Convert.ToDecimal(row.Cells["EstimatedBudget"].Value ?? 0):N2}");
+
+                            // Get expenses data if available
+                            string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Kyle\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30";
+                            using (SqlConnection con = new SqlConnection(connectionString))
+                            {
+                                con.Open();
+                                string query = @"
+                                    SELECT FoodBeverages, Labor, Decorations, Rentals, Transportation, 
+                                           Miscellaneous, TotalExpenses, PaymentStatus, RemainingBalance
+                                    FROM ExpensesTable 
+                                    WHERE EventID = @EventID";
+
+                                SqlCommand cmd = new SqlCommand(query, con);
+                                cmd.Parameters.AddWithValue("@EventID", row.Cells["EventID"].Value);
+                                using (SqlDataReader reader = cmd.ExecuteReader())
+                                {
+                                    if (reader.Read())
+                                    {
+                                        sb.AppendLine($"Food & Beverages:   ₱{Convert.ToDecimal(reader["FoodBeverages"]):N2}");
+                                        sb.AppendLine($"Labor:              ₱{Convert.ToDecimal(reader["Labor"]):N2}");
+                                        sb.AppendLine($"Decorations:        ₱{Convert.ToDecimal(reader["Decorations"]):N2}");
+                                        sb.AppendLine($"Rentals:            ₱{Convert.ToDecimal(reader["Rentals"]):N2}");
+                                        sb.AppendLine($"Transportation:     ₱{Convert.ToDecimal(reader["Transportation"]):N2}");
+                                        sb.AppendLine($"Miscellaneous:      ₱{Convert.ToDecimal(reader["Miscellaneous"]):N2}");
+                                        sb.AppendLine($"Total Expenses:     ₱{Convert.ToDecimal(reader["TotalExpenses"]):N2}");
+                                        sb.AppendLine($"Payment Status:     {reader["PaymentStatus"]}");
+                                        sb.AppendLine($"Remaining Balance:  ₱{Convert.ToDecimal(reader["RemainingBalance"]):N2}");
+                                    }
+                                }
+                            }
+
+                            sb.AppendLine();
+                            sb.AppendLine("Thank you!");
+                            sb.AppendLine($"Event ID:           #{eventId}");
+
+                            // Write to file
+                            File.WriteAllText(filePath, sb.ToString());
+                            successCount++;
+                        }
+                        catch (Exception ex)
+                        {
+                            failCount++;
+                            // Log the error but continue with other files
+                            Console.WriteLine($"Error saving receipt for event {row.Cells["EventTitle"].Value}: {ex.Message}");
+                        }
+                    }
+                }
+
+                // Show summary message
+                string message = $"Download completed:\n{successCount} receipt(s) saved successfully";
+                if (failCount > 0)
+                {
+                    message += $"\n{failCount} receipt(s) failed to save";
+                }
+                MessageBox.Show(message, "Download Complete", MessageBoxButtons.OK, 
+                    failCount > 0 ? MessageBoxIcon.Warning : MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error during download process: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

@@ -33,7 +33,8 @@ namespace Event_Catering_Order___Expense_Tracker
                         e.EventTitle, e.EventType, e.EventDate, e.EventTime, e.Venue,
                         e.CustomerName, e.ContactNumber, e.NumberOfGuests, e.MenuType,
                         ex.FoodBeverages, ex.Labor, ex.Decorations, ex.Rentals, 
-                        ex.Transportation, ex.Miscellaneous, ex.TotalExpenses, ex.BudgetStatus
+                        ex.Transportation, ex.Miscellaneous, ex.TotalExpenses, ex.BudgetStatus,
+                        ex.PaymentStatus
                     FROM EventTable e
                     LEFT JOIN ExpensesTable ex ON e.EventID = ex.EventID
                     WHERE e.EventID = @EventID";
@@ -55,20 +56,32 @@ namespace Event_Catering_Order___Expense_Tracker
                         NumOfGuestsLbl.Text = reader["NumberOfGuests"].ToString();
                         MenuTypeLbl.Text = reader["MenuType"].ToString();
 
+                        // Display payment status
+                        string paymentStatus = reader["PaymentStatus"]?.ToString() ?? "Unpaid";
+                        StatusLbl.Text = paymentStatus;
+                        StatusLbl.ForeColor = paymentStatus == "Fully Paid" ? Color.Green : Color.Red;
+
                         // Display expenses if available
                         if (reader["TotalExpenses"] != DBNull.Value)
                         {
-                            FoodDrinksLbl.Text = Convert.ToDecimal(reader["FoodBeverages"]).ToString("C");
-                            LaborLbl.Text = Convert.ToDecimal(reader["Labor"]).ToString("C");
-                            DecoLbl.Text = Convert.ToDecimal(reader["Decorations"]).ToString("C");
-                            RentalsLbl.Text = Convert.ToDecimal(reader["Rentals"]).ToString("C");
-                            TranspoLbl.Text = Convert.ToDecimal(reader["Transportation"]).ToString("C");
-                            MiscLbl.Text = Convert.ToDecimal(reader["Miscellaneous"]).ToString("C");
-                            TotalExpensesLbl.Text = Convert.ToDecimal(reader["TotalExpenses"]).ToString("C");
+                            FoodDrinksLbl.Text = $"₱{Convert.ToDecimal(reader["FoodBeverages"]):N2}";
+                            LaborLbl.Text = $"₱{Convert.ToDecimal(reader["Labor"]):N2}";
+                            DecoLbl.Text = $"₱{Convert.ToDecimal(reader["Decorations"]):N2}";
+                            RentalsLbl.Text = $"₱{Convert.ToDecimal(reader["Rentals"]):N2}";
+                            TranspoLbl.Text = $"₱{Convert.ToDecimal(reader["Transportation"]):N2}";
+                            MiscLbl.Text = $"₱{Convert.ToDecimal(reader["Miscellaneous"]):N2}";
+                            TotalExpensesLbl.Text = $"₱{Convert.ToDecimal(reader["TotalExpenses"]):N2}";
                         }
                     }
                 }
             }
+        }
+
+        private void PaymentBtn_Click(object sender, EventArgs e)
+        {
+            PaymentDetails paymentForm = new PaymentDetails(eventID);
+            paymentForm.TopMost = true;
+            paymentForm.Show();
         }
 
         private void BackBtn_Click(object sender, EventArgs e)

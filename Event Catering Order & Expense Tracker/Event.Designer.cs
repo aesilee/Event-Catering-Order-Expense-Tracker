@@ -66,9 +66,9 @@
             this.Misc = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
             this.label8 = new System.Windows.Forms.Label();
-            this.PaymentBtn = new System.Windows.Forms.Button();
-            this.CurrentBalanceLbl = new System.Windows.Forms.Label();
+            this.StatusLbl = new System.Windows.Forms.Label();
             this.panel5 = new System.Windows.Forms.Panel();
+            this.PaymentBtn = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.BackBtn)).BeginInit();
             this.SuspendLayout();
@@ -473,25 +473,15 @@
             this.label8.TabIndex = 71;
             this.label8.Text = "Status:";
             // 
-            // PaymentBtn
+            // StatusLbl
             // 
-            this.PaymentBtn.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.PaymentBtn.Location = new System.Drawing.Point(160, 768);
-            this.PaymentBtn.Name = "PaymentBtn";
-            this.PaymentBtn.Size = new System.Drawing.Size(107, 24);
-            this.PaymentBtn.TabIndex = 72;
-            this.PaymentBtn.Text = "Payment Details";
-            this.PaymentBtn.UseVisualStyleBackColor = true;
-            // 
-            // CurrentBalanceLbl
-            // 
-            this.CurrentBalanceLbl.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CurrentBalanceLbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(71)))), ((int)(((byte)(56)))));
-            this.CurrentBalanceLbl.Location = new System.Drawing.Point(96, 720);
-            this.CurrentBalanceLbl.Name = "CurrentBalanceLbl";
-            this.CurrentBalanceLbl.Size = new System.Drawing.Size(160, 19);
-            this.CurrentBalanceLbl.TabIndex = 73;
-            this.CurrentBalanceLbl.Text = "StatusLbl";
+            this.StatusLbl.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.StatusLbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(71)))), ((int)(((byte)(56)))));
+            this.StatusLbl.Location = new System.Drawing.Point(96, 720);
+            this.StatusLbl.Name = "StatusLbl";
+            this.StatusLbl.Size = new System.Drawing.Size(160, 19);
+            this.StatusLbl.TabIndex = 73;
+            this.StatusLbl.Text = "StatusLbl";
             // 
             // panel5
             // 
@@ -501,15 +491,28 @@
             this.panel5.Size = new System.Drawing.Size(440, 8);
             this.panel5.TabIndex = 3;
             // 
+            // PaymentBtn
+            // 
+            this.PaymentBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(71)))), ((int)(((byte)(56)))));
+            this.PaymentBtn.Font = new System.Drawing.Font("Calibri", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PaymentBtn.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.PaymentBtn.Location = new System.Drawing.Point(163, 753);
+            this.PaymentBtn.Margin = new System.Windows.Forms.Padding(2);
+            this.PaymentBtn.Name = "PaymentBtn";
+            this.PaymentBtn.Size = new System.Drawing.Size(126, 35);
+            this.PaymentBtn.TabIndex = 74;
+            this.PaymentBtn.Text = "Payment Details";
+            this.PaymentBtn.UseVisualStyleBackColor = false;
+            // 
             // Event
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(234)))), ((int)(((byte)(218)))));
             this.ClientSize = new System.Drawing.Size(434, 811);
-            this.Controls.Add(this.panel5);
-            this.Controls.Add(this.CurrentBalanceLbl);
             this.Controls.Add(this.PaymentBtn);
+            this.Controls.Add(this.panel5);
+            this.Controls.Add(this.StatusLbl);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.panel4);
             this.Controls.Add(this.MiscLbl);
@@ -595,8 +598,8 @@
         private System.Windows.Forms.Label Misc;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Button PaymentBtn;
-        private System.Windows.Forms.Label CurrentBalanceLbl;
+        private System.Windows.Forms.Label StatusLbl;
         private System.Windows.Forms.Panel panel5;
+        private System.Windows.Forms.Button PaymentBtn;
     }
 }

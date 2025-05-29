@@ -46,6 +46,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.SearchTb = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.EventCharts)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ProfitChart)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.EventsDgv)).BeginInit();
@@ -137,7 +138,7 @@
             this.label2.Location = new System.Drawing.Point(192, 80);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(78, 29);
+            this.label2.Size = new System.Drawing.Size(54, 19);
             this.label2.TabIndex = 9;
             this.label2.Text = "Events";
             // 
@@ -150,7 +151,7 @@
             this.label1.Location = new System.Drawing.Point(184, 320);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(104, 29);
+            this.label1.Size = new System.Drawing.Size(70, 19);
             this.label1.TabIndex = 10;
             this.label1.Text = "Analytics";
             // 
@@ -163,9 +164,21 @@
             this.label3.Location = new System.Drawing.Point(192, 24);
             this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(179, 50);
+            this.label3.Size = new System.Drawing.Size(118, 33);
             this.label3.TabIndex = 11;
             this.label3.Text = "Expenses";
+            // 
+            // SearchTb
+            // 
+            this.SearchTb.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.SearchTb.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(163)))), ((int)(((byte)(150)))));
+            this.SearchTb.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SearchTb.ForeColor = System.Drawing.Color.White;
+            this.SearchTb.Location = new System.Drawing.Point(707, 54);
+            this.SearchTb.Margin = new System.Windows.Forms.Padding(2);
+            this.SearchTb.Name = "SearchTb";
+            this.SearchTb.Size = new System.Drawing.Size(143, 23);
+            this.SearchTb.TabIndex = 70;
             // 
             // Expenses
             // 
@@ -173,6 +186,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(234)))), ((int)(((byte)(218)))));
             this.ClientSize = new System.Drawing.Size(884, 561);
+            this.Controls.Add(this.SearchTb);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label2);
@@ -198,5 +212,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox SearchTb;
     }
 }
