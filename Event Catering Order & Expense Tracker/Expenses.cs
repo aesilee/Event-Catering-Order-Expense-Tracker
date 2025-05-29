@@ -312,5 +312,10 @@ namespace Event_Catering_Order___Expense_Tracker
             base.OnFormClosed(e);
             Application.Exit();
         }
+
+        private void EventsDgv_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }
