@@ -181,7 +181,7 @@ namespace Event_Catering_Order___Expense_Tracker
                 try
                 {
                     con.Open();
-                    SqlDataAdapter sda = new SqlDataAdapter("SELECT COUNT(*) FROM AccountsTable WHERE Username = '" + UsernameTb.Text + "' AND Password = '" + PasswordTb.Text + "'", con);
+                    SqlDataAdapter sda = new SqlDataAdapter("SELECT COUNT(*) FROM AccountsTable WHERE Username COLLATE SQL_Latin1_General_CP1_CS_AS = '" + UsernameTb.Text + "' AND Password = '" + PasswordTb.Text + "'", con); 
                     DataTable dt = new DataTable();
                     sda.Fill(dt);
                     if (dt.Rows[0][0].ToString() == "1")

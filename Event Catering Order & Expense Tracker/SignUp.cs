@@ -78,6 +78,16 @@ namespace Event_Catering_Order___Expense_Tracker
                 try
                 {
                     con.Open();
+                    SqlCommand checkCmd = new SqlCommand("SELECT COUNT(*) FROM AccountsTable WHERE Username COLLATE SQL_Latin1_General_CP1_CS_AS = @UN", con);
+                    checkCmd.Parameters.AddWithValue("@UN", UsernameTb.Text);
+                    int userCount = (int)checkCmd.ExecuteScalar();
+
+                    if (userCount > 0)
+                    {
+                        MessageBox.Show("Username already exists");
+                        return;
+                    }
+
                     SqlCommand cmd = new SqlCommand("INSERT INTO AccountsTable (FirstName, LastName, Username, Email, Password) VALUES (@FN, @LN, @UN, @EM, @PW)", con);
                     cmd.Parameters.AddWithValue("@FN", FirstNameTb.Text);
                     cmd.Parameters.AddWithValue("@LN", LastNameTb.Text);

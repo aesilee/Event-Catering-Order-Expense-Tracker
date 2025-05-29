@@ -126,6 +126,7 @@
             this.EventsDgv.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.EventsDgv.Size = new System.Drawing.Size(657, 189);
             this.EventsDgv.TabIndex = 2;
+            this.EventsDgv.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.EventsDgv_CellContentClick);
             // 
             // label2
             // 
@@ -136,7 +137,7 @@
             this.label2.Location = new System.Drawing.Point(192, 80);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(54, 19);
+            this.label2.Size = new System.Drawing.Size(78, 29);
             this.label2.TabIndex = 9;
             this.label2.Text = "Events";
             // 
@@ -149,7 +150,7 @@
             this.label1.Location = new System.Drawing.Point(184, 320);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(70, 19);
+            this.label1.Size = new System.Drawing.Size(104, 29);
             this.label1.TabIndex = 10;
             this.label1.Text = "Analytics";
             // 
@@ -162,7 +163,7 @@
             this.label3.Location = new System.Drawing.Point(192, 24);
             this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(118, 33);
+            this.label3.Size = new System.Drawing.Size(179, 50);
             this.label3.TabIndex = 11;
             this.label3.Text = "Expenses";
             // 
