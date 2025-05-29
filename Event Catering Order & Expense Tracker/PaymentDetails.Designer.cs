@@ -37,6 +37,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PaymentDetails));
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.TransactionLogBtn = new System.Windows.Forms.Button();
             this.EventTitleLbl = new System.Windows.Forms.Label();
             this.SaveBtn = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
@@ -52,7 +53,6 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.chart2 = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.TransactionLogBtn = new System.Windows.Forms.Button();
             this.BackBtn = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.panel1.SuspendLayout();
@@ -100,11 +100,25 @@
             this.panel1.Size = new System.Drawing.Size(367, 438);
             this.panel1.TabIndex = 1;
             // 
+            // TransactionLogBtn
+            // 
+            this.TransactionLogBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(71)))), ((int)(((byte)(56)))));
+            this.TransactionLogBtn.Font = new System.Drawing.Font("Calibri", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TransactionLogBtn.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.TransactionLogBtn.Location = new System.Drawing.Point(224, 392);
+            this.TransactionLogBtn.Margin = new System.Windows.Forms.Padding(2);
+            this.TransactionLogBtn.Name = "TransactionLogBtn";
+            this.TransactionLogBtn.Size = new System.Drawing.Size(120, 35);
+            this.TransactionLogBtn.TabIndex = 61;
+            this.TransactionLogBtn.Text = "Transaction Log";
+            this.TransactionLogBtn.UseVisualStyleBackColor = false;
+            this.TransactionLogBtn.Click += new System.EventHandler(this.TransactionLogBtn_Click);
+            // 
             // EventTitleLbl
             // 
             this.EventTitleLbl.Font = new System.Drawing.Font("Cambria", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.EventTitleLbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(74)))), ((int)(((byte)(57)))), ((int)(((byte)(49)))));
-            this.EventTitleLbl.Location = new System.Drawing.Point(0, 32);
+            this.EventTitleLbl.Location = new System.Drawing.Point(0, 24);
             this.EventTitleLbl.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.EventTitleLbl.Name = "EventTitleLbl";
             this.EventTitleLbl.Size = new System.Drawing.Size(368, 28);
@@ -117,12 +131,12 @@
             this.SaveBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(71)))), ((int)(((byte)(56)))));
             this.SaveBtn.Font = new System.Drawing.Font("Calibri", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SaveBtn.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.SaveBtn.Location = new System.Drawing.Point(264, 392);
+            this.SaveBtn.Location = new System.Drawing.Point(224, 248);
             this.SaveBtn.Margin = new System.Windows.Forms.Padding(2);
             this.SaveBtn.Name = "SaveBtn";
-            this.SaveBtn.Size = new System.Drawing.Size(90, 35);
+            this.SaveBtn.Size = new System.Drawing.Size(122, 32);
             this.SaveBtn.TabIndex = 50;
-            this.SaveBtn.Text = "Save";
+            this.SaveBtn.Text = "Send Payment";
             this.SaveBtn.UseVisualStyleBackColor = false;
             // 
             // label5
@@ -130,7 +144,7 @@
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(71)))), ((int)(((byte)(56)))));
-            this.label5.Location = new System.Drawing.Point(24, 232);
+            this.label5.Location = new System.Drawing.Point(24, 216);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(121, 23);
             this.label5.TabIndex = 60;
@@ -140,7 +154,7 @@
             // 
             this.EventTypeLbl.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.EventTypeLbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(71)))), ((int)(((byte)(56)))));
-            this.EventTypeLbl.Location = new System.Drawing.Point(128, 104);
+            this.EventTypeLbl.Location = new System.Drawing.Point(128, 88);
             this.EventTypeLbl.Name = "EventTypeLbl";
             this.EventTypeLbl.Size = new System.Drawing.Size(216, 19);
             this.EventTypeLbl.TabIndex = 49;
@@ -151,7 +165,7 @@
             // 
             this.RemainingBalanceLbl.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RemainingBalanceLbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(71)))), ((int)(((byte)(56)))));
-            this.RemainingBalanceLbl.Location = new System.Drawing.Point(200, 280);
+            this.RemainingBalanceLbl.Location = new System.Drawing.Point(200, 304);
             this.RemainingBalanceLbl.Name = "RemainingBalanceLbl";
             this.RemainingBalanceLbl.Size = new System.Drawing.Size(144, 19);
             this.RemainingBalanceLbl.TabIndex = 59;
@@ -163,7 +177,7 @@
             this.label15.AutoSize = true;
             this.label15.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label15.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(71)))), ((int)(((byte)(56)))));
-            this.label15.Location = new System.Drawing.Point(24, 104);
+            this.label15.Location = new System.Drawing.Point(24, 88);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(101, 23);
             this.label15.TabIndex = 41;
@@ -173,7 +187,7 @@
             // 
             this.StatusLbl.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.StatusLbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(71)))), ((int)(((byte)(56)))));
-            this.StatusLbl.Location = new System.Drawing.Point(200, 184);
+            this.StatusLbl.Location = new System.Drawing.Point(200, 168);
             this.StatusLbl.Name = "StatusLbl";
             this.StatusLbl.Size = new System.Drawing.Size(144, 19);
             this.StatusLbl.TabIndex = 58;
@@ -184,8 +198,8 @@
             // 
             this.PaymentTb.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(234)))), ((int)(((byte)(218)))));
             this.PaymentTb.Font = new System.Drawing.Font("Calibri", 12F);
-            this.PaymentTb.ForeColor = System.Drawing.Color.White;
-            this.PaymentTb.Location = new System.Drawing.Point(160, 232);
+            this.PaymentTb.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(74)))), ((int)(((byte)(57)))), ((int)(((byte)(49)))));
+            this.PaymentTb.Location = new System.Drawing.Point(160, 216);
             this.PaymentTb.Margin = new System.Windows.Forms.Padding(2);
             this.PaymentTb.Name = "PaymentTb";
             this.PaymentTb.Size = new System.Drawing.Size(184, 27);
@@ -195,7 +209,7 @@
             // 
             this.TotalExpensesLbl.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TotalExpensesLbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(71)))), ((int)(((byte)(56)))));
-            this.TotalExpensesLbl.Location = new System.Drawing.Point(176, 144);
+            this.TotalExpensesLbl.Location = new System.Drawing.Point(176, 128);
             this.TotalExpensesLbl.Name = "TotalExpensesLbl";
             this.TotalExpensesLbl.Size = new System.Drawing.Size(168, 19);
             this.TotalExpensesLbl.TabIndex = 57;
@@ -207,7 +221,7 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(71)))), ((int)(((byte)(56)))));
-            this.label1.Location = new System.Drawing.Point(24, 144);
+            this.label1.Location = new System.Drawing.Point(24, 128);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(131, 23);
             this.label1.TabIndex = 52;
@@ -217,7 +231,7 @@
             // 
             this.NextPaymentLbl.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.NextPaymentLbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(71)))), ((int)(((byte)(56)))));
-            this.NextPaymentLbl.Location = new System.Drawing.Point(160, 320);
+            this.NextPaymentLbl.Location = new System.Drawing.Point(160, 344);
             this.NextPaymentLbl.Name = "NextPaymentLbl";
             this.NextPaymentLbl.Size = new System.Drawing.Size(184, 19);
             this.NextPaymentLbl.TabIndex = 56;
@@ -229,7 +243,7 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(71)))), ((int)(((byte)(56)))));
-            this.label2.Location = new System.Drawing.Point(24, 184);
+            this.label2.Location = new System.Drawing.Point(24, 168);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(65, 23);
             this.label2.TabIndex = 53;
@@ -240,7 +254,7 @@
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(71)))), ((int)(((byte)(56)))));
-            this.label4.Location = new System.Drawing.Point(24, 320);
+            this.label4.Location = new System.Drawing.Point(24, 344);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(128, 23);
             this.label4.TabIndex = 55;
@@ -251,7 +265,7 @@
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(71)))), ((int)(((byte)(56)))));
-            this.label3.Location = new System.Drawing.Point(24, 280);
+            this.label3.Location = new System.Drawing.Point(24, 304);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(165, 23);
             this.label3.TabIndex = 54;
@@ -272,20 +286,6 @@
             this.chart2.Size = new System.Drawing.Size(304, 160);
             this.chart2.TabIndex = 2;
             this.chart2.Text = "chart2";
-            // 
-            // TransactionLogBtn
-            // 
-            this.TransactionLogBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(88)))), ((int)(((byte)(71)))), ((int)(((byte)(56)))));
-            this.TransactionLogBtn.Font = new System.Drawing.Font("Calibri", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TransactionLogBtn.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.TransactionLogBtn.Location = new System.Drawing.Point(148, 392);
-            this.TransactionLogBtn.Margin = new System.Windows.Forms.Padding(2);
-            this.TransactionLogBtn.Name = "TransactionLogBtn";
-            this.TransactionLogBtn.Size = new System.Drawing.Size(112, 35);
-            this.TransactionLogBtn.TabIndex = 61;
-            this.TransactionLogBtn.Text = "Transaction Log";
-            this.TransactionLogBtn.UseVisualStyleBackColor = false;
-            this.TransactionLogBtn.Click += new System.EventHandler(this.TransactionLogBtn_Click);
             // 
             // BackBtn
             // 

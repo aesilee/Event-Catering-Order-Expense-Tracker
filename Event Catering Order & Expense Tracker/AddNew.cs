@@ -13,8 +13,8 @@ namespace Event_Catering_Order___Expense_Tracker
 {
     public partial class AddNew : Form
     {
-        //SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\ashbs\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30");
-        SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Kyle\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30");
+        SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\ashbs\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30");
+        //SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Kyle\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30");
 
 
         private Timer fadeTimer;
@@ -152,11 +152,13 @@ namespace Event_Catering_Order___Expense_Tracker
         {
             if (!FullPaymentRb.Checked && !InstallmentRb.Checked)
             {
+                // Default state - all date pickers disabled with default color
                 EstimatedPaymentDueDtp.Enabled = false;
                 InitialPaymentDateDtp.Enabled = false;
                 FinalPaymentDateDtp.Enabled = false;
                 PaymentMethodCb.Enabled = false;
 
+                // Set all to default/disabled color
                 EstimatedPaymentDueDtp.BackColor = SystemColors.Control;
                 InitialPaymentDateDtp.BackColor = SystemColors.Control;
                 FinalPaymentDateDtp.BackColor = SystemColors.Control;
@@ -166,15 +168,17 @@ namespace Event_Catering_Order___Expense_Tracker
             {
                 bool isInstallment = InstallmentRb.Checked;
 
-                EstimatedPaymentDueDtp.Enabled = !isInstallment;
-                InitialPaymentDateDtp.Enabled = isInstallment;
-                FinalPaymentDateDtp.Enabled = isInstallment;
-                PaymentMethodCb.Enabled = isInstallment;
+                // Enable/disable based on payment type
+                EstimatedPaymentDueDtp.Enabled = !isInstallment; // Full Payment
+                InitialPaymentDateDtp.Enabled = isInstallment;    // Installment
+                FinalPaymentDateDtp.Enabled = isInstallment;      // Installment
+                PaymentMethodCb.Enabled = true;                   // Always enabled for both payment types
 
+                // Visual feedback - enabled controls get white background, disabled get gray
                 EstimatedPaymentDueDtp.BackColor = !isInstallment ? SystemColors.Window : SystemColors.Control;
                 InitialPaymentDateDtp.BackColor = isInstallment ? SystemColors.Window : SystemColors.Control;
                 FinalPaymentDateDtp.BackColor = isInstallment ? SystemColors.Window : SystemColors.Control;
-                PaymentMethodCb.BackColor = isInstallment ? SystemColors.Window : SystemColors.Control;
+                PaymentMethodCb.BackColor = SystemColors.Window;  // Always white since it's always enabled
             }
         }
         private void RefreshPaymentDates()
@@ -488,8 +492,10 @@ namespace Event_Catering_Order___Expense_Tracker
                     MenuDetailsTb.Text,
                     decimal.Parse(EstBudgetTb.Text),
                     decimal.Parse(TotalExpensesLbl.Text),
-                    eventId.ToString()
-                );
+                    eventId.ToString(),
+                    FullPaymentRb.Checked ? "Full Payment" : "Installment",  // Payment terms
+                    PaymentMethodCb.SelectedItem?.ToString() ?? "Not Specified"  // Payment method
+);
                 receipt.Show();
 
                 ClearForm();

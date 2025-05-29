@@ -64,6 +64,10 @@
             this.label25 = new System.Windows.Forms.Label();
             this.printBtn = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.PaymentMethodLbl = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.PaymentTermsLbl = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -231,7 +235,7 @@
             this.TotalExpensesLbl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
             this.TotalExpensesLbl.Font = new System.Drawing.Font("Constantia", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TotalExpensesLbl.ForeColor = System.Drawing.Color.Black;
-            this.TotalExpensesLbl.Location = new System.Drawing.Point(232, 672);
+            this.TotalExpensesLbl.Location = new System.Drawing.Point(232, 752);
             this.TotalExpensesLbl.Name = "TotalExpensesLbl";
             this.TotalExpensesLbl.Size = new System.Drawing.Size(140, 19);
             this.TotalExpensesLbl.TabIndex = 70;
@@ -268,7 +272,7 @@
             this.label10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
             this.label10.Font = new System.Drawing.Font("Constantia", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label10.ForeColor = System.Drawing.Color.Black;
-            this.label10.Location = new System.Drawing.Point(32, 672);
+            this.label10.Location = new System.Drawing.Point(40, 752);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(128, 19);
             this.label10.TabIndex = 67;
@@ -303,20 +307,19 @@
             this.EstBudgetTb.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
             this.EstBudgetTb.Font = new System.Drawing.Font("Constantia", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.EstBudgetTb.ForeColor = System.Drawing.Color.Black;
-            this.EstBudgetTb.Location = new System.Drawing.Point(224, 640);
+            this.EstBudgetTb.Location = new System.Drawing.Point(232, 720);
             this.EstBudgetTb.Name = "EstBudgetTb";
-            this.EstBudgetTb.Size = new System.Drawing.Size(147, 19);
+            this.EstBudgetTb.Size = new System.Drawing.Size(139, 19);
             this.EstBudgetTb.TabIndex = 64;
             this.EstBudgetTb.Text = "EstBudgetTb";
             this.EstBudgetTb.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label14
             // 
-            this.label14.AutoSize = true;
             this.label14.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
             this.label14.Font = new System.Drawing.Font("Constantia", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label14.ForeColor = System.Drawing.Color.Black;
-            this.label14.Location = new System.Drawing.Point(32, 640);
+            this.label14.Location = new System.Drawing.Point(40, 720);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(193, 19);
             this.label14.TabIndex = 63;
@@ -365,7 +368,7 @@
             this.label19.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
             this.label19.Font = new System.Drawing.Font("Constantia", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label19.ForeColor = System.Drawing.Color.Black;
-            this.label19.Location = new System.Drawing.Point(152, 720);
+            this.label19.Location = new System.Drawing.Point(152, 824);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(112, 26);
             this.label19.TabIndex = 72;
@@ -377,7 +380,7 @@
             this.EventIdLbl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
             this.EventIdLbl.Font = new System.Drawing.Font("Constantia", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.EventIdLbl.ForeColor = System.Drawing.Color.Black;
-            this.EventIdLbl.Location = new System.Drawing.Point(181, 753);
+            this.EventIdLbl.Location = new System.Drawing.Point(181, 857);
             this.EventIdLbl.Name = "EventIdLbl";
             this.EventIdLbl.Size = new System.Drawing.Size(111, 26);
             this.EventIdLbl.TabIndex = 73;
@@ -470,7 +473,7 @@
             // 
             // printBtn
             // 
-            this.printBtn.Location = new System.Drawing.Point(168, 800);
+            this.printBtn.Location = new System.Drawing.Point(168, 912);
             this.printBtn.Name = "printBtn";
             this.printBtn.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.printBtn.Size = new System.Drawing.Size(84, 23);
@@ -485,17 +488,69 @@
             this.pictureBox1.Image = global::Event_Catering_Order___Expense_Tracker.Properties.Resources.Untitled_design__8_;
             this.pictureBox1.Location = new System.Drawing.Point(0, 0);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(432, 848);
+            this.pictureBox1.Size = new System.Drawing.Size(432, 952);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 82;
             this.pictureBox1.TabStop = false;
+            // 
+            // PaymentMethodLbl
+            // 
+            this.PaymentMethodLbl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.PaymentMethodLbl.Font = new System.Drawing.Font("Constantia", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PaymentMethodLbl.ForeColor = System.Drawing.Color.Black;
+            this.PaymentMethodLbl.Location = new System.Drawing.Point(232, 688);
+            this.PaymentMethodLbl.Name = "PaymentMethodLbl";
+            this.PaymentMethodLbl.Size = new System.Drawing.Size(140, 19);
+            this.PaymentMethodLbl.TabIndex = 86;
+            this.PaymentMethodLbl.Text = "PaymentMethodLbl";
+            this.PaymentMethodLbl.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.label9.Font = new System.Drawing.Font("Constantia", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.ForeColor = System.Drawing.Color.Black;
+            this.label9.Location = new System.Drawing.Point(40, 688);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(145, 19);
+            this.label9.TabIndex = 85;
+            this.label9.Text = "Payment Method:";
+            // 
+            // PaymentTermsLbl
+            // 
+            this.PaymentTermsLbl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.PaymentTermsLbl.Font = new System.Drawing.Font("Constantia", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PaymentTermsLbl.ForeColor = System.Drawing.Color.Black;
+            this.PaymentTermsLbl.Location = new System.Drawing.Point(224, 656);
+            this.PaymentTermsLbl.Name = "PaymentTermsLbl";
+            this.PaymentTermsLbl.Size = new System.Drawing.Size(147, 19);
+            this.PaymentTermsLbl.TabIndex = 84;
+            this.PaymentTermsLbl.Text = "PaymentTermsLbl";
+            this.PaymentTermsLbl.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.label16.Font = new System.Drawing.Font("Constantia", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label16.ForeColor = System.Drawing.Color.Black;
+            this.label16.Location = new System.Drawing.Point(40, 656);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(132, 19);
+            this.label16.TabIndex = 83;
+            this.label16.Text = "Payment Terms:";
             // 
             // Receipt
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(430, 846);
+            this.ClientSize = new System.Drawing.Size(430, 951);
+            this.Controls.Add(this.PaymentMethodLbl);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.PaymentTermsLbl);
+            this.Controls.Add(this.label16);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.printBtn);
             this.Controls.Add(this.MenuDetailsTb);
@@ -576,5 +631,9 @@
         private System.Windows.Forms.Label label25;
         private System.Windows.Forms.Button printBtn;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Label PaymentMethodLbl;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label PaymentTermsLbl;
+        private System.Windows.Forms.Label label16;
     }
 }

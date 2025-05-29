@@ -28,7 +28,9 @@ namespace Event_Catering_Order___Expense_Tracker
             string menuDetails,
             decimal estBudget,
             decimal totalExpenses,
-            string eventId
+            string eventId,
+            string paymentTerms,
+            string paymentMethod
         )
         {
             InitializeComponent();
@@ -47,6 +49,8 @@ namespace Event_Catering_Order___Expense_Tracker
             MenuTypeCb.Text = menuType;
             MenuDetailsTb.Text = menuDetails;
             EstBudgetTb.Text = $"₱{estBudget:N2}";
+            PaymentTermsLbl.Text = paymentTerms;
+            PaymentMethodLbl.Text = paymentMethod;
             TotalExpensesLbl.Text = $"₱{totalExpenses:N2}";
             EventIdLbl.Text = $"#{eventId}";
         }
@@ -56,20 +60,18 @@ namespace Event_Catering_Order___Expense_Tracker
         {
             try
             {
-                // Get the user's Downloads folder
                 string downloadsPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Downloads");
                 string fileName = $"EventReceipt_{EventIdLbl.Text.Replace("#", "")}_{DateTime.Now:yyyyMMdd_HHmmss}.txt";
                 string filePath = Path.Combine(downloadsPath, fileName);
 
-                // Build the receipt content
                 StringBuilder sb = new StringBuilder();
                 sb.AppendLine("========================================");
-                sb.AppendLine("         Event Catering Order Receipt   ");
+                sb.AppendLine("       EVENT CATERING ORDER RECEIPT    ");
                 sb.AppendLine("========================================");
                 sb.AppendLine($"Event Name:         {EventNameLbl.Text}");
+                sb.AppendLine($"Event Type:         {EventTypeCb.Text}");
                 sb.AppendLine($"Event Date:         {EventDateDtp.Text}");
                 sb.AppendLine($"Event Time:         {EventTimeTb.Text}");
-                sb.AppendLine($"Event Type:         {EventTypeCb.Text}");
                 sb.AppendLine($"Venue:              {VenueTb.Text}");
                 sb.AppendLine("----------------------------------------");
                 sb.AppendLine($"Customer Name:      {CustomerNameTb.Text}");
@@ -79,37 +81,35 @@ namespace Event_Catering_Order___Expense_Tracker
                 sb.AppendLine($"Menu/Meal Type:     {MenuTypeCb.Text}");
                 sb.AppendLine($"Menu Details:       {MenuDetailsTb.Text}");
                 sb.AppendLine("----------------------------------------");
+                sb.AppendLine($"Payment Terms:      {PaymentTermsLbl.Text}");
+                sb.AppendLine($"Payment Method:     {PaymentMethodLbl.Text}");
+                sb.AppendLine("----------------------------------------");
                 sb.AppendLine($"Estimated Budget:   {EstBudgetTb.Text}");
                 sb.AppendLine($"Total Expenses:     {TotalExpensesLbl.Text}");
-                sb.AppendLine();
-                sb.AppendLine("Thank you!");
+                sb.AppendLine("========================================");
                 sb.AppendLine($"Event ID:           {EventIdLbl.Text}");
+                sb.AppendLine($"Generated on:       {DateTime.Now:yyyy-MM-dd HH:mm:ss}");
+                sb.AppendLine("========================================");
+                sb.AppendLine("Thank you for your order!");
 
-                // Write to file
                 File.WriteAllText(filePath, sb.ToString());
 
-                // Ensure form stays on top for the message
                 this.TopMost = true;
-
-                // Show success message with file path
                 MessageBox.Show(
-                    this, // Set the owner form
+                    this,
                     $"Receipt has been successfully saved to:\n{filePath}",
                     "Download Successful",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Information
                 );
 
-                // Close the form after successful download
                 this.Close();
             }
             catch (Exception ex)
             {
-                // Ensure form stays on top for the error message
                 this.TopMost = true;
-
                 MessageBox.Show(
-                    this, // Set the owner form
+                    this,
                     $"Failed to save receipt: {ex.Message}",
                     "Download Failed",
                     MessageBoxButtons.OK,
