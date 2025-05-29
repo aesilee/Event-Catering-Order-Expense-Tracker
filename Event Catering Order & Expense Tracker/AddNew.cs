@@ -85,19 +85,135 @@ namespace Event_Catering_Order___Expense_Tracker
                 "Others"
             });
 
+            PaymentMethodCb.Items.AddRange(new string[] 
+            { 
+                "Cash", 
+                "Credit Card",
+                "Bank Transfer", 
+                "Check", 
+                "Online Payment" 
+            });
+
+            foreach (ComboBox cb in new[] { EventTypeCb, MenuTypeCb, PaymentMethodCb })
+            {
+                cb.DrawMode = DrawMode.OwnerDrawFixed;
+                cb.DropDownStyle = ComboBoxStyle.DropDownList;
+                cb.FlatStyle = FlatStyle.Flat;
+                cb.BackColor = Color.FromArgb(170, 163, 150); 
+                cb.ForeColor = Color.White; 
+                cb.Font = new Font("Segoe UI", 10f);
+                cb.ItemHeight = 25;
+                cb.DrawItem += ComboBox_DrawItem;
+                cb.SelectedIndexChanged += ComboBox_SelectedIndexChanged;
+            }
+
+            UpdatePaymentFieldsAccessibility();
+
             EventTypeCb.DrawMode = DrawMode.OwnerDrawFixed;
             MenuTypeCb.DrawMode = DrawMode.OwnerDrawFixed;
+            PaymentMethodCb.DrawMode = DrawMode.OwnerDrawFixed;
 
             EventTypeCb.DrawItem += ComboBox_DrawItem;
             MenuTypeCb.DrawItem += ComboBox_DrawItem;
+            PaymentMethodCb.DrawItem += ComboBox_DrawItem;
 
-            FullPaymentRb.Checked = true;
-            PaymentMethodCb.Items.AddRange(new string[] { "Cash", "Credit Card", "Bank Transfer", "Check", "Online Payment" });
-            UpdatePaymentFieldsVisibility();
+            FullPaymentRb.Checked = false;
+            InstallmentRb.Checked = false;
+
+            InitialPaymentDateDtp.Enter += InstallmentDatePicker_Enter;
+            FinalPaymentDateDtp.Enter += InstallmentDatePicker_Enter;
+            EstimatedPaymentDateDtp.Enter += FullPaymentDatePicker_Enter;
         }
-        private void UpdatePaymentFieldsVisibility()
+        private void InstallmentDatePicker_Enter(object sender, EventArgs e)
         {
-            bool showInstallmentFields = InstallmentRb.Checked;
+            if (FullPaymentRb.Checked)
+            {
+                MessageBox.Show("Please select 'Installment' payment type to use these date pickers", "Invalid Access", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                if (EstimatedPaymentDateDtp.Enabled)
+                {
+                    EstimatedPaymentDateDtp.Focus();
+                }
+            }
+        }
+
+        private void FullPaymentDatePicker_Enter(object sender, EventArgs e)
+        {
+            if (InstallmentRb.Checked)
+            {
+                MessageBox.Show("Please select 'Full Payment' payment type to use this date picker", "Invalid Access", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                if (InitialPaymentDateDtp.Enabled)
+                {
+                    InitialPaymentDateDtp.Focus();
+                }
+            }
+        }
+
+        private void UpdatePaymentFieldsAccessibility()
+        {
+            if (!FullPaymentRb.Checked && !InstallmentRb.Checked)
+            {
+                EstimatedPaymentDateDtp.Enabled = false;
+                InitialPaymentDateDtp.Enabled = false;
+                FinalPaymentDateDtp.Enabled = false;
+                PaymentMethodCb.Enabled = false;
+
+                EstimatedPaymentDateDtp.BackColor = SystemColors.Control;
+                InitialPaymentDateDtp.BackColor = SystemColors.Control;
+                FinalPaymentDateDtp.BackColor = SystemColors.Control;
+                PaymentMethodCb.BackColor = SystemColors.Control;
+            }
+            else
+            {
+                bool isInstallment = InstallmentRb.Checked;
+
+                EstimatedPaymentDateDtp.Enabled = !isInstallment;
+                InitialPaymentDateDtp.Enabled = isInstallment;
+                FinalPaymentDateDtp.Enabled = isInstallment;
+                PaymentMethodCb.Enabled = isInstallment;
+
+                EstimatedPaymentDateDtp.BackColor = !isInstallment ? SystemColors.Window : SystemColors.Control;
+                InitialPaymentDateDtp.BackColor = isInstallment ? SystemColors.Window : SystemColors.Control;
+                FinalPaymentDateDtp.BackColor = isInstallment ? SystemColors.Window : SystemColors.Control;
+                PaymentMethodCb.BackColor = isInstallment ? SystemColors.Window : SystemColors.Control;
+            }
+        }
+        private void RefreshPaymentDates()
+        {
+            DateTime currentDate = DateTime.Now;
+
+            EstimatedPaymentDateDtp.Value = currentDate;
+            InitialPaymentDateDtp.Value = currentDate;
+            FinalPaymentDateDtp.Value = currentDate.AddDays(30);
+
+            PaymentMethodCb.SelectedIndex = -1;
+
+            UpdatePaymentFieldsAccessibility();
+
+            this.ActiveControl = null;
+        }
+
+        private void RefreshPaymentBtn_Click(object sender, EventArgs e)
+        {
+            RefreshPaymentDates();
+            MessageBox.Show("Payment dates have been refreshed!", "Refresh Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void FullPaymentRb_CheckedChanged(object sender, EventArgs e)
+        {
+            if (FullPaymentRb.Checked)
+            {
+                RefreshPaymentDates();
+                MessageBox.Show("Full Payment selected. Estimated Payment Date is now accessible.", "Payment Type Changed", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private void InstallmentRb_CheckedChanged(object sender, EventArgs e)
+        {
+            if (InstallmentRb.Checked)
+            {
+                RefreshPaymentDates();
+                MessageBox.Show("Installment selected. Initial and Final Payment Dates are now accessible.", "Payment Type Changed", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
         private void InitializeFadeTimer()
@@ -160,74 +276,33 @@ namespace Event_Catering_Order___Expense_Tracker
         private void ComboBox_DrawItem(object sender, DrawItemEventArgs e)
         {
             ComboBox comboBox = sender as ComboBox;
-
             if (e.Index < 0) return;
 
             string text = comboBox.Items[e.Index].ToString();
-            bool isHovered = (e.State & DrawItemState.Selected) == DrawItemState.Selected;
+            bool isSelected = (e.State & DrawItemState.Selected) == DrawItemState.Selected;
 
-            e.DrawBackground();
+            // Background color (light beige for unselected, dark brown for selected)
+            e.Graphics.FillRectangle(
+                new SolidBrush(isSelected ? Color.FromArgb(170, 163, 150) : Color.FromArgb(241, 234, 218)),
+                e.Bounds);
 
-            using (SolidBrush brush = new SolidBrush(isHovered ? Color.FromArgb(88, 71, 56) : Color.FromArgb(241, 234, 218)))
+            // Text color (dark brown for unselected, white for selected)
+            using (SolidBrush textBrush = new SolidBrush(isSelected ? Color.White : Color.FromArgb(88, 71, 56)))
             {
-                e.Graphics.DrawString(text, comboBox.Font, brush, e.Bounds);
+                e.Graphics.DrawString(text, comboBox.Font, textBrush, e.Bounds);
             }
 
-            e.DrawFocusRectangle();
+            // Focus rectangle
+            if (isSelected) e.DrawFocusRectangle();
         }
 
-        private void AddNew_Load(object sender, EventArgs e)
+        private void ComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            this.WindowState = FormWindowState.Normal;
-            this.Activate();
+            ComboBox cb = sender as ComboBox;
+            cb.BackColor = Color.FromArgb(170, 163, 150); // Maintain dark brown
+            cb.ForeColor = Color.White; // Maintain white text
         }
 
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-            // Handle panel painting if needed
-        }
-
-        private void EventTypeCb_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            // Handle event type selection change
-            // This can be used to update UI or perform validation based on selected event type
-        }
-
-        private void DashboardLbl_Click_1(object sender, EventArgs e)
-        {
-            var homeForm = new Home();
-            homeForm.Show();
-            this.Hide();
-        }
-
-        private void CalendarLbl_Click_1(object sender, EventArgs e)
-        {
-            var calendarForm = new Calendar();
-            calendarForm.Show();
-            this.Hide();
-        }
-
-        private void SpreadsheetsLbl_Click_1(object sender, EventArgs e)
-        {
-            var spreadsheetForm = new Spreadsheet();
-            spreadsheetForm.Show();
-            this.Hide();
-        }
-
-        private void AddnewLbl_Click_1(object sender, EventArgs e)
-        {
-            // Already on AddNew form, no action needed
-        }
-
-        private void LogOutBtn_Click_1(object sender, EventArgs e)
-        {
-            StartFadeOutAndNavigate(new Login());
-        }
-
-        private void panel2_Paint_1(object sender, PaintEventArgs e)
-        {
-            // Handle panel painting if needed
-        }
 
         private void CalculateBtn_Click(object sender, EventArgs e)
         {
@@ -270,6 +345,15 @@ namespace Event_Catering_Order___Expense_Tracker
         {
             if (!ValidateInputs())
                 return;
+
+            if (!FullPaymentRb.Checked && !InstallmentRb.Checked)
+            {
+                MessageBox.Show("Please select a payment type (Full Payment or Installment)",
+                               "Payment Type Required",
+                               MessageBoxButtons.OK,
+                               MessageBoxIcon.Warning);
+                return;
+            }
 
             SqlTransaction transaction = null;
             try
@@ -327,7 +411,7 @@ namespace Event_Catering_Order___Expense_Tracker
                 if (FullPaymentRb.Checked)
                 {
                     paymentStatus = "Pending Full Payment";
-                    finalPaymentDate = InitialPaymentDateDtp.Value.Date;
+                    finalPaymentDate = EstimatedPaymentDateDtp.Value.Date;
                     finalPaymentAmount = decimal.Parse(EstBudgetTb.Text);
                 }
                 else if (InstallmentRb.Checked)
@@ -371,7 +455,7 @@ namespace Event_Catering_Order___Expense_Tracker
                 cmd.Parameters.AddWithValue("@TotalExpenses", decimal.Parse(TotalExpensesLbl.Text));
                 cmd.Parameters.AddWithValue("@BudgetStatus", StatusLbl.Text);
                 cmd.Parameters.AddWithValue("@PaymentStatus", paymentStatus);
-                cmd.Parameters.AddWithValue("@NextPayment", InitialPaymentDateDtp.Value.Date);
+                cmd.Parameters.AddWithValue("@NextPayment", FullPaymentRb.Checked ? EstimatedPaymentDateDtp.Value.Date : InitialPaymentDateDtp.Value.Date);
                 cmd.Parameters.AddWithValue("@RemainingBalance", decimal.Parse(EstBudgetTb.Text));
 
                 // Add new payment parameters
@@ -490,6 +574,13 @@ namespace Event_Catering_Order___Expense_Tracker
                 }
             }
 
+            // Validate payment date for full payment
+            if (FullPaymentRb.Checked && EstimatedPaymentDateDtp.Value < DateTime.Today)
+            {
+                MessageBox.Show("Payment date cannot be in the past");
+                return false;
+            }
+
             return true;
         }
 
@@ -516,25 +607,77 @@ namespace Event_Catering_Order___Expense_Tracker
             NotesTb.Clear();
             TotalExpensesLbl.Text = "";
             StatusLbl.Text = "";
-            FullPaymentRb.Checked = true;
+            FullPaymentRb.Checked = false;
+            InstallmentRb.Checked = false;
             PaymentMethodCb.SelectedIndex = -1;
-            UpdatePaymentFieldsVisibility();
-        }
-
-        private void FullPaymentRadio_CheckedChanged(object sender, EventArgs e)
-        {
-            UpdatePaymentFieldsVisibility();
-        }
-
-        private void InstallmentRadio_CheckedChanged(object sender, EventArgs e)
-        {
-            UpdatePaymentFieldsVisibility();
+            EstimatedPaymentDateDtp.Value = DateTime.Now;
+            InitialPaymentDateDtp.Value = DateTime.Now;
+            FinalPaymentDateDtp.Value = DateTime.Now.AddDays(30);
+            UpdatePaymentFieldsAccessibility();
+            RefreshPaymentDates();
         }
 
         protected override void OnFormClosed(FormClosedEventArgs e)
         {
             base.OnFormClosed(e);
             Application.Exit();
+        }
+        private void AddNew_Load(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Normal;
+            this.Activate();
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+            // Handle panel painting if needed
+        }
+
+        private void EventTypeCb_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Handle event type selection change
+            // This can be used to update UI or perform validation based on selected event type
+        }
+
+        private void DashboardLbl_Click_1(object sender, EventArgs e)
+        {
+            var homeForm = new Home();
+            homeForm.Show();
+            this.Hide();
+        }
+
+        private void CalendarLbl_Click_1(object sender, EventArgs e)
+        {
+            var calendarForm = new Calendar();
+            calendarForm.Show();
+            this.Hide();
+        }
+
+        private void SpreadsheetsLbl_Click_1(object sender, EventArgs e)
+        {
+            var spreadsheetForm = new Spreadsheet();
+            spreadsheetForm.Show();
+            this.Hide();
+        }
+
+        private void AddnewLbl_Click_1(object sender, EventArgs e)
+        {
+            // Already on AddNew form, no action needed
+        }
+
+        private void LogOutBtn_Click_1(object sender, EventArgs e)
+        {
+            StartFadeOutAndNavigate(new Login());
+        }
+
+        private void panel2_Paint_1(object sender, PaintEventArgs e)
+        {
+            // Handle panel painting if needed
+        }
+
+        private void dateTimePicker2_ValueChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
