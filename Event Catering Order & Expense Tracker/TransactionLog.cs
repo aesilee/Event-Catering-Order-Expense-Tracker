@@ -13,10 +13,8 @@ namespace Event_Catering_Order___Expense_Tracker
 {
     public partial class TransactionLog : Form
     {
-        private SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\ashbs\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30");
-        //private SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Kyle\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30");
-
-        private int eventID;
+        private readonly string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\ashbs\Documents\EventraDB.mdf;Integrated Security=True;Connect Timeout=30";
+        private readonly int eventID;
 
         public TransactionLog(int eventID)
         {
@@ -27,77 +25,82 @@ namespace Event_Catering_Order___Expense_Tracker
 
         private void LoadTransactionLog()
         {
-            try
+            using (SqlConnection con = new SqlConnection(connectionString))
             {
-                con.Open();
-                string query = @"
-                    SELECT 
-                        e.EventTitle,
-                        ex.InitialPaymentAmount,
-                        ex.DatePayed,
-                        ex.PaymentMethod,
-                        ex.PaymentTerm,
-                        ex.PaymentStatus
-                    FROM EventTable e
-                    JOIN ExpensesTable ex ON e.EventID = ex.EventID
-                    WHERE ex.DatePayed IS NOT NULL AND e.EventID = @EventID
-                    ORDER BY ex.DatePayed DESC";
-
-                SqlCommand cmd = new SqlCommand(query, con);
-                cmd.Parameters.AddWithValue("@EventID", eventID);
-                SqlDataReader reader = cmd.ExecuteReader();
-
-                StringBuilder transactionLog = new StringBuilder();
-
-                while (reader.Read())
+                try
                 {
-                    string eventTitle = reader["EventTitle"].ToString();
-                    decimal initialPaymentAmount = reader["InitialPaymentAmount"] != DBNull.Value ? Convert.ToDecimal(reader["InitialPaymentAmount"]) : 0;
-                    DateTime datePayed = Convert.ToDateTime(reader["DatePayed"]);
-                    string paymentMethod = reader["PaymentMethod"].ToString();
-                    string paymentTerm = reader["PaymentTerm"].ToString();
-                    string paymentStatus = reader["PaymentStatus"].ToString();
+                    con.Open();
 
-                    transactionLog.AppendLine($"Payment of ₱{initialPaymentAmount:N2} for {eventTitle} recorded {datePayed:MM/dd/yyyy HH:mm}");
-                    transactionLog.AppendLine($"PAID BY {paymentMethod}");
-                    transactionLog.AppendLine($"PAYMENT TERM: {paymentTerm}");
-                    transactionLog.AppendLine($"PAYMENT STATUS: {paymentStatus}");
-                    transactionLog.AppendLine($"--------------------------------");
-                    transactionLog.AppendLine(); // Add extra line for spacing
+                    string query = @"
+                        SELECT 
+                            CONVERT(varchar, DatePayed, 101) AS [Payment Date],
+                            InitialPaymentAmount AS [Amount Paid],
+                            PaymentStatus AS [Status],
+                            RemainingBalance AS [Remaining Balance]
+                        FROM ExpensesTable
+                        WHERE EventID = @EventID 
+                        AND IsPaymentRecord = 1
+                        ORDER BY DatePayed DESC";
+
+                    SqlDataAdapter adapter = new SqlDataAdapter(query, con);
+                    adapter.SelectCommand.Parameters.AddWithValue("@EventID", eventID);
+                    DataTable dt = new DataTable();
+                    adapter.Fill(dt);
+
+                    // Clear existing data and columns
+                    TransactionsDgv.DataSource = null;
+                    TransactionsDgv.Columns.Clear();
+
+                    // Create and configure columns manually
+                    DataGridViewTextBoxColumn dateColumn = new DataGridViewTextBoxColumn();
+                    dateColumn.Name = "PaymentDate";
+                    dateColumn.HeaderText = "Payment Date";
+                    TransactionsDgv.Columns.Add(dateColumn);
+
+                    DataGridViewTextBoxColumn amountColumn = new DataGridViewTextBoxColumn();
+                    amountColumn.Name = "AmountPaid";
+                    amountColumn.HeaderText = "Amount Paid";
+                    amountColumn.DefaultCellStyle.Format = "C2";
+                    amountColumn.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                    TransactionsDgv.Columns.Add(amountColumn);
+
+                    DataGridViewTextBoxColumn statusColumn = new DataGridViewTextBoxColumn();
+                    statusColumn.Name = "Status";
+                    statusColumn.HeaderText = "Status";
+                    TransactionsDgv.Columns.Add(statusColumn);
+
+                    DataGridViewTextBoxColumn balanceColumn = new DataGridViewTextBoxColumn();
+                    balanceColumn.Name = "RemainingBalance";
+                    balanceColumn.HeaderText = "Remaining Balance";
+                    balanceColumn.DefaultCellStyle.Format = "C2";
+                    balanceColumn.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                    TransactionsDgv.Columns.Add(balanceColumn);
+
+                    // Bind data manually
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        int rowIndex = TransactionsDgv.Rows.Add();
+                        TransactionsDgv.Rows[rowIndex].Cells["PaymentDate"].Value = row["Payment Date"];
+                        TransactionsDgv.Rows[rowIndex].Cells["AmountPaid"].Value = row["Amount Paid"];
+                        TransactionsDgv.Rows[rowIndex].Cells["Status"].Value = row["Status"];
+                        TransactionsDgv.Rows[rowIndex].Cells["RemainingBalance"].Value = row["Remaining Balance"];
+                    }
+
+                    // Auto-size columns
+                    TransactionsDgv.AutoResizeColumns();
                 }
-
-                EventDescriptionLbl.Text = transactionLog.ToString();
-                EventDescriptionLbl.AutoSize = false;
-                EventDescriptionLbl.MaximumSize = new Size(this.ClientSize.Width - 40, 0); // 40px margin
-                EventDescriptionLbl.Width = this.ClientSize.Width - 40;
-                EventDescriptionLbl.Height = TextRenderer.MeasureText(EventDescriptionLbl.Text, EventDescriptionLbl.Font, new Size(EventDescriptionLbl.Width, int.MaxValue), TextFormatFlags.WordBreak).Height;
-                EventDescriptionLbl.TextAlign = ContentAlignment.TopLeft;
-
-                // Enable word wrap if not already set
-                EventDescriptionLbl.UseMnemonic = false;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error loading transaction log: " + ex.Message);
-            }
-            finally
-            {
-                if (con.State == ConnectionState.Open)
-                    con.Close();
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error loading transactions:\n{ex.Message}",
+                                  "Database Error",
+                                  MessageBoxButtons.OK,
+                                  MessageBoxIcon.Error);
+                }
             }
         }
 
         private void BackBtn_Click(object sender, EventArgs e)
         {
-            foreach (Form form in Application.OpenForms)
-            {
-                if (form is PaymentDetails)
-                {
-                    form.Show();
-                    form.Activate();
-                    break;
-                }
-            }
             this.Close();
         }
     }
