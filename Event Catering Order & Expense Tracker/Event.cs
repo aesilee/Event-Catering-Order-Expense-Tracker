@@ -71,12 +71,10 @@ namespace Event_Catering_Order___Expense_Tracker
                         NumOfGuestsLbl.Text = reader["NumberOfGuests"].ToString();
                         MenuTypeLbl.Text = reader["MenuType"].ToString();
 
-                        // Display payment status
                         string paymentStatus = reader["PaymentStatus"]?.ToString() ?? "Unpaid";
                         StatusLbl.Text = paymentStatus;
                         StatusLbl.ForeColor = paymentStatus == "Fully Paid" ? Color.Green : Color.Red;
 
-                        // Display expenses if available
                         if (reader["TotalExpenses"] != DBNull.Value)
                         {
                             FoodDrinksLbl.Text = $"₱{Convert.ToDecimal(reader["FoodBeverages"]):N2}";
@@ -125,8 +123,7 @@ namespace Event_Catering_Order___Expense_Tracker
 
         protected override void OnFormClosed(FormClosedEventArgs e)
         {
-            //base.OnFormClosed(e);
-            //Application.Exit();
+            
         }
     }
 }

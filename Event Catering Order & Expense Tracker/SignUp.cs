@@ -34,22 +34,22 @@ namespace Event_Catering_Order___Expense_Tracker
         }
         private void ShowPassBtn1_MouseDown(object sender, MouseEventArgs e)
         {
-            PasswordTb.PasswordChar = '\0'; // Show password
+            PasswordTb.PasswordChar = '\0'; 
         }
 
         private void ShowPassBtn1_MouseUp(object sender, MouseEventArgs e)
         {
-            PasswordTb.PasswordChar = '•'; // Hide password
+            PasswordTb.PasswordChar = '•'; 
         }
 
         private void ShowPassBtn2_MouseDown(object sender, MouseEventArgs e)
         {
-            ConfirmPassTb.PasswordChar = '\0'; // Show password
+            ConfirmPassTb.PasswordChar = '\0'; 
         }
 
         private void ShowPassBtn2_MouseUp(object sender, MouseEventArgs e)
         {
-            ConfirmPassTb.PasswordChar = '•'; // Hide password
+            ConfirmPassTb.PasswordChar = '•'; 
         }
 
         private async Task AnimateButtonColors(Button button, Color targetBackColor, Color targetForeColor)
@@ -61,12 +61,10 @@ namespace Event_Catering_Order___Expense_Tracker
             {
                 if (button.IsDisposed) return;
 
-                // Animate BackColor
                 int backR = originalBackColor.R + (int)((targetBackColor.R - originalBackColor.R) * (i / 10f));
                 int backG = originalBackColor.G + (int)((targetBackColor.G - originalBackColor.G) * (i / 10f));
                 int backB = originalBackColor.B + (int)((targetBackColor.B - originalBackColor.B) * (i / 10f));
 
-                // Animate ForeColor
                 int foreR = originalForeColor.R + (int)((targetForeColor.R - originalForeColor.R) * (i / 10f));
                 int foreG = originalForeColor.G + (int)((targetForeColor.G - originalForeColor.G) * (i / 10f));
                 int foreB = originalForeColor.B + (int)((targetForeColor.B - originalForeColor.B) * (i / 10f));

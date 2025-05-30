@@ -26,20 +26,16 @@ namespace Event_Catering_Order___Expense_Tracker
             InitializeSidebar();
             this.StartPosition = FormStartPosition.CenterScreen;
 
-            // Make EventsDgv read-only
             EventsDgv.ReadOnly = true;
             EventsDgv.AllowUserToAddRows = false;
             EventsDgv.AllowUserToDeleteRows = false;
             EventsDgv.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             EventsDgv.MultiSelect = false;
 
-            // Wire up cell double-click event
             EventsDgv.CellDoubleClick += EventsDgv_CellDoubleClick;
 
-            // Wire up search
             SearchTb.TextChanged += SearchTb_TextChanged;
 
-            // Initialize chart
             InitializeChart();
             InitializeProfitChart();
 
@@ -58,7 +54,6 @@ namespace Event_Catering_Order___Expense_Tracker
 
         private void RefreshTimer_Tick(object sender, EventArgs e)
         {
-            // Store current selections
             var selectedEvents = EventsDgv.SelectedRows.Cast<DataGridViewRow>()
                 .Select(r => r.Cells["EventTitle"].Value.ToString())
                 .ToList();
@@ -67,7 +62,6 @@ namespace Event_Catering_Order___Expense_Tracker
             LoadPaymentStatusChart();
             LoadExpenseBreakdownChart();
 
-            // Restore selections
             foreach (DataGridViewRow row in EventsDgv.Rows)
             {
                 if (selectedEvents.Contains(row.Cells["EventTitle"].Value.ToString()))
@@ -79,10 +73,8 @@ namespace Event_Catering_Order___Expense_Tracker
 
         private void InitializeChart()
         {
-            // Clear any existing series
             EventCharts.Series.Clear();
 
-            // Create new series
             var series = new System.Windows.Forms.DataVisualization.Charting.Series("PaymentStatus");
             series.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
             series["PieLabelStyle"] = "Outside";
@@ -90,10 +82,8 @@ namespace Event_Catering_Order___Expense_Tracker
             series.Label = "#PERCENT{P0}";
             series.LegendText = "#VALX (#VALY)";
 
-            // Add series to chart
             EventCharts.Series.Add(series);
 
-            // Set colors for the pie chart
             Color[] colors = new Color[] 
             {
                 Color.FromArgb(88, 71, 56),    // Brown
@@ -104,7 +94,6 @@ namespace Event_Catering_Order___Expense_Tracker
                 Color.FromArgb(150, 143, 130)  // Medium Brown
             };
 
-            // Apply colors to the series
             series.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.None;
             series.CustomProperties = "PieLabelStyle=Outside";
             series["DoughnutRadius"] = "60";
@@ -148,12 +137,10 @@ namespace Event_Catering_Order___Expense_Tracker
                     EventsDgv.DataSource = dt;
                     EventsDgv.RowHeadersVisible = false;
 
-                    // Auto-size columns and rows
                     EventsDgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
                     EventsDgv.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
                     EventsDgv.AutoResizeRows(DataGridViewAutoSizeRowsMode.AllCells);
 
-                    // Format columns
                     if (EventsDgv.Columns.Contains("NextPayment"))
                     {
                         EventsDgv.Columns["NextPayment"].DefaultCellStyle.Format = "MM/dd/yyyy";
@@ -206,10 +193,8 @@ namespace Event_Catering_Order___Expense_Tracker
                     DataTable dt = new DataTable();
                     adapter.Fill(dt);
 
-                    // Clear existing data
                     EventCharts.Series["PaymentStatus"].Points.Clear();
 
-                    // Add data points
                     foreach (DataRow row in dt.Rows)
                     {
                         string status = row["PaymentStatus"].ToString();
@@ -217,7 +202,6 @@ namespace Event_Catering_Order___Expense_Tracker
                         EventCharts.Series["PaymentStatus"].Points.AddXY(status, count);
                     }
 
-                    // Set colors for the pie chart
                     if (EventCharts.Series["PaymentStatus"].Points.Count > 0)
                     {
                         Color[] colors = new Color[] 
@@ -245,10 +229,8 @@ namespace Event_Catering_Order___Expense_Tracker
 
         private void InitializeProfitChart()
         {
-            // Clear any existing series
             ProfitChart.Series.Clear();
 
-            // Create new series
             var series = new System.Windows.Forms.DataVisualization.Charting.Series("ExpenseBreakdown");
             series.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
             series["PieLabelStyle"] = "Outside";
@@ -256,10 +238,8 @@ namespace Event_Catering_Order___Expense_Tracker
             series.Label = "#PERCENT{P0}";
             series.LegendText = "#VALX (#VALY)";
 
-            // Add series to chart
             ProfitChart.Series.Add(series);
 
-            // Set colors for the pie chart
             Color[] colors = new Color[] 
             {
                 Color.FromArgb(88, 71, 56),    // Brown
@@ -270,7 +250,6 @@ namespace Event_Catering_Order___Expense_Tracker
                 Color.FromArgb(150, 143, 130)  // Medium Brown
             };
 
-            // Apply colors to the series
             series.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.None;
             series.CustomProperties = "PieLabelStyle=Outside";
             series["DoughnutRadius"] = "60";
@@ -325,10 +304,8 @@ namespace Event_Catering_Order___Expense_Tracker
                     DataTable dt = new DataTable();
                     adapter.Fill(dt);
 
-                    // Clear existing data
                     ProfitChart.Series["ExpenseBreakdown"].Points.Clear();
 
-                    // Add data points
                     foreach (DataRow row in dt.Rows)
                     {
                         string category = row["Category"].ToString();
@@ -336,7 +313,6 @@ namespace Event_Catering_Order___Expense_Tracker
                         ProfitChart.Series["ExpenseBreakdown"].Points.AddXY(category, total);
                     }
 
-                    // Set colors for the pie chart
                     if (ProfitChart.Series["ExpenseBreakdown"].Points.Count > 0)
                     {
                         Color[] colors = new Color[] 
@@ -355,7 +331,6 @@ namespace Event_Catering_Order___Expense_Tracker
                         }
                     }
 
-                    // Update the legend text to include peso currency
                     foreach (var point in ProfitChart.Series["ExpenseBreakdown"].Points)
                     {
                         point.LegendText = $"{point.AxisLabel} (₱{point.YValues[0]:N2})";
@@ -387,12 +362,10 @@ namespace Event_Catering_Order___Expense_Tracker
         {
             if (formToOpen is Login)
             {
-                // Use fade animation only for logout
                 StartFadeOutAndNavigate(formToOpen);
             }
             else
             {
-                // Direct navigation for all other forms
                 if (refreshTimer != null)
                 {
                     refreshTimer.Stop();
@@ -430,7 +403,7 @@ namespace Event_Catering_Order___Expense_Tracker
 
         private void EventsDgv_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0) // Ensure we're clicking on a row, not the header
+            if (e.RowIndex >= 0) 
             {
                 DataGridView dgv = (DataGridView)sender;
                 string eventTitle = dgv.Rows[e.RowIndex].Cells["EventTitle"].Value.ToString();

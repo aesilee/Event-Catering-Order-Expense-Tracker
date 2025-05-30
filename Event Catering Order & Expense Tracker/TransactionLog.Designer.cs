@@ -62,6 +62,7 @@
             this.ClientSize = new System.Drawing.Size(513, 324);
             this.Controls.Add(this.BackBtn);
             this.Controls.Add(this.TransactionsDgv);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "TransactionLog";
             this.Text = "TransactionLog";
             ((System.ComponentModel.ISupportInitialize)(this.TransactionsDgv)).EndInit();

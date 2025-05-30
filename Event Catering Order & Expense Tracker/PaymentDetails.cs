@@ -28,21 +28,18 @@ namespace Event_Catering_Order___Expense_Tracker
 
         private void InitializePaymentHandling()
         {
-            // Make PaymentTb accept only numbers
             PaymentTb.KeyPress += (sender, e) =>
             {
                 if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != '.')
                 {
                     e.Handled = true;
                 }
-                // Only allow one decimal point
                 if (e.KeyChar == '.' && (sender as TextBox).Text.IndexOf('.') > -1)
                 {
                     e.Handled = true;
                 }
             };
 
-            // Handle save button click
             SaveBtn.Click += SaveBtn_Click;
         }
 
@@ -89,7 +86,6 @@ namespace Event_Catering_Order___Expense_Tracker
                     {
                         try
                         {
-                            // Get previous PaymentStatus, InitialPaymentAmount, FinalPaymentAmount, RemainingBalance, and PaymentTerm
                             string selectQuery = @"SELECT PaymentStatus, InitialPaymentAmount, FinalPaymentAmount, RemainingBalance, PaymentTerm, PaymentDate, FinalPaymentDate FROM ExpensesTable WHERE EventID = @EventID";
                             SqlCommand selectCmd = new SqlCommand(selectQuery, con, transaction);
                             selectCmd.Parameters.AddWithValue("@EventID", eventID);
@@ -97,7 +93,7 @@ namespace Event_Catering_Order___Expense_Tracker
                             decimal prevInitialPayment = 0;
                             decimal prevFinalPayment = 0;
                             decimal prevRemainingBalance = 0;
-                            string prevTerm = "Full Payment"; // Default to Full Payment
+                            string prevTerm = "Full Payment"; 
                             DateTime? prevPaymentDate = null;
                             DateTime? prevFinalPaymentDate = null;
 
@@ -122,23 +118,20 @@ namespace Event_Catering_Order___Expense_Tracker
                                 return;
                             }
 
-                            // Calculate new balance
                             decimal newBalance = currentBalance - paymentAmount;
-                            string newStatus = prevStatus; // Start with previous status
-                            decimal newInitialPayment = prevInitialPayment; // Preserve previous value by default
-                            decimal newFinalPayment = prevFinalPayment; // Preserve previous value by default
-                            DateTime? newInitialPaymentDate = null; // Will be set only for Installment
-                            DateTime? newFinalPaymentDate = null; // Will be set only for Installment when Fully Paid
+                            string newStatus = prevStatus; 
+                            decimal newInitialPayment = prevInitialPayment; 
+                            decimal newFinalPayment = prevFinalPayment;
+                            DateTime? newInitialPaymentDate = null; 
+                            DateTime? newFinalPaymentDate = null; 
 
                             SqlCommand cmd;
                             string updateQuery;
-                            string finalPaymentAndDateSet = ""; // To be added to the update query if needed
+                            string finalPaymentAndDateSet = ""; 
 
                             if (prevTerm == "Full Payment")
                             {
-                                // For Full Payment: update RemainingBalance, PaymentStatus, DatePayed.
-                                // InitialPaymentAmount/Date and FinalPaymentAmount/Date are NOT updated for Full Payment.
-                                newStatus = (newBalance <= 0) ? "Fully Paid" : prevStatus; // Status only changes to Fully Paid when balance is zero or less
+                                newStatus = (newBalance <= 0) ? "Fully Paid" : prevStatus; 
 
                                 updateQuery = @"
                                     UPDATE ExpensesTable 
@@ -153,20 +146,17 @@ namespace Event_Catering_Order___Expense_Tracker
                                 cmd.Parameters.AddWithValue("@DatePayed", DateTime.Now);
                                 cmd.Parameters.AddWithValue("@EventID", eventID);
                             }
-                            else // Assuming Installment or other term
+                            else 
                             {
-                                // For Installment: update RemainingBalance, InitialPaymentAmount (accumulate), PaymentStatus, DatePayed, InitialPaymentDate, FinalPaymentAmount/Date (if Fully Paid).
-                                newInitialPayment = prevInitialPayment + paymentAmount; // Accumulate InitialPaymentAmount for Installment
-                                newInitialPaymentDate = DateTime.Now; // Update InitialPaymentDate on any installment payment
+                                newInitialPayment = prevInitialPayment + paymentAmount; 
+                                newInitialPaymentDate = DateTime.Now;
                                 newStatus = (newBalance <= 0) ? "Fully Paid" : "Partially Paid";
 
-                                // Update FinalPaymentAmount and FinalPaymentDate ONLY if status becomes Fully Paid in Installment term
                                 if (newStatus == "Fully Paid")
                                 {
-                                     newFinalPayment = paymentAmount; // Set FinalPaymentAmount to the current payment that makes it Fully Paid (for Installment)
+                                     newFinalPayment = paymentAmount; 
                                      newFinalPaymentDate = DateTime.Now;
 
-                                     // For Installment becoming Fully Paid, update both FinalPaymentAmount and FinalPaymentDate
                                      finalPaymentAndDateSet = ", FinalPaymentAmount = @NewFinalPayment, FinalPaymentDate = @NewFinalPaymentDate";
                                 }
 
@@ -196,8 +186,6 @@ namespace Event_Catering_Order___Expense_Tracker
 
                             cmd.ExecuteNonQuery();
 
-                            // After payment, check for overdue
-                            // Re-fetch remaining balance and status after the update
                             selectQuery = @"SELECT RemainingBalance, PaymentStatus, FinalPaymentDate, PaymentDate, PaymentTerm FROM ExpensesTable WHERE EventID = @EventID";
                             selectCmd = new SqlCommand(selectQuery, con, transaction);
                             selectCmd.Parameters.AddWithValue("@EventID", eventID);
@@ -220,17 +208,15 @@ namespace Event_Catering_Order___Expense_Tracker
                             }
 
                             DateTime now = DateTime.Now;
-                            // Only set to Overdue if there's a remaining balance, not already Fully Paid or Overdue, and past the relevant due date
                              if (currentRemainingBalance > 0 && currentPaymentStatus != "Fully Paid" && currentPaymentStatus != "Overdue")
                             {
-                                // Check if overdue based on PaymentTerm and relevant date
                                 if (currentPaymentTerm == "Full Payment" && paymentDate.HasValue && now > paymentDate.Value)
                                 {
                                      string setOverdueQuery = @"UPDATE ExpensesTable SET PaymentStatus = 'Overdue' WHERE EventID = @EventID";
                                      SqlCommand setOverdueCmd = new SqlCommand(setOverdueQuery, con, transaction);
                                      setOverdueCmd.Parameters.AddWithValue("@EventID", eventID);
                                      setOverdueCmd.ExecuteNonQuery();
-                                     currentPaymentStatus = "Overdue"; // Update current status variable
+                                     currentPaymentStatus = "Overdue";
                                 }
                                 else if (currentPaymentTerm != "Full Payment" && finalPayDate.HasValue && now > finalPayDate.Value)
                                 {
@@ -238,16 +224,15 @@ namespace Event_Catering_Order___Expense_Tracker
                                      SqlCommand setOverdueCmd = new SqlCommand(setOverdueQuery, con, transaction);
                                      setOverdueCmd.Parameters.AddWithValue("@EventID", eventID);
                                      setOverdueCmd.ExecuteNonQuery();
-                                     currentPaymentStatus = "Overdue"; // Update current status variable
+                                     currentPaymentStatus = "Overdue"; 
                                 }
                             }
 
                             transaction.Commit();
 
-                            // Update UI
-                            currentBalance = newBalance; // Use newBalance calculated earlier
+                            currentBalance = newBalance; 
                             RemainingBalanceLbl.Text = $"₱{currentBalance:N2}";
-                            StatusLbl.Text = currentPaymentStatus; // Use currentPaymentStatus fetched after potential overdue update
+                            StatusLbl.Text = currentPaymentStatus; 
                             StatusLbl.ForeColor = currentPaymentStatus == "Fully Paid" ? Color.Green : (currentPaymentStatus == "Overdue" ? Color.Red : Color.Orange);
                             PaymentTb.Clear();
 
@@ -297,7 +282,6 @@ namespace Event_Catering_Order___Expense_Tracker
                             EventTypeLbl.Text = reader["EventType"].ToString();
                             StatusLbl.Text = reader["PaymentStatus"].ToString();
                             
-                            // Set Next Payment based on PaymentTerm
                             string paymentTerm = reader["PaymentTerm"]?.ToString();
                             if (paymentTerm == "Full Payment")
                             {
@@ -310,7 +294,7 @@ namespace Event_Catering_Order___Expense_Tracker
                                     NextPaymentLbl.Text = "N/A";
                                 }
                             }
-                            else // Assume Installment or other terms use NextPayment
+                            else 
                             {
                                 if (reader["NextPayment"] != DBNull.Value)
                                 {
@@ -326,7 +310,6 @@ namespace Event_Catering_Order___Expense_Tracker
                             RemainingBalanceLbl.Text = $"₱{currentBalance:N2}";
                             TotalExpensesLbl.Text = $"₱{Convert.ToDecimal(reader["TotalExpenses"]):N2}";
 
-                            // Set status label color based on payment status
                             string paymentStatus = reader["PaymentStatus"].ToString();
                             if (paymentStatus == "Fully Paid")
                             {
@@ -336,7 +319,7 @@ namespace Event_Catering_Order___Expense_Tracker
                             {
                                 StatusLbl.ForeColor = Color.Red;
                             }
-                            else // Unpaid or Partially Paid
+                            else 
                             {
                                 StatusLbl.ForeColor = Color.Orange;
                             }
@@ -352,10 +335,8 @@ namespace Event_Catering_Order___Expense_Tracker
 
         private void InitializeExpenseBreakdownChart()
         {
-            // Clear any existing series
             chart2.Series.Clear();
 
-            // Create new series
             var series = new System.Windows.Forms.DataVisualization.Charting.Series("ExpenseBreakdown");
             series.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
             series["PieLabelStyle"] = "Outside";
@@ -363,10 +344,8 @@ namespace Event_Catering_Order___Expense_Tracker
             series.Label = "#PERCENT{P0}";
             series.LegendText = "#VALX (#VALY)";
 
-            // Add series to chart
             chart2.Series.Add(series);
 
-            // Set colors for the pie chart
             Color[] colors = new Color[] 
             {
                 Color.FromArgb(88, 71, 56),    // Brown
@@ -427,10 +406,8 @@ namespace Event_Catering_Order___Expense_Tracker
                     DataTable dt = new DataTable();
                     adapter.Fill(dt);
 
-                    // Clear existing data
                     chart2.Series["ExpenseBreakdown"].Points.Clear();
 
-                    // Add data points
                     foreach (DataRow row in dt.Rows)
                     {
                         string category = row["Category"].ToString();
@@ -438,7 +415,6 @@ namespace Event_Catering_Order___Expense_Tracker
                         chart2.Series["ExpenseBreakdown"].Points.AddXY(category, amount);
                     }
 
-                    // Set colors for the pie chart
                     if (chart2.Series["ExpenseBreakdown"].Points.Count > 0)
                     {
                         Color[] colors = new Color[] 
@@ -457,7 +433,6 @@ namespace Event_Catering_Order___Expense_Tracker
                         }
                     }
 
-                    // Update the legend text to include peso currency
                     foreach (var point in chart2.Series["ExpenseBreakdown"].Points)
                     {
                         point.LegendText = $"{point.AxisLabel} (₱{point.YValues[0]:N2})";

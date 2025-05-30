@@ -34,9 +34,8 @@ namespace Event_Catering_Order___Expense_Tracker
         )
         {
             InitializeComponent();
-            this.TopMost = true; // Set form to always be on top
+            this.TopMost = true; 
 
-            // Set the labels/textboxes with the received data
             EventNameLbl.Text = eventName;
             EventDateDtp.Text = eventDate.ToShortDateString();
             EventTimeTb.Text = eventTime;

@@ -27,7 +27,6 @@ namespace Event_Catering_Order___Expense_Tracker
             this.ShowInTaskbar = true;
             this.TopMost = true;
 
-            // Make EventsDgv read-only and non-editable
             EventsDgv.ReadOnly = true;
             EventsDgv.AllowUserToAddRows = false;
             EventsDgv.AllowUserToDeleteRows = false;
@@ -35,25 +34,20 @@ namespace Event_Catering_Order___Expense_Tracker
             EventsDgv.MultiSelect = true;
             EventsDgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
-            // Make ArchivesDgv read-only and non-editable
             ArchivesDgv.ReadOnly = true;
             ArchivesDgv.AllowUserToAddRows = false;
             ArchivesDgv.AllowUserToDeleteRows = false;
             ArchivesDgv.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             ArchivesDgv.MultiSelect = true;
 
-            // Wire up search
             SearchTb.TextChanged += SearchTb_TextChanged;
 
-            // Wire up archive and unarchive buttons
             ArchiveBtn.Click += ArchiveBtn_Click;
             UnarchiveBtn.Click += UnarchiveBtn_Click;
 
-            // Wire up cell double-click events
             EventsDgv.CellDoubleClick += EventsDgv_CellDoubleClick;
             ArchivesDgv.CellDoubleClick += ArchivesDgv_CellDoubleClick;
 
-            // Wire up download buttons
             EventDownloadBtn.Click += EventDownloadBtn_Click;
             ArchiveDownloadBtn.Click += ArchiveDownloadBtn_Click;
 
@@ -80,12 +74,10 @@ namespace Event_Catering_Order___Expense_Tracker
         {
             if (formToOpen is Login)
             {
-                // Use fade animation only for logout
                 StartFadeOutAndNavigate(formToOpen);
             }
             else
             {
-                // Direct navigation for all other forms
                 formToOpen.Show();
                 formToOpen.Activate();
                 this.Dispose();
@@ -120,7 +112,6 @@ namespace Event_Catering_Order___Expense_Tracker
 
         private void Spreadsheet_Load(object sender, EventArgs e)
         {
-            // Load spreadsheet data
             this.WindowState = FormWindowState.Normal;
             this.Activate();
             LoadEvents();
@@ -128,7 +119,6 @@ namespace Event_Catering_Order___Expense_Tracker
 
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
-            // Handle panel painting if needed
         }
 
         protected override void OnFormClosed(FormClosedEventArgs e)
@@ -163,17 +153,14 @@ namespace Event_Catering_Order___Expense_Tracker
                     EventsDgv.DataSource = dt;
                     EventsDgv.RowHeadersVisible = false;
 
-                    // Hide the Hidden column if it exists
                     if (EventsDgv.Columns.Contains("Hidden"))
                     {
                         EventsDgv.Columns["Hidden"].Visible = false;
                     }
 
-                    // Allow horizontal scrolling
                     EventsDgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
                     EventsDgv.ScrollBars = ScrollBars.Both;
 
-                    // Auto-size columns and rows to fit content (max size)
                     foreach (DataGridViewColumn col in EventsDgv.Columns)
                     {
                         col.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
@@ -217,7 +204,6 @@ namespace Event_Catering_Order___Expense_Tracker
                     {
                         if (!row.IsNewRow)
                         {
-                            // Build insert command for ArchivesTable
                             SqlCommand insertCmd = new SqlCommand(
                                 @"INSERT INTO ArchivesTable 
                                 (EventTitle, EventType, EventDate, EventTime, Venue, CustomerName, ContactNumber, EmailAddress, NumberOfGuests, MenuType, MenuDetails, CustomerNotes, EstimatedBudget)
@@ -239,7 +225,6 @@ namespace Event_Catering_Order___Expense_Tracker
 
                             insertCmd.ExecuteNonQuery();
 
-                            // Update EventTable to mark the event as hidden
                             SqlCommand updateCmd = new SqlCommand(
                                 "UPDATE EventTable SET Hidden = 1 WHERE EventID = @EventID", con, transaction);
                             updateCmd.Parameters.AddWithValue("@EventID", row.Cells["EventID"].Value);
@@ -250,7 +235,6 @@ namespace Event_Catering_Order___Expense_Tracker
                     transaction.Commit();
                     MessageBox.Show("Selected events archived successfully!");
 
-                    // Reload both grids
                     LoadEvents();
                     LoadArchives();
                 }
@@ -284,7 +268,6 @@ namespace Event_Catering_Order___Expense_Tracker
                     {
                         if (!row.IsNewRow)
                         {
-                            // Update EventTable to mark the event as not hidden
                             SqlCommand updateCmd = new SqlCommand(
                                 "UPDATE EventTable SET Hidden = 0 WHERE EventTitle = @EventTitle AND EventDate = @EventDate AND EventTime = @EventTime", con, transaction);
                             
@@ -293,7 +276,6 @@ namespace Event_Catering_Order___Expense_Tracker
                             updateCmd.Parameters.AddWithValue("@EventTime", row.Cells["EventTime"].Value ?? DBNull.Value);
                             updateCmd.ExecuteNonQuery();
 
-                            // Update ArchivesTable to mark the event as hidden
                             SqlCommand updateArchiveCmd = new SqlCommand(
                                 "UPDATE ArchivesTable SET Hidden = 1 WHERE EventTitle = @EventTitle AND EventDate = @EventDate AND EventTime = @EventTime", con, transaction);
                             
@@ -307,7 +289,6 @@ namespace Event_Catering_Order___Expense_Tracker
                     transaction.Commit();
                     MessageBox.Show("Selected events unarchived successfully!");
 
-                    // Reload both grids
                     LoadEvents();
                     LoadArchives();
                 }
@@ -345,7 +326,6 @@ namespace Event_Catering_Order___Expense_Tracker
                     ArchivesDgv.DataSource = dt;
                     ArchivesDgv.RowHeadersVisible = false;
 
-                    // Auto-size columns and rows to fit content (max size)
                     ArchivesDgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
                     ArchivesDgv.ScrollBars = ScrollBars.Both;
                     foreach (DataGridViewColumn col in ArchivesDgv.Columns)
@@ -364,7 +344,7 @@ namespace Event_Catering_Order___Expense_Tracker
 
         private void EventsDgv_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0) // Ensure we're clicking on a row, not the header
+            if (e.RowIndex >= 0) 
             {
                 DataGridView dgv = (DataGridView)sender;
                 int eventID = Convert.ToInt32(dgv.Rows[e.RowIndex].Cells["EventID"].Value);
@@ -376,7 +356,7 @@ namespace Event_Catering_Order___Expense_Tracker
 
         private void ArchivesDgv_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0) // Ensure we're clicking on a row, not the header
+            if (e.RowIndex >= 0) 
             {
                 DataGridView dgv = (DataGridView)sender;
                 string eventTitle = dgv.Rows[e.RowIndex].Cells["EventTitle"].Value.ToString();
@@ -440,7 +420,6 @@ namespace Event_Catering_Order___Expense_Tracker
         {
             try
             {
-                // Get the user's Downloads folder
                 string downloadsPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Downloads");
                 int successCount = 0;
                 int failCount = 0;
@@ -456,7 +435,6 @@ namespace Event_Catering_Order___Expense_Tracker
                             string fileName = $"EventReceipt_{eventId}_{DateTime.Now:yyyyMMdd_HHmmss}.txt";
                             string filePath = Path.Combine(downloadsPath, fileName);
 
-                            // Build the receipt content
                             StringBuilder sb = new StringBuilder();
                             sb.AppendLine("========================================");
                             sb.AppendLine("         Event Catering Order Receipt   ");
@@ -511,20 +489,17 @@ namespace Event_Catering_Order___Expense_Tracker
                             sb.AppendLine("Thank you!");
                             sb.AppendLine($"Event ID:           #{eventId}");
 
-                            // Write to file
                             File.WriteAllText(filePath, sb.ToString());
                             successCount++;
                         }
                         catch (Exception ex)
                         {
                             failCount++;
-                            // Log the error but continue with other files
                             Console.WriteLine($"Error saving receipt for event {row.Cells["EventTitle"].Value}: {ex.Message}");
                         }
                     }
                 }
 
-                // Show summary message
                 string message = $"Download completed:\n{successCount} receipt(s) saved successfully";
                 if (failCount > 0)
                 {

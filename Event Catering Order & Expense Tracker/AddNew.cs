@@ -30,14 +30,12 @@ namespace Event_Catering_Order___Expense_Tracker
             this.ShowInTaskbar = true;
             this.TopMost = true;
 
-            // Create a panel to hold all content including sidebar
             Panel contentPanel = new Panel
             {
                 Dock = DockStyle.Fill,
                 AutoScroll = true
             };
 
-            // Move all controls except sidebar to contentPanel
             List<Control> controlsToMove = new List<Control>();
             foreach (Control control in this.Controls)
             {
@@ -53,7 +51,6 @@ namespace Event_Catering_Order___Expense_Tracker
                 contentPanel.Controls.Add(control);
             }
 
-            // Add contentPanel to form
             this.Controls.Add(contentPanel);
 
             EventTypeCb.Items.AddRange(new string[]
@@ -152,13 +149,11 @@ namespace Event_Catering_Order___Expense_Tracker
         {
             if (!FullPaymentRb.Checked && !InstallmentRb.Checked)
             {
-                // Default state - all date pickers disabled with default color
                 EstimatedPaymentDueDtp.Enabled = false;
                 InitialPaymentDateDtp.Enabled = false;
                 FinalPaymentDateDtp.Enabled = false;
                 PaymentMethodCb.Enabled = false;
 
-                // Set all to default/disabled color
                 EstimatedPaymentDueDtp.BackColor = SystemColors.Control;
                 InitialPaymentDateDtp.BackColor = SystemColors.Control;
                 FinalPaymentDateDtp.BackColor = SystemColors.Control;
@@ -168,13 +163,11 @@ namespace Event_Catering_Order___Expense_Tracker
             {
                 bool isInstallment = InstallmentRb.Checked;
 
-                // Enable/disable based on payment type
                 EstimatedPaymentDueDtp.Enabled = !isInstallment; // Full Payment
                 InitialPaymentDateDtp.Enabled = isInstallment;    // Installment
                 FinalPaymentDateDtp.Enabled = isInstallment;      // Installment
                 PaymentMethodCb.Enabled = true;                   // Always enabled for both payment types
 
-                // Visual feedback - enabled controls get white background, disabled get gray
                 EstimatedPaymentDueDtp.BackColor = !isInstallment ? SystemColors.Window : SystemColors.Control;
                 InitialPaymentDateDtp.BackColor = isInstallment ? SystemColors.Window : SystemColors.Control;
                 FinalPaymentDateDtp.BackColor = isInstallment ? SystemColors.Window : SystemColors.Control;
@@ -239,12 +232,10 @@ namespace Event_Catering_Order___Expense_Tracker
         {
             if (formToOpen is Login)
             {
-                // Use fade animation only for logout
                 StartFadeOutAndNavigate(formToOpen);
             }
             else
             {
-                // Direct navigation for all other forms
                 formToOpen.Show();
                 formToOpen.Activate();
                 this.Dispose();
@@ -285,12 +276,10 @@ namespace Event_Catering_Order___Expense_Tracker
             string text = comboBox.Items[e.Index].ToString();
             bool isSelected = (e.State & DrawItemState.Selected) == DrawItemState.Selected;
 
-            // Background color (light beige for unselected, dark brown for selected)
             e.Graphics.FillRectangle(
                 new SolidBrush(isSelected ? Color.FromArgb(170, 163, 150) : Color.FromArgb(241, 234, 218)),
                 e.Bounds);
 
-            // Text color (dark brown for unselected, white for selected)
             using (SolidBrush textBrush = new SolidBrush(isSelected ? Color.White : Color.FromArgb(88, 71, 56)))
             {
                 e.Graphics.DrawString(text, comboBox.Font, textBrush, e.Bounds);
@@ -303,8 +292,8 @@ namespace Event_Catering_Order___Expense_Tracker
         private void ComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             ComboBox cb = sender as ComboBox;
-            cb.BackColor = Color.FromArgb(170, 163, 150); // Maintain dark brown
-            cb.ForeColor = Color.White; // Maintain white text
+            cb.BackColor = Color.FromArgb(170, 163, 150); 
+            cb.ForeColor = Color.White; 
         }
 
 
@@ -379,7 +368,6 @@ namespace Event_Catering_Order___Expense_Tracker
 
                 SqlCommand cmd = new SqlCommand(eventQuery, con, transaction);
 
-                // Add parameters with proper validation
                 cmd.Parameters.AddWithValue("@EventTitle", EventTitleTb.Text.Trim());
                 cmd.Parameters.AddWithValue("@EventType", EventTypeCb.SelectedItem.ToString());
                 cmd.Parameters.AddWithValue("@EventDate", EventDateDtp.Value.Date);
@@ -394,7 +382,6 @@ namespace Event_Catering_Order___Expense_Tracker
                 cmd.Parameters.AddWithValue("@CustomerNotes", NotesTb.Text.Trim());
                 cmd.Parameters.AddWithValue("@EstimatedBudget", decimal.Parse(EstBudgetTb.Text));
 
-                // Execute and get EventID
                 object result = cmd.ExecuteScalar();
                 if (result == null || result == DBNull.Value)
                 {
@@ -404,7 +391,6 @@ namespace Event_Catering_Order___Expense_Tracker
                 }
                 int eventId = Convert.ToInt32(result);
 
-                // Determine payment status and dates based on radio button selection
                 string paymentStatus = "Unpaid";
                 DateTime? initialPaymentDate = null;
                 DateTime? finalPaymentDate = null;
@@ -464,7 +450,6 @@ namespace Event_Catering_Order___Expense_Tracker
                 cmd.Parameters.AddWithValue("@NextPayment", initialPaymentDate ?? (object)DBNull.Value);
                 cmd.Parameters.AddWithValue("@RemainingBalance", decimal.Parse(EstBudgetTb.Text));
 
-                // Add new payment parameters
                 cmd.Parameters.AddWithValue("@InitialPaymentDate", initialPaymentDate ?? (object)DBNull.Value);
                 cmd.Parameters.AddWithValue("@InitialPaymentAmount", initialPaymentAmount ?? (object)DBNull.Value);
                 cmd.Parameters.AddWithValue("@FinalPaymentDate", finalPaymentDate ?? (object)DBNull.Value);
@@ -493,8 +478,8 @@ namespace Event_Catering_Order___Expense_Tracker
                     decimal.Parse(EstBudgetTb.Text),
                     decimal.Parse(TotalExpensesLbl.Text),
                     eventId.ToString(),
-                    FullPaymentRb.Checked ? "Full Payment" : "Installment",  // Payment terms
-                    PaymentMethodCb.SelectedItem?.ToString() ?? "Not Specified"  // Payment method
+                    FullPaymentRb.Checked ? "Full Payment" : "Installment",  
+                    PaymentMethodCb.SelectedItem?.ToString() ?? "Not Specified" 
 );
                 receipt.Show();
 
@@ -524,7 +509,6 @@ namespace Event_Catering_Order___Expense_Tracker
 
         private bool ValidateInputs()
         {
-            // Check required fields
             if (string.IsNullOrWhiteSpace(EventTitleTb.Text) ||
                 EventTypeCb.SelectedIndex == -1 ||
                 string.IsNullOrWhiteSpace(EventTimeTb.Text) ||
@@ -547,7 +531,6 @@ namespace Event_Catering_Order___Expense_Tracker
                 return false;
             }
 
-            // Validate Contact Number: must be numeric and 7-15 digits
             string contactNum = ContactNumTb.Text.Trim();
             if (!contactNum.All(char.IsDigit) || contactNum.Length < 7 || contactNum.Length > 15)
             {
@@ -555,7 +538,6 @@ namespace Event_Catering_Order___Expense_Tracker
                 return false;
             }
 
-            // Validate specific formats
             if (!TimeSpan.TryParse(EventTimeTb.Text, out _))
             {
                 MessageBox.Show("Please enter time in HH:mm format (e.g. 14:30)");
@@ -568,7 +550,6 @@ namespace Event_Catering_Order___Expense_Tracker
                 return false;
             }
 
-            // Validate payment fields if installments selected
             if (InstallmentRb.Checked)
             {
                 if (InitialPaymentDateDtp.Value >= FinalPaymentDateDtp.Value)
@@ -584,7 +565,6 @@ namespace Event_Catering_Order___Expense_Tracker
                 }
             }
 
-            // Validate payment date for full payment
             if (FullPaymentRb.Checked && EstimatedPaymentDueDtp.Value < DateTime.Today)
             {
                 MessageBox.Show("Payment date cannot be in the past");
@@ -640,13 +620,10 @@ namespace Event_Catering_Order___Expense_Tracker
 
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
-            // Handle panel painting if needed
         }
 
         private void EventTypeCb_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // Handle event type selection change
-            // This can be used to update UI or perform validation based on selected event type
         }
 
         private void DashboardLbl_Click_1(object sender, EventArgs e)
@@ -672,7 +649,6 @@ namespace Event_Catering_Order___Expense_Tracker
 
         private void AddnewLbl_Click_1(object sender, EventArgs e)
         {
-            // Already on AddNew form, no action needed
         }
 
         private void LogOutBtn_Click_1(object sender, EventArgs e)
@@ -682,7 +658,6 @@ namespace Event_Catering_Order___Expense_Tracker
 
         private void panel2_Paint_1(object sender, PaintEventArgs e)
         {
-            // Handle panel painting if needed
         }
 
         private void dateTimePicker2_ValueChanged(object sender, EventArgs e)

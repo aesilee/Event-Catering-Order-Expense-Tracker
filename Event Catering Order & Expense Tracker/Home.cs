@@ -30,7 +30,6 @@ namespace Event_Catering_Order___Expense_Tracker
             LoadUpcomingEvents();
             LoadNotifications();
 
-            // Make tables read-only
             OngoingEventsDgv.ReadOnly = true;
             OngoingEventsDgv.AllowUserToAddRows = false;
             OngoingEventsDgv.AllowUserToDeleteRows = false;
@@ -43,15 +42,13 @@ namespace Event_Catering_Order___Expense_Tracker
             UpcomingEventsDgv.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             UpcomingEventsDgv.MultiSelect = false;
 
-            // Wire up cell double-click events
             OngoingEventsDgv.CellDoubleClick += EventsDgv_CellDoubleClick;
             UpcomingEventsDgv.CellDoubleClick += EventsDgv_CellDoubleClick;
 
-            // Set up live refresh every 10 seconds for events only
             eventsTimer = new Timer();
             eventsTimer.Interval = 10000; // 10 seconds
             eventsTimer.Tick += (s, e) => { 
-                // Store current selections
+
                 var ongoingSelection = OngoingEventsDgv.SelectedRows.Cast<DataGridViewRow>()
                     .Select(r => r.Cells["EventTitle"].Value.ToString())
                     .ToList();
@@ -62,7 +59,6 @@ namespace Event_Catering_Order___Expense_Tracker
                 LoadOngoingEvents(); 
                 LoadUpcomingEvents(); 
 
-                // Restore selections
                 foreach (DataGridViewRow row in OngoingEventsDgv.Rows)
                 {
                     if (ongoingSelection.Contains(row.Cells["EventTitle"].Value.ToString()))
@@ -80,7 +76,7 @@ namespace Event_Catering_Order___Expense_Tracker
             };
             eventsTimer.Start();
 
-            LoadAnalyticsChart("Month"); // or "Year", "Quarter", "Day"
+            LoadAnalyticsChart("Month"); 
         }
 
         private void InitializeFadeTimer()
@@ -102,12 +98,10 @@ namespace Event_Catering_Order___Expense_Tracker
         {
             if (formToOpen is Login)
             {
-                // Use fade animation only for logout
                 StartFadeOutAndNavigate(formToOpen);
             }
             else
             {
-                // Direct navigation for all other forms
                 formToOpen.Show();
                 this.Dispose();
             }
@@ -140,13 +134,11 @@ namespace Event_Catering_Order___Expense_Tracker
 
         public void StartFadeIn()
         {
-            // This method is kept for compatibility but is no longer used
-            // since we removed fade animations except for logout
+            
         }
 
         private void UsernameTb_TextChanged(object sender, EventArgs e)
         {
-            // WIP Search Input
         }
 
         protected override void OnFormClosed(FormClosedEventArgs e)
@@ -183,13 +175,11 @@ namespace Event_Catering_Order___Expense_Tracker
                     OngoingEventsDgv.DataSource = dt;
                     OngoingEventsDgv.RowHeadersVisible = false;
 
-                    // Hide the first column if it has no header or is blank
                     if (OngoingEventsDgv.Columns.Count > 0 && string.IsNullOrWhiteSpace(OngoingEventsDgv.Columns[0].HeaderText))
                     {
                         OngoingEventsDgv.Columns[0].Visible = false;
                     }
 
-                    // Only show the specified columns (already selected in query), but ensure all others are hidden if present
                     foreach (DataGridViewColumn col in OngoingEventsDgv.Columns)
                     {
                         if (col.Name != "EventTitle" && col.Name != "EventDate" && col.Name != "EventTime" && col.Name != "Venue")
@@ -202,7 +192,6 @@ namespace Event_Catering_Order___Expense_Tracker
                         }
                     }
 
-                    // Auto-size columns and rows
                     OngoingEventsDgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
                     OngoingEventsDgv.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
                     OngoingEventsDgv.AutoResizeRows(DataGridViewAutoSizeRowsMode.AllCells);
@@ -233,13 +222,11 @@ namespace Event_Catering_Order___Expense_Tracker
                     UpcomingEventsDgv.DataSource = dt;
                     UpcomingEventsDgv.RowHeadersVisible = false;
 
-                    // Hide the first column if it has no header or is blank
                     if (UpcomingEventsDgv.Columns.Count > 0 && string.IsNullOrWhiteSpace(UpcomingEventsDgv.Columns[0].HeaderText))
                     {
                         UpcomingEventsDgv.Columns[0].Visible = false;
                     }
 
-                    // Only show the specified columns (already selected in query), but ensure all others are hidden if present
                     foreach (DataGridViewColumn col in UpcomingEventsDgv.Columns)
                     {
                         if (col.Name != "EventTitle" && col.Name != "EventDate" && col.Name != "EventTime" && col.Name != "Venue")
@@ -252,7 +239,6 @@ namespace Event_Catering_Order___Expense_Tracker
                         }
                     }
 
-                    // Auto-size columns and rows
                     UpcomingEventsDgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
                     UpcomingEventsDgv.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
                     UpcomingEventsDgv.AutoResizeRows(DataGridViewAutoSizeRowsMode.AllCells);
@@ -304,7 +290,6 @@ namespace Event_Catering_Order___Expense_Tracker
                     DataTable dt = new DataTable();
                     adapter.Fill(dt);
 
-                    // Add series
                     var expensesSeries = new Series("Total Expenses")
                     {
                         ChartType = SeriesChartType.Column,
@@ -321,12 +306,10 @@ namespace Event_Catering_Order___Expense_Tracker
 
                     AnalyticsChart.Series.Add(expensesSeries);
 
-                    // Configure chart appearance
                     AnalyticsChart.ChartAreas[0].AxisX.Title = "Event Type";
                     AnalyticsChart.ChartAreas[0].AxisY.Title = "Total Expenses (₱)";
                     AnalyticsChart.ChartAreas[0].AxisY.LabelStyle.Format = "N0";
                     
-                    // Set colors for the bars
                     Color[] colors = new Color[] 
                     {
                         Color.FromArgb(88, 71, 56),    // Brown
@@ -342,7 +325,6 @@ namespace Event_Catering_Order___Expense_Tracker
                         expensesSeries.Points[i].Color = colors[i % colors.Length];
                     }
 
-                    // Add value labels on top of bars
                     expensesSeries.Label = "#VALY{₱#,##0}";
                     expensesSeries.LabelAngle = -90;
                 }
@@ -375,21 +357,18 @@ namespace Event_Catering_Order___Expense_Tracker
                 {
                     con.Open();
 
-                    // 1. Newly created events (created in the last 24 hours)
                     string newEventsQuery = @"
                     SELECT EventTitle, EventDate, EventTime, Venue, DateCreated
                     FROM EventTable 
                     WHERE Hidden = 0 
                     AND DateCreated >= DATEADD(HOUR, -24, GETDATE())";
     
-                    // 2. Events happening today
                     string todayEventsQuery = @"
                     SELECT EventTitle, EventDate, EventTime, Venue 
                     FROM EventTable 
                     WHERE Hidden = 0 
                     AND CONVERT(date, EventDate) = @today";
 
-                    // 3. Events over budget
                     string overBudgetQuery = @"
                     SELECT e.EventTitle, e.EventDate, e.EventTime, e.Venue, e.EstimatedBudget, 
                     exp.TotalExpenses, exp.BudgetStatus
@@ -398,7 +377,6 @@ namespace Event_Catering_Order___Expense_Tracker
                     WHERE e.Hidden = 0 
                     AND exp.BudgetStatus = 'Over Budget'";
 
-                    // 4. Venue conflicts
                     string venueConflictsQuery = @"
                     SELECT e1.EventTitle as Event1, e2.EventTitle as Event2, e1.Venue, e1.EventDate
                     FROM EventTable e1
@@ -407,7 +385,6 @@ namespace Event_Catering_Order___Expense_Tracker
                     AND e1.EventID < e2.EventID
                     WHERE e1.Hidden = 0 AND e2.Hidden = 0";
 
-                    // 5. Recent payments
                     string recentPaymentsQuery = @"
                     SELECT e.EventTitle, ex.PaymentStatus, ex.RemainingBalance, ex.DatePayed
                     FROM EventTable e
@@ -416,7 +393,6 @@ namespace Event_Catering_Order___Expense_Tracker
                     AND ex.DatePayed >= DATEADD(HOUR, -24, GETDATE())
                     ORDER BY ex.DatePayed DESC";
 
-                    // Execute queries and create notification panels
                     AddNotificationSection("New Events Added", newEventsQuery, con, Color.FromArgb(87, 153, 123));
                     AddNotificationSection("Today's Events", todayEventsQuery, con, Color.FromArgb(110, 164, 200));
                     AddNotificationSection("Over Budget Events", overBudgetQuery, con, Color.FromArgb(159, 71, 62));
@@ -443,7 +419,6 @@ namespace Event_Catering_Order___Expense_Tracker
                 {
                     if (reader.HasRows)
                     {
-                        // Create header panel
                         var headerPanel = new Panel
                         {
                             Width = NotificationFlowPanel.Width - 38,
@@ -464,7 +439,6 @@ namespace Event_Catering_Order___Expense_Tracker
                         headerPanel.Controls.Add(headerLabel);
                         NotificationFlowPanel.Controls.Add(headerPanel);
 
-                        // Add notification items
                         while (reader.Read())
                         {
                             var notificationItem = new Panel
@@ -524,7 +498,7 @@ namespace Event_Catering_Order___Expense_Tracker
 
         private void EventsDgv_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0) // Ensure we're clicking on a row, not the header
+            if (e.RowIndex >= 0) 
             {
                 DataGridView dgv = (DataGridView)sender;
                 string eventTitle = dgv.Rows[e.RowIndex].Cells["EventTitle"].Value.ToString();

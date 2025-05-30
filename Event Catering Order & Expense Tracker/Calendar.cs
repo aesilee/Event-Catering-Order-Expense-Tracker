@@ -56,12 +56,10 @@ namespace Event_Catering_Order___Expense_Tracker
         {
             if (formToOpen is Login)
             {
-                // Use fade animation only for logout
                 StartFadeOutAndNavigate(formToOpen);
             }
             else
             {
-                // Direct navigation for all other forms
                 formToOpen.Show();
                 formToOpen.Activate();
                 this.Dispose();
@@ -162,7 +160,6 @@ namespace Event_Catering_Order___Expense_Tracker
 
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
-            // Handle panel painting if needed
         }
 
         protected override void OnFormClosed(FormClosedEventArgs e)
